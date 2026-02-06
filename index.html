@@ -1061,6 +1061,10 @@
                     <article class="article-preview" onclick="showArticle('article-3')">
                         <time class="post-date mono">15 Janvier 2026</time>
                         <h2 class="article-title">Le premier pas coûte tout</h2>
+
+                    <article class="article-preview" onclick="showArticle('article-4')">
+                        <time class="post-date mono">06 Février 2026</time>
+                        <h2 class="article-title">Je me nomme, je m'appelle...</h2>
                     </article>
                 </div>
             </main>
@@ -1228,6 +1232,63 @@
                 </article>
             </div>
 
+            <!-- Article 4 Full -->
+            <div id="article-4" class="article-full">
+                <a href="#" class="back-link" onclick="showJournal()">← Retour au journal</a>
+                <article class="post">
+                    <time class="post-date mono">06 Février 2026</time>
+                    <h2 class="post-title">Je me nomme, je m'appelle...</h2>
+                    <div class="post-content">
+                        <p>
+                           <q>Je me nomme, je m'appelle…</q> cette phrase me fait encore sourire aujourd'hui. 
+                            Elle me fait visiter une partie de ma vie qui était assez simple. Pleine d'insouciance. J'étais juste un jeune dans mon quartier, entouré de mes amis avec lesquels je jouais au foot, je faisais du vélo…
+                       </p>
+                        <p>
+                            Bon, allons à l'anecdote. 
+                            Un concours de Miss a été organisé dans mon quartier et presque toutes les jeunes filles s'étaient inscrites. Évidemment, ma petite sœur (oui, j'en ai une) était l'une des participantes qui visait la couronne. 
+                            Le concours s'est bien déroulé. La majorité des passages, en ce qui concerne les défilés, a été apprécié. Sans oublier, les moqueries des spectateurs. En particulier, les frères aînés qui se chambraient mutuellement. 
+                       </p>
+                        <p>
+                            Le moment le plus attendu de la compétition arriva. C'était la partie des discours.
+                            Après des passages qui nous ont bien fait rigoler, voilà, ma petite sœur, qui arrive toute enthousiaste sous les feux des projecteurs. 
+                            Mon cœur se mit à battre plus fort parce que je savais <strong>qu'une seule erreur suffisait pour me faire charrier pendant des jours</strong>.
+                            Et là, elle prit la parole. 
+                            Un silence semblable à l'atmosphère d'un cimetière se fit entendre. 
+                            Puis j'entendis, d'une voix incroyablement confiante, <q><strong>Je me nomme, je m'appelle Marie-Emmanuelle</strong></q>
+                       </p>
+                        <p>
+                            Aaaaaah c'était fait. 
+                            Tout le monde se mit à rire aux éclats y compris moi parce que je pouvais m'attendre à tout sauf ça.
+                            C'était une scène épique. Je ne pourrai jamais oublier cette histoire.
+                       </p>
+                        <p>
+                            Merci à toi, ma petite sœur, pour ce beau souvenir qui me fait encore sourire bêtement quand j'y pense.
+                       </p>
+                    </div>
+
+        <div class="comments-section">
+            <h3 class="comments-title">// Partager ta perspective</h3>
+            
+            <form class="comment-form" onsubmit="handleComment(event)">
+                <div class="form-group">
+                    <label for="name-4">Ton prénom ou pseudo</label>
+                    <input type="text" id="name-4" name="name" required placeholder="Comment tu veux qu'on t'appelle ?">
+                </div>
+                <div class="form-group">
+                    <label for="comment-4">Ton ressenti</label>
+                    <textarea id="comment-4" name="comment" required placeholder="Ce texte t'a fait penser à quoi ? Tu as une anecdote de famille à partager ?"></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Partager</button>
+                <p class="moderation-note">Ton commentaire apparaîtra après validation — je lis tout personnellement pour garder cet espace sain.</p>
+            </form>
+
+            <div class="success-message" id="success-4">
+                Merci pour tes mots. Je les lis dès que possible.
+            </div>
+        </div>
+    </article>
+</div>
+            
             <!-- About Section -->
             <section id="about" class="about-section" style="display: none;">
                 <h3 class="about-title mono">// Qui suis-je</h3>
@@ -1779,5 +1840,6 @@
     </script>
 </body>
 </html>
+
 
 
