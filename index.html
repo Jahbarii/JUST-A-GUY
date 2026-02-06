@@ -266,7 +266,7 @@
             font-size: 0.7rem;
         }
 
-        /* Comments */
+        /* Comments Section */
         .comments-section {
             margin-top: 60px;
             padding-top: 40px;
@@ -381,6 +381,60 @@
         .comment-text {
             color: var(--text);
             line-height: 1.7;
+        }
+
+        /* Giscus Integration */
+        .giscus-container {
+            margin-top: 60px;
+            padding: 32px;
+            border: 1px solid var(--border);
+            background: rgba(255,255,255,0.02);
+        }
+
+        .giscus-header {
+            margin-bottom: 24px;
+        }
+
+        .giscus-title {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--text-dim);
+            margin-bottom: 12px;
+        }
+
+        .giscus-description {
+            color: var(--text);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .giscus-divider {
+            margin: 40px 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .giscus-divider::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--border);
+        }
+
+        .giscus-divider span {
+            background: var(--bg);
+            padding: 0 16px;
+            position: relative;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
         }
 
         /* Modal */
@@ -1089,28 +1143,64 @@
                         </p>
                     </div>
 
-        <div class="comments-section">
-            <h3 class="comments-title">// Partager ta perspective</h3>
-            
-            <form class="comment-form" onsubmit="handleComment(event)">
-                <div class="form-group">
-                    <label for="name-1">Ton prénom ou pseudo</label>
-                    <input type="text" id="name-1" name="name" required placeholder="Comment tu veux qu'on t'appelle ?">
-                </div>
-                <div class="form-group">
-                    <label for="comment-1">Ton ressenti</label>
-                    <textarea id="comment-1" name="comment" required placeholder="Ce texte t'a fait penser à quoi ? Tu as une anecdote de famille à partager ?"></textarea>
-                </div>
-                <button type="submit" class="submit-btn">Partager</button>
-                <p class="moderation-note">Ton commentaire apparaîtra après validation — je lis tout personnellement pour garder cet espace sain.</p>
-            </form>
+                    <!-- GISCUS COMMENTS SECTION -->
+                    <div class="giscus-container">
+                        <div class="giscus-header">
+                            <h3 class="giscus-title">// Commentaires publics</h3>
+                            <p class="giscus-description">
+                                Tu as un compte GitHub ? Laisse un commentaire visible par tous et rejoins la conversation. 
+                                Sinon, utilise le formulaire privé juste en dessous.
+                            </p>
+                        </div>
+                        <div class="giscus"></div>
+                        <script src="https://giscus.app/client.js"
+                                data-repo="Jahbarii/JUST-A-GUY---COMMENTAIRES"
+                                data-repo-id="R_kgDORKDibA"
+                                data-category="Announcements"
+                                data-category-id="DIC_kwDORKDibM4C19ol"
+                                data-mapping="url"
+                                data-strict="0"
+                                data-reactions-enabled="1"
+                                data-emit-metadata="0"
+                                data-input-position="bottom"
+                                data-theme="dark"
+                                data-lang="fr"
+                                crossorigin="anonymous"
+                                async>
+                        </script>
+                    </div>
 
-            <div class="success-message" id="success-1">
-                Merci pour tes mots. Je les lis dès que possible.
+                    <!-- DIVIDER -->
+                    <div class="giscus-divider">
+                        <span>ou</span>
+                    </div>
+
+                    <!-- PRIVATE COMMENTS FORM -->
+                    <div class="comments-section">
+                        <h3 class="comments-title">// Message privé</h3>
+                        <p style="color: var(--text-dim); margin-bottom: 24px; font-size: 0.95rem; line-height: 1.6;">
+                            Pas de compte GitHub ? Pas de souci. Envoie-moi un message directement, je le lirai personnellement.
+                        </p>
+                        
+                        <form class="comment-form" onsubmit="handleComment(event)">
+                            <div class="form-group">
+                                <label for="name-1">Ton prénom ou pseudo</label>
+                                <input type="text" id="name-1" name="name" required placeholder="Comment tu veux qu'on t'appelle ?">
+                            </div>
+                            <div class="form-group">
+                                <label for="comment-1">Ton ressenti</label>
+                                <textarea id="comment-1" name="comment" required placeholder="Ce texte t'a fait penser à quoi ? Tu as une anecdote de famille à partager ?"></textarea>
+                            </div>
+                            <button type="submit" class="submit-btn">Partager</button>
+                            <p class="moderation-note">Ton message reste privé — je lis tout personnellement pour garder cet espace sain.</p>
+                        </form>
+
+                        <div class="success-message" id="success-1">
+                            Merci pour tes mots. Je les lis dès que possible.
+                        </div>
+                    </div>
+                </article>
             </div>
-        </div>
-    </article>
-</div>
             
             <!-- About Section -->
             <section id="about" class="about-section" style="display: none;">
@@ -1390,7 +1480,7 @@
                     <p>
                         <strong>Hébergeur :</strong> GitHub Pages<br>
                         <strong>Adresse :</strong> 88 Colin P Kelly Jr St, San Francisco, CA 94107, United States<br>
-                        <strong>Site :</strong> https://github.com
+                        <strong>Site :</strong> https://github.com 
                     </p>
 
                     <h3>3. Propriété intellectuelle</h3>
@@ -1668,34 +1758,5 @@
             showCookieBanner();
         });
     </script>
-
-<!-- Section Commentaires -->
-<div style="max-width: 800px; margin: 4rem auto; padding: 0 20px;">
-  <h2 style="font-family: 'Cormorant Garamond', serif; font-size: 2rem; margin-bottom: 2rem;">Commentaires</h2>
-  
-  <script src="https://giscus.app/client.js"
-          data-repo="Jahbarii/JUST-A-GUY---COMMENTAIRES"
-          data-repo-id="R_kgDORKDibA"
-          data-category="Announcements"
-          data-category-id="DIC_kwDORKDibM4C19ol"
-          data-mapping="url"
-          data-strict="0"
-          data-reactions-enabled="1"
-          data-emit-metadata="0"
-          data-input-position="bottom"
-          data-theme="preferred_color_scheme"
-          data-lang="fr"
-          crossorigin="anonymous"
-          async>
-  </script>
-</div>
-    
 </body>
 </html>
-
-
-
-
-
-
-
