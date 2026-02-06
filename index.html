@@ -1045,33 +1045,28 @@
     <div id="subscribe-modal" class="modal-overlay" onclick="closeModal(event)">
         <div class="modal-content" onclick="event.stopPropagation()">
             <div class="modal-header">
-                <h3 class="modal-title">Rester en lien</h3>
+                <h3 class="modal-title">Restons en contact</h3>
                 <button class="modal-close" onclick="closeModal()">&times;</button>
             </div>
             <div class="modal-body">
                 <p style="color: var(--text-dim); margin-bottom: 24px; font-size: 0.95rem; line-height: 1.6;">
-                    Tu peux laisser ton mail pour être prévenu des nouveaux articles — pas de spam, juste un message quand j'ai quelque chose à dire qui vaut le coup.
+                Tu peux laisser ton mail pour être prévenu des nouveaux articles — pas de spam, juste un message quand j'ai quelque chose à dire qui vaut le coup.
                 </p>
-                
-                <form onsubmit="handleSubscribe(event)">
+            
+                <form action="https://formspree.io/f/mzdabpga" method="POST" class="comment-form">
                     <div class="form-group">
-                        <label for="modal-email">Ton email</label>
-                        <input type="email" id="modal-email" required placeholder="ton@email.com">
+                        <label for="newsletter-email">Ton email</label>
+                        <input type="email" id="newsletter-email" name="email" required placeholder="ton@email.com">
                     </div>
-                    
-                    <div class="consent-checkbox" style="display: flex; align-items: flex-start; gap: 10px; margin-top: 8px;">
-                        <input type="checkbox" id="modal-consent" name="consent" style="margin-top: 4px; accent-color: var(--accent);">
-                        <label for="modal-consent" style="font-size: 0.85rem; color: var(--text-dim); line-height: 1.5; cursor: pointer;">
-                            <strong style="color: var(--text); font-weight: 500;">C'est facultatif, mais ça compte pour moi :</strong> Je veux recevoir ces mails en sachant que c'est toi qui écris, pas un robot. Pas de fréquence fixe, juste quand il y a du vrai.
-                        </label>
-                    </div>
-                    
-                    <button type="submit" class="submit-btn" style="margin-top: 24px;">Confirmer</button>
+                
+                    <input type="hidden" name="_subject" value="Nouvel abonné newsletter - JUST A GUY">
+                
+                    <button type="submit" class="submit-btn" style="margin-top: 16px;">Je m'abonne</button>
                 </form>
-
-                <div class="success-message" id="modal-success">
-                    C'est noté. À bientôt dans ta boîte.
-                </div>
+            
+                <p style="color: var(--text-dim); font-size: 0.85rem; margin-top: 16px; font-style: italic;">
+                Pas de fréquence fixe, juste quand il y a du vrai.
+                </p>
             </div>
         </div>
     </div>
@@ -1761,4 +1756,5 @@
     </script>
 </body>
 </html>
+
 
