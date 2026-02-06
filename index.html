@@ -3,7 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JUST A GUY — un gars, une foi, une voix</title>
+    
+    <!-- SEO -->
+    <meta name="description" content="Jahbarii - Artiste afrobeat. Un gars, une foi, une voix. Musique et récits authentiques inspirés de valeurs chrétiennes.">
+    <meta name="keywords" content="Jahbarii, afrobeat, musique afrobeat, artiste afrobeat, JOG TheArtist, rap, musique inspirée, blog artiste">
+    <meta name="author" content="Jahbarii">
+    
+    <!-- Open Graph (Facebook, WhatsApp, etc.) -->
+    <meta property="og:title" content="JUST A GUY — Jahbarii | Afrobeat & Récits">
+    <meta property="og:description" content="Un gars, une foi, une voix. Musique afrobeat et récits authentiques.">
+    <meta property="og:image" content="https://jahbarii.github.io/JUST-A-GUY/photo.jpg">
+    <meta property="og:url" content="https://jahbarii.github.io/JUST-A-GUY">
+    <meta property="og:type" content="website">
+    
+    <title>Jahbarii | JUST A GUY — Afrobeat & Récits</title>
+    
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -1045,27 +1060,27 @@
     <div id="subscribe-modal" class="modal-overlay" onclick="closeModal(event)">
         <div class="modal-content" onclick="event.stopPropagation()">
             <div class="modal-header">
-                <h3 class="modal-title">Restons en contact</h3>
+                <h3 class="modal-title">Rester en lien</h3>
                 <button class="modal-close" onclick="closeModal()">&times;</button>
             </div>
             <div class="modal-body">
                 <p style="color: var(--text-dim); margin-bottom: 24px; font-size: 0.95rem; line-height: 1.6;">
-                Tu peux laisser ton mail pour être prévenu des nouveaux articles — pas de spam, juste un message quand j'ai quelque chose à dire qui vaut le coup.
+                    Tu peux laisser ton mail pour être prévenu des nouveaux articles — pas de spam, juste un message quand j'ai quelque chose à dire qui vaut le coup.
                 </p>
-            
+                
                 <form action="https://formspree.io/f/mzdabpga" method="POST" class="comment-form">
                     <div class="form-group">
                         <label for="newsletter-email">Ton email</label>
                         <input type="email" id="newsletter-email" name="email" required placeholder="ton@email.com">
                     </div>
-                
+                    
                     <input type="hidden" name="_subject" value="Nouvel abonné newsletter - JUST A GUY">
-                
-                    <button type="submit" class="submit-btn" style="margin-top: 16px;">Je m'abonne</button>
+                    
+                    <button type="submit" class="submit-btn" style="margin-top: 16px;">S'abonner</button>
                 </form>
-            
+                
                 <p style="color: var(--text-dim); font-size: 0.85rem; margin-top: 16px; font-style: italic;">
-                Pas de fréquence fixe, juste quand il y a du vrai.
+                    Pas de fréquence fixe, juste quand il y a du vrai.
                 </p>
             </div>
         </div>
@@ -1190,10 +1205,6 @@
                             <button type="submit" class="submit-btn">Partager</button>
                             <p class="moderation-note">Ton message reste privé — je lis tout personnellement.</p>
                         </form>
-
-                        <div class="success-message" id="success-1">
-                            Merci pour tes mots. Je les lis dès que possible.
-                        </div>
                     </div>
                 </article>
             </div>
@@ -1705,16 +1716,6 @@
             }
         }
 
-        // Handle comments
-        function handleComment(event) {
-            event.preventDefault();
-            const form = event.target;
-            const postId = form.querySelector('textarea').id.split('-')[1];
-            
-            form.style.display = 'none';
-            document.getElementById('success-' + postId).classList.add('visible');
-        }
-
         // Handle testimonial
         function handleTestimonial(event) {
             event.preventDefault();
@@ -1733,15 +1734,6 @@
             document.getElementById('prayer-success').classList.add('visible');
         }
 
-        // Handle subscribe
-        function handleSubscribe(event) {
-            event.preventDefault();
-            const form = event.target;
-            
-            form.style.display = 'none';
-            document.getElementById('modal-success').classList.add('visible');
-        }
-
         // Close modal on escape key
         document.addEventListener('keydown', function(event) {
             if (event.key === 'Escape') {
@@ -1756,5 +1748,3 @@
     </script>
 </body>
 </html>
-
-
