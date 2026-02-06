@@ -1044,7 +1044,7 @@
             <main id="journal-list">
                 <h3 class="about-title mono">// Journal</h3>
                 <p style="color: var(--text-dim); margin-bottom: 40px; font-size: 0.95rem; line-height: 1.6;">
-                    Chroniques d'un gars qui cherche. Clique sur un titre pour lire.
+                    Clique sur un titre pour lire.
                 </p>
                 
                 <div class="article-list">
@@ -1052,17 +1052,8 @@
                         <time class="post-date mono">05 Février 2026</time>
                         <h2 class="article-title">Quand la page blanche devient miroir</h2>
                     </article>
-                    
-                    <article class="article-preview" onclick="showArticle('article-2')">
-                        <time class="post-date mono">28 Janvier 2026</time>
-                        <h2 class="article-title">La foi quand personne ne regarde</h2>
-                    </article>
-                    
-                    <article class="article-preview" onclick="showArticle('article-3')">
-                        <time class="post-date mono">15 Janvier 2026</time>
-                        <h2 class="article-title">Le premier pas coûte tout</h2>
 
-                    <article class="article-preview" onclick="showArticle('article-4')">
+                    <article class="article-preview" onclick="showArticle('article-2')">
                         <time class="post-date mono">06 Février 2026</time>
                         <h2 class="article-title">Je me nomme, je m'appelle...</h2>
                     </article>
@@ -1134,120 +1125,18 @@
             <div id="article-2" class="article-full">
                 <a href="#" class="back-link" onclick="showJournal()">← Retour au journal</a>
                 <article class="post">
-                    <time class="post-date mono">28 Janvier 2026</time>
-                    <h2 class="post-title">La foi quand personne ne regarde</h2>
-                    <div class="post-content">
-                        <p>
-                            Je ne parle pas souvent de ma foi. Pas par honte. Par peur de la réduction. On entend "chrétien" et on pense immédiatement à quelque chose. Une morale, une église, un vote.
-                        </p>
-                        <p>
-                            Ma foi, c'est 4h du matin. C'est quand je doute de tout, quand les chiffres ne montent pas, quand les portes se ferment. C'est cette voix qui ne dit pas "tout va bien", mais "je suis là, continue".
-                        </p>
-                        <p>
-                            Hier, quelqu'un m'a demandé si je croyais au succès. J'ai répondu que je croyais à la fidélité. La mienne, d'abord. Puis celle de Celui qui m'a donné cette voix.
-                        </p>
-                        <p>
-                            Le succès est une vague. La foi est l'océan.
-                        </p>
-                    </div>
-                    
-                    <div class="music-note">
-                        <p>ps: ce texte est devenu un chant — pas prêché, juste partagé</p>
-                        <a href="https://open.spotify.com/artist/0slr5Qw4qjYzBoRC95cWJw" target="_blank" class="track-link">Écouter sur Spotify</a>
-                        <br>
-                        <a href="https://music.apple.com/us/artist/jahbarii/1693066953" target="_blank" class="track-link" style="margin-top: 8px;">Écouter sur Apple Music</a>
-                    </div>
-
-                    <div class="comments-section">
-                        <h3 class="comments-title">// Partager ta perspective</h3>
-                        
-                        <form class="comment-form" onsubmit="handleComment(event)">
-                            <div class="form-group">
-                                <label for="name-2">Ton prénom ou pseudo</label>
-                                <input type="text" id="name-2" name="name" required placeholder="Comment tu veux qu'on t'appelle ?">
-                            </div>
-                            <div class="form-group">
-                                <label for="comment-2">Ton ressenti</label>
-                                <textarea id="comment-2" name="comment" required placeholder="Ce texte t'a fait penser à quoi ? Tu traverses quelque chose de similaire ?"></textarea>
-                            </div>
-                            <button type="submit" class="submit-btn">Partager</button>
-                            <p class="moderation-note">Ton commentaire apparaîtra après validation — je lis tout personnellement pour garder cet espace sain.</p>
-                        </form>
-
-                        <div class="success-message" id="success-2">
-                            Merci pour tes mots. Je les lis dès que possible.
-                        </div>
-                    </div>
-                </article>
-            </div>
-
-            <!-- Article 3 Full -->
-            <div id="article-3" class="article-full">
-                <a href="#" class="back-link" onclick="showJournal()">← Retour au journal</a>
-                <article class="post">
-                    <time class="post-date mono">15 Janvier 2026</time>
-                    <h2 class="post-title">Le premier pas coûte tout</h2>
-                    <div class="post-content">
-                        <p>
-                            J'ai sorti ma première vraie chanson il y a deux semaines. Pas ma première musique. Ma première vérité. J'ai mis trois ans à la finir. Pas par perfectionnisme. Par peur.
-                        </p>
-                        <p>
-                            Peur de quoi ? D'être vu. Vraiment vu. Pas l'artiste, le gars derrière. Celui qui a peur, qui doute, qui prie entre deux prises de voix.
-                        </p>
-                        <p>
-                            Et vous savez quoi ? Vous avez écouté. Pas tous. Mais certains. Assez pour que je comprenne : l'honnêteté est le seul marketing qui dure.
-                        </p>
-                        <p>
-                            Alors voici ce blog. Pas de stratégie. Juste des mots. Des jours. Une vie.
-                        </p>
-                    </div>
-                    
-                    <div class="music-note">
-                        <p>ps: si vous arrivez ici, c'est peut-être par cette chanson</p>
-                        <a href="https://open.spotify.com/artist/0slr5Qw4qjYzBoRC95cWJw" target="_blank" class="track-link">Écouter sur Spotify</a>
-                        <br>
-                        <a href="https://music.apple.com/us/artist/jahbarii/1693066953" target="_blank" class="track-link" style="margin-top: 8px;">Écouter sur Apple Music</a>
-                    </div>
-
-                    <div class="comments-section">
-                        <h3 class="comments-title">// Partager ta perspective</h3>
-                        
-                        <form class="comment-form" onsubmit="handleComment(event)">
-                            <div class="form-group">
-                                <label for="name-3">Ton prénom ou pseudo</label>
-                                <input type="text" id="name-3" name="name" required placeholder="Comment tu veux qu'on t'appelle ?">
-                            </div>
-                            <div class="form-group">
-                                <label for="comment-3">Ton ressenti</label>
-                                <textarea id="comment-3" name="comment" required placeholder="Ce texte t'a fait penser à quoi ? Tu traverses quelque chose de similaire ?"></textarea>
-                            </div>
-                            <button type="submit" class="submit-btn">Partager</button>
-                            <p class="moderation-note">Ton commentaire apparaîtra après validation — je lis tout personnellement pour garder cet espace sain.</p>
-                        </form>
-
-                        <div class="success-message" id="success-3">
-                            Merci pour tes mots. Je les lis dès que possible.
-                        </div>
-                    </div>
-                </article>
-            </div>
-
-            <!-- Article 4 Full -->
-            <div id="article-4" class="article-full">
-                <a href="#" class="back-link" onclick="showJournal()">← Retour au journal</a>
-                <article class="post">
                     <time class="post-date mono">06 Février 2026</time>
                     <h2 class="post-title">Je me nomme, je m'appelle...</h2>
                     <div class="post-content">
                         <p>
                            <q>Je me nomme, je m'appelle…</q> cette phrase me fait encore sourire aujourd'hui. 
                             Elle me fait visiter une partie de ma vie qui était assez simple. Pleine d'insouciance. J'étais juste un jeune dans mon quartier, entouré de mes amis avec lesquels je jouais au foot, je faisais du vélo…
-                       </p>
+                        </p>
                         <p>
                             Bon, allons à l'anecdote. 
                             Un concours de Miss a été organisé dans mon quartier et presque toutes les jeunes filles s'étaient inscrites. Évidemment, ma petite sœur (oui, j'en ai une) était l'une des participantes qui visait la couronne. 
                             Le concours s'est bien déroulé. La majorité des passages, en ce qui concerne les défilés, a été apprécié. Sans oublier, les moqueries des spectateurs. En particulier, les frères aînés qui se chambraient mutuellement. 
-                       </p>
+                        </p>
                         <p>
                             Le moment le plus attendu de la compétition arriva. C'était la partie des discours.
                             Après des passages qui nous ont bien fait rigoler, voilà, ma petite sœur, qui arrive toute enthousiaste sous les feux des projecteurs. 
@@ -1255,15 +1144,15 @@
                             Et là, elle prit la parole. 
                             Un silence semblable à l'atmosphère d'un cimetière se fit entendre. 
                             Puis j'entendis, d'une voix incroyablement confiante, <q><strong>Je me nomme, je m'appelle Marie-Emmanuelle</strong></q>
-                       </p>
+                        </p>
                         <p>
                             Aaaaaah c'était fait. 
                             Tout le monde se mit à rire aux éclats y compris moi parce que je pouvais m'attendre à tout sauf ça.
                             C'était une scène épique. Je ne pourrai jamais oublier cette histoire.
-                       </p>
+                        </p>
                         <p>
                             Merci à toi, ma petite sœur, pour ce beau souvenir qui me fait encore sourire bêtement quand j'y pense.
-                       </p>
+                        </p>
                     </div>
 
         <div class="comments-section">
@@ -1271,18 +1160,18 @@
             
             <form class="comment-form" onsubmit="handleComment(event)">
                 <div class="form-group">
-                    <label for="name-4">Ton prénom ou pseudo</label>
-                    <input type="text" id="name-4" name="name" required placeholder="Comment tu veux qu'on t'appelle ?">
+                    <label for="name-2">Ton prénom ou pseudo</label>
+                    <input type="text" id="name-2" name="name" required placeholder="Comment tu veux qu'on t'appelle ?">
                 </div>
                 <div class="form-group">
-                    <label for="comment-4">Ton ressenti</label>
-                    <textarea id="comment-4" name="comment" required placeholder="Ce texte t'a fait penser à quoi ? Tu as une anecdote de famille à partager ?"></textarea>
+                    <label for="comment-2">Ton ressenti</label>
+                    <textarea id="comment-2" name="comment" required placeholder="Ce texte t'a fait penser à quoi ? Tu as une anecdote de famille à partager ?"></textarea>
                 </div>
                 <button type="submit" class="submit-btn">Partager</button>
                 <p class="moderation-note">Ton commentaire apparaîtra après validation — je lis tout personnellement pour garder cet espace sain.</p>
             </form>
 
-            <div class="success-message" id="success-4">
+            <div class="success-message" id="success-2">
                 Merci pour tes mots. Je les lis dès que possible.
             </div>
         </div>
@@ -1840,6 +1729,7 @@
     </script>
 </body>
 </html>
+
 
 
 
