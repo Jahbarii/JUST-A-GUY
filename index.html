@@ -1049,80 +1049,14 @@
                 
                 <div class="article-list">
                     <article class="article-preview" onclick="showArticle('article-1')">
-                        <time class="post-date mono">05 Février 2026</time>
-                        <h2 class="article-title">Quand la page blanche devient miroir</h2>
-                    </article>
-
-                    <article class="article-preview" onclick="showArticle('article-2')">
                         <time class="post-date mono">06 Février 2026</time>
                         <h2 class="article-title">Je me nomme, je m'appelle...</h2>
                     </article>
                 </div>
             </main>
-
+            
             <!-- Article 1 Full -->
             <div id="article-1" class="article-full">
-                <a href="#" class="back-link" onclick="showJournal()">← Retour au journal</a>
-                <article class="post">
-                    <time class="post-date mono">05 Février 2026</time>
-                    <h2 class="post-title">Quand la page blanche devient miroir</h2>
-                    <div class="post-content">
-                        <p>
-                            J'ai passé trois heures ce matin à regarder un cursor clignoter. Pas parce que je n'avais rien à dire, mais parce que j'avais trop. Trop de questions, trop de doutes, trop de cette pression silencieuse qui dit : "Tu devrais déjà être arrivé."
-                        </p>
-                        <p>
-                            Je me suis levé à 6h. Pas par discipline, par anxiété. J'ai fait du café que je n'ai pas fini. J'ai ouvert mon logiciel de production. J'ai fermé. Répéter.
-                        </p>
-                        <p>
-                            Et puis je me suis souvenu pourquoi j'ai commencé. Pas pour les streams. Pas pour les festivals. Parce qu'un soir, à 16 ans, j'ai écrit une ligne qui m'a fait pleurer. Pas de tristesse. De reconnaissance. Comme si quelqu'un m'avait enfin entendu.
-                        </p>
-                        <p>
-                            Aujourd'hui, je me demande si je m'entends encore.
-                        </p>
-                    </div>
-                    
-                    <div class="music-note">
-                        <p>ps: j'ai écrit ce texte en écoutant une prod que j'avais oubliée dans mes brouillons — ça parle de ces matins-là</p>
-                        <a href="https://open.spotify.com/artist/0slr5Qw4qjYzBoRC95cWJw" target="_blank" class="track-link">Écouter sur Spotify</a>
-                        <br>
-                        <a href="https://music.apple.com/us/artist/jahbarii/1693066953" target="_blank" class="track-link" style="margin-top: 8px;">Écouter sur Apple Music</a>
-                    </div>
-
-                    <div class="comments-section">
-                        <h3 class="comments-title">// Partager ta perspective</h3>
-                        
-                        <form class="comment-form" onsubmit="handleComment(event)">
-                            <div class="form-group">
-                                <label for="name-1">Ton prénom ou pseudo</label>
-                                <input type="text" id="name-1" name="name" required placeholder="Comment tu veux qu'on t'appelle ?">
-                            </div>
-                            <div class="form-group">
-                                <label for="comment-1">Ton ressenti</label>
-                                <textarea id="comment-1" name="comment" required placeholder="Ce texte t'a fait penser à quoi ? Tu traverses quelque chose de similaire ?"></textarea>
-                            </div>
-                            <button type="submit" class="submit-btn">Partager</button>
-                            <p class="moderation-note">Ton commentaire apparaîtra après validation — je lis tout personnellement pour garder cet espace sain.</p>
-                        </form>
-
-                        <div class="success-message" id="success-1">
-                            Merci pour tes mots. Je les lis dès que possible.
-                        </div>
-
-                        <div class="comments-list">
-                            <div class="comment">
-                                <div class="comment-author">Sarah</div>
-                                <div class="comment-date">Il y a 2 jours</div>
-                                <div class="comment-text">
-                                    "Je me suis levé à 6h. Pas par discipline, par anxiété." Cette phrase m'a arrêtée. Je pensais être seule à vivre ça. Merci pour l'honnêteté.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-            </div>
-
-            <!-- Article 2 Full -->
-            <div id="article-2" class="article-full">
                 <a href="#" class="back-link" onclick="showJournal()">← Retour au journal</a>
                 <article class="post">
                     <time class="post-date mono">06 Février 2026</time>
@@ -1160,18 +1094,18 @@
             
             <form class="comment-form" onsubmit="handleComment(event)">
                 <div class="form-group">
-                    <label for="name-2">Ton prénom ou pseudo</label>
-                    <input type="text" id="name-2" name="name" required placeholder="Comment tu veux qu'on t'appelle ?">
+                    <label for="name-1">Ton prénom ou pseudo</label>
+                    <input type="text" id="name-1" name="name" required placeholder="Comment tu veux qu'on t'appelle ?">
                 </div>
                 <div class="form-group">
-                    <label for="comment-2">Ton ressenti</label>
-                    <textarea id="comment-2" name="comment" required placeholder="Ce texte t'a fait penser à quoi ? Tu as une anecdote de famille à partager ?"></textarea>
+                    <label for="comment-1">Ton ressenti</label>
+                    <textarea id="comment-1" name="comment" required placeholder="Ce texte t'a fait penser à quoi ? Tu as une anecdote de famille à partager ?"></textarea>
                 </div>
                 <button type="submit" class="submit-btn">Partager</button>
                 <p class="moderation-note">Ton commentaire apparaîtra après validation — je lis tout personnellement pour garder cet espace sain.</p>
             </form>
 
-            <div class="success-message" id="success-2">
+            <div class="success-message" id="success-1">
                 Merci pour tes mots. Je les lis dès que possible.
             </div>
         </div>
@@ -1729,6 +1663,7 @@
     </script>
 </body>
 </html>
+
 
 
 
