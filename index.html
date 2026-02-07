@@ -49,7 +49,19 @@
             font-size: 16px;
             -webkit-font-smoothing: antialiased;
         }
-
+        
+        /* Barre de progression */
+        .reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: var(--accent);
+            z-index: 10000;
+            transition: width 0.1s;
+        }
+        
         .mono {
             font-family: 'IBM Plex Mono', monospace;
         }
@@ -1042,6 +1054,8 @@
     </style>
 </head>
 <body>
+    <div class="reading-progress" id="progress-bar"></div>
+    
     <!-- Cookie Banner -->
     <div id="cookie-banner" class="cookie-banner">
         <div class="cookie-content">
@@ -1676,6 +1690,25 @@
             document.querySelectorAll('.article-full').forEach(el => el.style.display = 'none');
             document.getElementById(id).style.display = 'block';
             window.scrollTo(0, 0);
+
+            // Calculer temps de lecture
+            const text = document.querySelector('#' + id + ' .post-content').innerText;
+            const words = text.trim().split(/\s+/).length;
+            const minutes = Math.ceil(words / 200);
+            
+            // Créer ou mettre à jour l'affichage du temps de lecture
+            let readingTimeEl = document.getElementById('reading-time-' + id);
+            if (!readingTimeEl) {
+                readingTimeEl = document.createElement('span');
+                readingTimeEl.id = 'reading-time-' + id;
+                readingTimeEl.className = 'post-date mono';
+                readingTimeEl.style.marginLeft = '16px';
+                const dateEl = document.querySelector('#' + id + ' .post-date');
+                if (dateEl) {
+                    dateEl.parentNode.insertBefore(readingTimeEl, dateEl.nextSibling);
+                }
+            }
+            readingTimeEl.textContent = '— ' + minutes + ' min de lecture';
         }
 
         function showAbout() {
@@ -1741,7 +1774,16 @@
                 closeModal();
             }
         });
-
+        
+        // Barre de progression de lecture
+        window.addEventListener('scroll', function() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById("progress-bar").style.width = 
+        scrolled + "%";
+        });
+        
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
             showCookieBanner();
@@ -1749,4 +1791,5 @@
     </script>
 </body>
 </html>
+
 
