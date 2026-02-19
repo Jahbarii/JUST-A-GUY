@@ -78,6 +78,7 @@
             margin-bottom: 60px;
         }
 
+        /* EFFET MACHINE À ÉCRIRE sur le titre */
         .site-title {
             font-family: 'IBM Plex Mono', monospace;
             font-size: clamp(2rem, 8vw, 4rem);
@@ -85,6 +86,30 @@
             letter-spacing: -0.02em;
             margin-bottom: 12px;
             color: var(--accent);
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 2px solid var(--accent);
+            width: fit-content;
+            max-width: 100%;
+        }
+
+        .site-title.typing {
+            animation: typing 1.5s steps(12, end), blink-caret 0.75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 12ch }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--accent); }
+        }
+
+        .site-title.typing-done {
+            border-right: none;
+            animation: none;
         }
 
         .tagline {
@@ -113,6 +138,7 @@
             flex-wrap: wrap;
         }
 
+        /* SURLIGNAGE MANUSCRIT au hover */
         nav a {
             color: var(--text-dim);
             text-decoration: none;
@@ -120,28 +146,36 @@
             font-size: 0.85rem;
             text-transform: uppercase;
             letter-spacing: 0.1em;
-            transition: color 0.2s;
+            transition: all 0.3s;
             position: relative;
             cursor: pointer;
-        }
-
-        nav a:hover {
-            color: var(--hover);
+            padding: 4px 0;
+            display: inline-block;
         }
 
         nav a::after {
             content: "";
             position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 1px;
+            bottom: -2px;
+            left: -4px;
+            right: -4px;
+            height: 8px;
             background: var(--accent);
-            transition: width 0.3s;
+            opacity: 0;
+            transform: scaleY(0) skewX(-8deg) rotate(-1deg);
+            transform-origin: bottom;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: -1;
+            border-radius: 2px;
+        }
+
+        nav a:hover {
+            color: var(--bg);
         }
 
         nav a:hover::after {
-            width: 100%;
+            opacity: 0.95;
+            transform: scaleY(1) skewX(-8deg) rotate(-1deg);
         }
 
         /* Article List */
@@ -213,6 +247,7 @@
             border-bottom: none;
         }
 
+        /* HORODATAGE VIVANT - Style */
         .post-date {
             font-family: 'IBM Plex Mono', monospace;
             font-size: 0.75rem;
@@ -221,6 +256,11 @@
             letter-spacing: 0.1em;
             margin-bottom: 16px;
             display: block;
+        }
+
+        .post-date .live-time {
+            color: var(--accent);
+            font-weight: 500;
         }
 
         .post-title {
@@ -808,6 +848,62 @@
             border-color: var(--accent);
         }
 
+        /* MODE FOCUS - Bouton et états */
+        .focus-mode-btn {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-dim);
+            padding: 12px 16px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 100;
+        }
+
+        .focus-mode-btn:hover {
+            background: var(--accent);
+            color: var(--bg);
+            border-color: var(--accent);
+        }
+
+        body.focus-mode header,
+        body.focus-mode footer,
+        body.focus-mode nav,
+        body.focus-mode .about-section,
+        body.focus-mode .testimonials-section,
+        body.focus-mode .prayer-section,
+        body.focus-mode .connect-section,
+        body.focus-mode .donation-section,
+        body.focus-mode .cookie-banner,
+        body.focus-mode .reading-progress {
+            opacity: 0;
+            pointer-events: none;
+            height: 0;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+            border: none;
+        }
+
+        body.focus-mode .article-list {
+            margin-top: 40px;
+        }
+
+        body.focus-mode .focus-mode-btn {
+            background: var(--accent);
+            color: var(--bg);
+        }
+
+        body.focus-mode .back-link {
+            display: none;
+        }
+
         /* Responsive */
         @media (max-width: 600px) {
             header {
@@ -846,6 +942,13 @@
 
             .cookie-buttons {
                 justify-content: center;
+            }
+
+            .focus-mode-btn {
+                bottom: 16px;
+                right: 16px;
+                padding: 10px 12px;
+                font-size: 0.7rem;
             }
         }
 
@@ -1016,11 +1119,14 @@
         </div>
     </div>
 
+    <!-- MODE FOCUS BUTTON -->
+    <button class="focus-mode-btn" id="focusBtn" onclick="toggleFocus()">Mode Focus</button>
+
     <!-- Main Content -->
     <div id="main-content" class="page-section active">
         <div class="container">
             <header>
-                <h1 class="site-title">JUST A GUY</h1>
+                <h1 class="site-title typing" id="typewriter">JUST A GUY</h1>
                 <p class="tagline">un gars, une foi, une voix</p>
                 
                 <nav>
@@ -1043,14 +1149,14 @@
                 
                 <div class="article-list">
                     <article class="article-preview" onclick="showArticle('article-1')">
-                        <time class="post-date mono">06 Février 2026</time>
+                        <time class="post-date mono" data-date="2026-02-06">06 Février 2026</time>
                         <h2 class="article-title">Je me nomme, je m'appelle...</h2>
                     </article>
                 </div>
             </main>
                 <div class="article-list">
                     <article class="article-preview" onclick="showArticle('article-2')">
-                        <time class="post-date mono">19 Février 2026</time>
+                        <time class="post-date mono" data-date="2026-02-19">19 Février 2026</time>
                         <h2 class="article-title">Comment j'arrive à la musique ?</h2>
                     </article>
                 </div>
@@ -1060,7 +1166,7 @@
             <div id="article-1" class="article-full">
                 <a href="#" class="back-link" onclick="showJournal()">← Retour au journal</a>
                 <article class="post">
-                    <time class="post-date mono">06 Février 2026</time>
+                    <time class="post-date mono" data-date="2026-02-06">06 Février 2026</time>
                     <h2 class="post-title">Je me nomme, je m'appelle...</h2>
                     <div class="post-content">
                         <p>
@@ -1090,7 +1196,7 @@
                         </p>
                     </div>
 
-                    <!-- MESSAGE PRIVÉ UNIQUEMENT (Giscus supprimé) -->
+                    <!-- MESSAGE PRIVÉ UNIQUEMENT -->
                     <div class="comments-section">
                         <h3 class="comments-title">// Me laisser un message</h3>
                         <p style="color: var(--text-dim); margin-bottom: 24px; font-size: 0.95rem; line-height: 1.6;">
@@ -1118,7 +1224,7 @@
             <div id="article-2" class="article-full">
                 <a href="#" class="back-link" onclick="showJournal()">← Retour au journal</a>
                 <article class="post">
-                    <time class="post-date mono">19 Février 2026</time>
+                    <time class="post-date mono" data-date="2026-02-19">19 Février 2026</time>
                     <h2 class="post-title">Comment j'arrive à la musique ?</h2>
                     <div class="post-content">
                         <p>
@@ -1176,13 +1282,11 @@
                             Là, tu pourras cliquer sur le lien qui te convient que ce soit Spotify ou Apple Music.
                             Pendant longtemps, des amis qui écoutaient des freestyles que je mettais sur Facebook me disaient de rendre disponible mes compositions sur les plateformes mais je n'en avais pas encore la conviction. 
                             J'expliquerai la raison dans les prochains écrits. 
-                        </p>
-                        <p>
                             D'ici là, prends soins de toi et à la prochaine !
                         </p>
                     </div>
 
-                    <!-- MESSAGE PRIVÉ UNIQUEMENT (Giscus supprimé) -->
+                    <!-- MESSAGE PRIVÉ UNIQUEMENT -->
                     <div class="comments-section">
                         <h3 class="comments-title">// Me laisser un message</h3>
                         <p style="color: var(--text-dim); margin-bottom: 24px; font-size: 0.95rem; line-height: 1.6;">
@@ -1762,9 +1866,80 @@
             const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
             const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
             const scrolled = (winScroll / height) * 100;
-            document.getElementById("progress-bar").style.width = 
-        scrolled + "%";
+            document.getElementById("progress-bar").style.width = scrolled + "%";
         });
+        
+        // EFFET MACHINE À ÉCRIRE - Arrêter l'animation après la fin
+        setTimeout(() => {
+            const title = document.getElementById('typewriter');
+            if (title) {
+                title.classList.remove('typing');
+                title.classList.add('typing-done');
+            }
+        }, 2000);
+
+        // HORODATAGE VIVANT - Convertir les dates en format relatif
+        function updateLiveTimes() {
+            const now = new Date();
+            const timeElements = document.querySelectorAll('[data-date]');
+            
+            timeElements.forEach(el => {
+                const dateStr = el.getAttribute('data-date');
+                const date = new Date(dateStr);
+                const diffTime = Math.abs(now - date);
+                const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+                
+                let liveText = '';
+                if (diffDays === 0) {
+                    liveText = "aujourd'hui";
+                } else if (diffDays === 1) {
+                    liveText = "hier";
+                } else if (diffDays < 7) {
+                    liveText = `il y a ${diffDays} jours`;
+                } else if (diffDays < 30) {
+                    const weeks = Math.floor(diffDays / 7);
+                    liveText = `il y a ${weeks} semaine${weeks > 1 ? 's' : ''}`;
+                } else if (diffDays < 365) {
+                    const months = Math.floor(diffDays / 30);
+                    liveText = `il y a ${months} mois`;
+                } else {
+                    const years = Math.floor(diffDays / 365);
+                    liveText = `il y a ${years} an${years > 1 ? 's' : ''}`;
+                }
+                
+                // Garder la date originale et ajouter le temps relatif
+                const originalText = el.textContent;
+                if (!el.querySelector('.live-time')) {
+                    el.innerHTML = `${originalText} <span class="live-time">(${liveText})</span>`;
+                } else {
+                    el.querySelector('.live-time').textContent = `(${liveText})`;
+                }
+            });
+        }
+
+        // Mettre à jour les temps toutes les heures
+        updateLiveTimes();
+        setInterval(updateLiveTimes, 3600000);
+
+        // MODE FOCUS - Toggle
+        function toggleFocus() {
+            document.body.classList.toggle('focus-mode');
+            const btn = document.getElementById('focusBtn');
+            const isFocus = document.body.classList.contains('focus-mode');
+            btn.textContent = isFocus ? 'Quitter Focus' : 'Mode Focus';
+            
+            // Sauvegarder la préférence
+            if (isFocus) {
+                setCookie('focus-mode', 'active', 1);
+            } else {
+                setCookie('focus-mode', '', -1);
+            }
+        }
+
+        // Vérifier si le mode focus était actif
+        if (getCookie('focus-mode') === 'active') {
+            toggleFocus();
+        }
         
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
@@ -1773,4 +1948,3 @@
     </script>
 </body>
 </html>
-
