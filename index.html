@@ -3,291 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- SEO -->
-    <meta name="description" content="Jahbarii - Artiste afrobeat. Un gars, une foi, une voix. Musique et récits authentiques inspirés de valeurs chrétiennes.">
-    <meta name="keywords" content="Jahbarii, afrobeat, musique afrobeat, artiste afrobeat, JOG TheArtist, rap, musique inspirée, blog artiste">
-    <meta name="author" content="Jahbarii">
-    <meta name="google-site-verification" content="euLg6ILhEgmUgeFKPp84C3j23PCVWK9sc_qw2tq4JLs" />
-    
-    <!-- Open Graph -->
-    <meta property="og:title" content="JUST A GUY — Jahbarii | Afrobeat & Récits">
-    <meta property="og:description" content="Un gars, une foi, une voix. Musique afrobeat et récits authentiques.">
-    <meta property="og:image" content="https://jahbarii.github.io/JUST-A-GUY/photo.jpg">
-    <meta property="og:url" content="https://jahbarii.github.io/JUST-A-GUY">
-    <meta property="og:type" content="website">
-    
-    <title>Jahbarii | JUST A GUY — Afrobeat & Récits</title>
-    
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    
+    <title>JUST A GUY — un gars, une foi, une voix</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --bg-primary: #faf9f7;
+            --bg-secondary: #f5f4f2;
+            --text-primary: #2c2c2c;
+            --text-secondary: #666;
+            --accent: #00d4ff;
+            --accent-hover: #00b8e6;
+            --border: #e5e5e5;
+            --shadow: rgba(0,0,0,0.05);
+            --font-size-base: 18px;
+            --line-height: 1.8;
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #1a1a1a;
+            --bg-secondary: #252525;
+            --text-primary: #f0f0f0;
+            --text-secondary: #b0b0b0;
+            --accent: #00d4ff;
+            --accent-hover: #33ddff;
+            --border: #333;
+            --shadow: rgba(0,0,0,0.3);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        :root {
-            --bg: #0a0a0a;
-            --text: #e5e5e5;
-            --text-dim: #666;
-            --accent: #fff;
-            --border: #333;
-            --hover: #fff;
-            --success: #4ade80;
-            --warning: #fbbf24;
-            --font-size: 16px;
-        }
-
-        /* MODE CLAIR */
-        body.light-mode {
-            --bg: #f5f5f5;
-            --text: #1a1a1a;
-            --text-dim: #666;
-            --accent: #000;
-            --border: #ccc;
-            --hover: #000;
+        html {
+            scroll-behavior: smooth;
+            font-size: var(--font-size-base);
         }
 
         body {
-            background-color: var(--bg);
-            color: var(--text);
-            font-family: 'Inter', sans-serif;
-            line-height: 1.6;
-            font-size: var(--font-size);
-            -webkit-font-smoothing: antialiased;
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: var(--line-height);
             transition: background-color 0.3s ease, color 0.3s ease;
-        }
-        
-        /* Barre de progression */
-        .reading-progress {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 0%;
-            height: 3px;
-            background: var(--accent);
-            z-index: 10001;
-            transition: width 0.1s;
-        }
-        
-        .mono {
-            font-family: 'IBM Plex Mono', monospace;
+            opacity: 0;
+            animation: fadeIn 0.5s ease forwards;
         }
 
-        .container {
-            max-width: 680px;
-            margin: 0 auto;
-            padding: 0 24px;
+        @keyframes fadeIn {
+            to { opacity: 1; }
         }
 
-        /* 1. MENU STICKY */
-        .header-sticky {
-            position: fixed;
+        /* Navigation Sticky */
+        .nav-container {
+            position: sticky;
             top: 0;
-            left: 0;
-            right: 0;
-            background: var(--bg);
+            z-index: 1000;
+            background-color: var(--bg-primary);
             border-bottom: 1px solid var(--border);
-            z-index: 9999;
-            padding: 16px 0;
-            transform: translateY(-100%);
-            transition: transform 0.3s ease, background-color 0.3s ease;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
         }
 
-        .header-sticky.visible {
-            transform: translateY(0);
-        }
-
-        .header-sticky-content {
-            max-width: 680px;
+        nav {
+            max-width: 800px;
             margin: 0 auto;
-            padding: 0 24px;
+            padding: 1rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .header-sticky-title {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 1.1rem;
+        .logo {
+            font-family: 'Inter', sans-serif;
             font-weight: 600;
-            color: var(--accent);
-            cursor: pointer;
-        }
-
-        .header-sticky-nav {
-            display: flex;
-            gap: 20px;
-            align-items: center;
-        }
-
-        .header-sticky-nav a {
-            color: var(--text-dim);
+            font-size: 1.1rem;
+            color: var(--text-primary);
             text-decoration: none;
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            transition: color 0.2s;
-            position: relative;
+            letter-spacing: -0.02em;
         }
 
-        .header-sticky-nav a:hover,
-        .header-sticky-nav a.active {
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
             color: var(--accent);
         }
 
-        /* 15. ÉTAT ACTIF DU MENU - Indicateur */
-        .header-sticky-nav a.active::after {
-            content: "";
+        .nav-links a.active {
+            color: var(--text-primary);
+        }
+
+        .nav-links a.active::after {
+            content: '';
             position: absolute;
             bottom: -4px;
             left: 0;
-            right: 0;
-            height: 1px;
-            background: var(--accent);
+            width: 100%;
+            height: 2px;
+            background-color: var(--accent);
+            animation: slideIn 0.3s ease;
         }
 
-        /* BARRE DE CONTRÔLES - Recherche, Taille, Theme */
-        .controls-bar {
-            position: fixed;
-            top: 70px;
-            right: 24px;
-            display: flex;
-            gap: 8px;
-            z-index: 9998;
-            background: var(--bg);
-            border: 1px solid var(--border);
-            padding: 8px;
-            border-radius: 4px;
-            opacity: 0;
-            transform: translateY(-10px);
-            transition: all 0.3s ease;
+        @keyframes slideIn {
+            from { transform: scaleX(0); }
+            to { transform: scaleX(1); }
         }
 
-        .controls-bar.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .control-btn {
-            background: transparent;
-            border: 1px solid var(--border);
-            color: var(--text-dim);
-            cursor: pointer;
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.75rem;
-            padding: 6px 10px;
-            transition: all 0.2s;
-            border-radius: 2px;
-        }
-
-        .control-btn:hover {
-            color: var(--accent);
-            border-color: var(--accent);
-        }
-
-        /* 3. RECHERCHE */
-        .search-container {
-            position: relative;
-        }
-
-        .search-input {
-            position: absolute;
-            right: 0;
-            top: 0;
-            background: var(--bg);
-            border: 1px solid var(--border);
-            color: var(--text);
-            padding: 6px 12px;
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.8rem;
-            width: 0;
-            opacity: 0;
-            transition: all 0.3s ease;
-        }
-
-        .search-input.active {
-            width: 200px;
-            opacity: 1;
-        }
-
-        .search-results {
-            position: absolute;
-            top: 40px;
-            right: 0;
-            background: var(--bg);
-            border: 1px solid var(--border);
-            min-width: 280px;
-            max-height: 300px;
-            overflow-y: auto;
-            display: none;
-            z-index: 10000;
-        }
-
-        .search-results.active {
-            display: block;
-        }
-
-        .search-result-item {
-            padding: 12px;
-            border-bottom: 1px solid var(--border);
-            cursor: pointer;
-            font-size: 0.85rem;
-            transition: background 0.2s;
-        }
-
-        .search-result-item:hover {
-            background: rgba(255,255,255,0.05);
-        }
-
-        .search-result-item .result-date {
-            font-size: 0.7rem;
-            color: var(--text-dim);
-            font-family: 'IBM Plex Mono', monospace;
-        }
-
-        /* 7. MODE NUIT/CLAIR */
-        .theme-toggle::before {
-            content: "☀";
-        }
-
-        body.light-mode .theme-toggle::before {
-            content: "☾";
-        }
-
-        /* 8. TAILLE DE POLICE AJUSTABLE */
-        .font-size-controls {
-            display: flex;
-            gap: 4px;
-        }
-
-        /* FIL D'ARIANE */
+        /* Fil d'Ariane */
         .breadcrumb {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.75rem;
-            color: var(--text-dim);
-            margin-bottom: 24px;
-            padding-top: 20px;
-            opacity: 0;
-            transform: translateY(-10px);
-            transition: all 0.3s ease;
-        }
-
-        .breadcrumb.visible {
-            opacity: 1;
-            transform: translateY(0);
+            max-width: 800px;
+            margin: 1.5rem auto 0;
+            padding: 0 2rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
         }
 
         .breadcrumb a {
-            color: var(--text-dim);
+            color: var(--text-secondary);
             text-decoration: none;
-            transition: color 0.2s;
+            transition: color 0.3s ease;
         }
 
         .breadcrumb a:hover {
@@ -295,2470 +144,1195 @@
         }
 
         .breadcrumb span {
-            color: var(--accent);
+            margin: 0 0.5rem;
+            color: var(--border);
         }
 
-        header {
-            padding: 80px 0 60px;
-            border-bottom: 1px solid var(--border);
-            margin-bottom: 60px;
-        }
-
-        /* EFFET MACHINE À ÉCRIRE */
-        .site-title {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: clamp(2rem, 8vw, 4rem);
-            font-weight: 600;
-            letter-spacing: -0.02em;
-            margin-bottom: 12px;
-            color: var(--accent);
-            overflow: hidden;
-            white-space: nowrap;
-            border-right: 2px solid var(--accent);
-            width: fit-content;
-            max-width: 100%;
-        }
-
-        .site-title.typing {
-            animation: typing 1.5s steps(12, end), blink-caret 0.75s step-end infinite;
-        }
-
-        @keyframes typing {
-            from { width: 0 }
-            to { width: 12ch }
-        }
-
-        @keyframes blink-caret {
-            from, to { border-color: transparent }
-            50% { border-color: var(--accent); }
-        }
-
-        .site-title.typing-done {
-            border-right: none;
-            animation: none;
-        }
-
-        .tagline {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.9rem;
-            color: var(--text-dim);
-            text-transform: lowercase;
-            letter-spacing: 0.05em;
-        }
-
-        .tagline::before {
-            content: "// ";
-        }
-
-        nav {
-            margin: 40px 0;
-            padding: 20px 0;
-            border-top: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
-        }
-
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 32px;
-            flex-wrap: wrap;
-        }
-
-        nav a {
-            color: var(--text-dim);
-            text-decoration: none;
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            transition: color 0.2s;
-            cursor: pointer;
-        }
-
-        nav a:hover {
-            color: var(--accent);
-        }
-
-        /* Article List */
-        .article-list {
+        /* Controls Bar */
+        .controls-bar {
+            position: fixed;
+            top: 80px;
+            right: 2rem;
             display: flex;
             flex-direction: column;
-            gap: 24px;
-        }
-
-        .article-preview {
-            padding: 32px;
+            gap: 0.5rem;
+            z-index: 999;
+            background: var(--bg-secondary);
+            padding: 0.75rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px var(--shadow);
             border: 1px solid var(--border);
+        }
+
+        .control-btn {
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
             cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .article-preview:hover {
-            border-color: var(--accent);
-            background: rgba(255,255,255,0.02);
-        }
-
-        /* Indicateur "Nouveau" */
-        .article-preview.new::before {
-            content: "NOUVEAU";
-            position: absolute;
-            top: -1px;
-            right: -1px;
-            background: var(--accent);
-            color: var(--bg);
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.6rem;
-            padding: 4px 8px;
-            letter-spacing: 0.1em;
-        }
-
-        .article-title {
-            font-size: 1.4rem;
-            color: var(--accent);
-            margin-top: 12px;
-            font-weight: 600;
-            transition: color 0.3s;
-        }
-
-        .article-full {
-            display: none;
-            animation: fadeIn 0.5s ease;
-        }
-
-        .article-full.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .back-link {
-            display: inline-flex;
+            border-radius: 8px;
+            display: flex;
             align-items: center;
-            gap: 8px;
-            color: var(--text-dim);
-            text-decoration: none;
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-bottom: 40px;
-            transition: color 0.2s;
+            justify-content: center;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
         }
 
-        .back-link:hover {
-            color: var(--accent);
+        .control-btn:hover {
+            background: var(--accent);
+            color: white;
+            transform: translateY(-2px);
         }
 
-        /* Blog Posts */
-        .post {
-            margin-bottom: 80px;
-            padding-bottom: 60px;
-            border-bottom: 1px solid var(--border);
+        .font-size-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            border-top: 1px solid var(--border);
+            padding-top: 0.5rem;
+            margin-top: 0.25rem;
         }
 
-        .post:last-of-type {
-            border-bottom: none;
-        }
-
-        .post-date {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.75rem;
-            color: var(--text-dim);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-bottom: 16px;
-            display: block;
-        }
-
-        .post-date .live-time {
-            color: var(--accent);
-            font-weight: 500;
-        }
-
-        .post-title {
-            font-size: 1.75rem;
-            font-weight: 600;
-            margin-bottom: 24px;
-            line-height: 1.3;
-            color: var(--accent);
-        }
-
-        .post-content {
-            color: var(--text);
-            margin-bottom: 32px;
-        }
-
-        .post-content p {
-            margin-bottom: 1.5em;
-            font-size: 1.05rem;
-            line-height: 1.8;
-        }
-
-        .post-content p:first-child::first-letter {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 3.5rem;
-            float: left;
-            line-height: 0.8;
-            margin-right: 12px;
-            margin-top: 8px;
-            color: var(--accent);
-            font-weight: 600;
-        }
-
-        /* 5. SOMMAIRE FLOTTANT */
-        .toc-sidebar {
+        /* Sommaire Flottant */
+        .toc {
             position: fixed;
-            left: 24px;
+            left: 2rem;
             top: 50%;
             transform: translateY(-50%);
             width: 200px;
+            background: var(--bg-secondary);
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px var(--shadow);
+            border: 1px solid var(--border);
             opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-            z-index: 100;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 998;
         }
 
-        .toc-sidebar.visible {
+        .toc.visible {
             opacity: 1;
-            pointer-events: all;
+            visibility: visible;
         }
 
-        .toc-title {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.7rem;
+        .toc h3 {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
             text-transform: uppercase;
             letter-spacing: 0.1em;
-            color: var(--text-dim);
-            margin-bottom: 16px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid var(--border);
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
         }
 
-        .toc-list {
+        .toc ul {
             list-style: none;
         }
 
-        .toc-item {
-            margin-bottom: 8px;
+        .toc li {
+            margin-bottom: 0.75rem;
         }
 
-        .toc-link {
-            color: var(--text-dim);
-            text-decoration: none;
+        .toc a {
+            font-family: 'Inter', sans-serif;
             font-size: 0.85rem;
-            line-height: 1.4;
+            color: var(--text-secondary);
+            text-decoration: none;
             display: block;
-            padding: 4px 0;
-            transition: all 0.2s;
+            padding: 0.25rem 0;
             border-left: 2px solid transparent;
-            padding-left: 12px;
+            padding-left: 0.75rem;
+            transition: all 0.3s ease;
         }
 
-        .toc-link:hover,
-        .toc-link.active {
+        .toc a:hover, .toc a.active {
             color: var(--accent);
             border-left-color: var(--accent);
         }
 
-        @media (max-width: 1200px) {
-            .toc-sidebar {
-                display: none;
+        /* Main Content */
+        main {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            min-height: 100vh;
+        }
+
+        /* Articles */
+        .article {
+            margin-bottom: 5rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideUp 0.6s ease forwards;
+        }
+
+        .article:nth-child(2) { animation-delay: 0.1s; }
+        .article:nth-child(3) { animation-delay: 0.2s; }
+
+        @keyframes slideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
         }
 
-        /* 10. PARTAGE NATIF */
-        .share-bar {
-            position: fixed;
-            left: 24px;
-            bottom: 100px;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            z-index: 100;
+        .article-header {
+            margin-bottom: 2rem;
         }
 
-        .share-btn {
-            width: 40px;
-            height: 40px;
-            border: 1px solid var(--border);
-            background: var(--bg);
-            color: var(--text-dim);
-            cursor: pointer;
+        .article-meta {
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-size: 1rem;
-            transition: all 0.2s;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
         }
 
-        .share-btn:hover {
-            border-color: var(--accent);
+        .badge-new {
+            background: var(--accent);
+            color: white;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .article-title {
+            font-size: 2.2rem;
+            font-weight: 600;
+            line-height: 1.2;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            display: inline-block;
+            position: relative;
+        }
+
+        .article-title::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .article-title:hover::after {
+            width: 100%;
+        }
+
+        .article-title:hover {
             color: var(--accent);
-            transform: scale(1.1);
         }
 
-        .share-btn.copied {
-            background: var(--success);
-            color: var(--bg);
-            border-color: var(--success);
+        .article-content {
+            text-align: justify;
+            hyphens: auto;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
         }
 
-        @media (max-width: 900px) {
-            .share-bar {
-                position: static;
-                flex-direction: row;
-                justify-content: center;
-                margin: 40px 0;
-            }
+        .article-content p {
+            margin-bottom: 1.5rem;
         }
 
-        /* 11. RÉACTIONS EMOJI */
-        .reactions-bar {
+        .article-content h2 {
+            font-size: 1.5rem;
+            margin: 2.5rem 0 1rem;
+            font-weight: 600;
+            scroll-margin-top: 100px;
+        }
+
+        /* Réactions */
+        .reactions {
             display: flex;
-            gap: 12px;
-            margin: 40px 0;
-            padding: 20px;
-            border: 1px solid var(--border);
-            justify-content: center;
-            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 2rem 0;
+            padding: 1rem 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
         }
 
         .reaction-btn {
-            background: transparent;
-            border: 1px solid var(--border);
-            padding: 8px 16px;
-            cursor: pointer;
-            font-size: 1.2rem;
-            transition: all 0.2s;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border);
+            background: transparent;
+            border-radius: 25px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
         }
 
         .reaction-btn:hover {
-            transform: translateY(-2px);
             border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--shadow);
         }
 
         .reaction-btn.active {
             background: var(--accent);
             border-color: var(--accent);
+            color: white;
         }
 
         .reaction-count {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.75rem;
-            color: var(--text-dim);
-        }
-
-        .reaction-btn.active .reaction-count {
-            color: var(--bg);
-        }
-
-        /* Comments Section */
-        .comments-section {
-            margin-top: 60px;
-            padding-top: 40px;
-            border-top: 1px solid var(--border);
-        }
-
-        .comments-title {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-            color: var(--text-dim);
-            margin-bottom: 24px;
-        }
-
-        .comment-form {
-            background: rgba(255,255,255,0.02);
-            padding: 24px;
-            border: 1px solid var(--border);
-            margin-bottom: 32px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--text-dim);
-            margin-bottom: 8px;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            background: var(--bg);
-            border: 1px solid var(--border);
-            color: var(--text);
-            padding: 12px;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.95rem;
-            transition: border-color 0.2s;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--accent);
-        }
-
-        .form-group textarea {
-            min-height: 120px;
-            resize: vertical;
-        }
-
-        .submit-btn {
-            background: transparent;
-            color: var(--text);
-            border: 1px solid var(--border);
-            padding: 12px 24px;
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .submit-btn:hover {
-            background: var(--accent);
-            color: var(--bg);
-            border-color: var(--accent);
-        }
-
-        .moderation-note {
-            font-size: 0.8rem;
-            color: var(--text-dim);
-            margin-top: 12px;
-            font-style: italic;
-        }
-
-        /* Modal */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.9);
-            z-index: 10000;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .modal-overlay.active {
-            display: flex;
-            opacity: 1;
-        }
-
-        .modal-content {
-            background: var(--bg);
-            border: 1px solid var(--border);
-            max-width: 500px;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-            position: relative;
-            transform: scale(0.9);
-            transition: transform 0.3s ease;
-        }
-
-        .modal-overlay.active .modal-content {
-            transform: scale(1);
-        }
-
-        .modal-header {
-            padding: 24px;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .modal-title {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--accent);
-        }
-
-        .modal-close {
-            background: none;
-            border: none;
-            color: var(--text-dim);
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: color 0.2s;
-        }
-
-        .modal-close:hover {
-            color: var(--accent);
-        }
-
-        .modal-body {
-            padding: 24px;
-        }
-
-        /* About Section */
-        .about-section {
-            margin: 100px 0;
-            padding: 60px 0;
-            border-top: 1px solid var(--border);
-        }
-
-        .about-photo {
-            width: 200px;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 50%;
-            margin-bottom: 32px;
-            border: 2px solid var(--border);
-            transition: border-color 0.3s;
-        }
-
-        .about-photo:hover {
-            border-color: var(--accent);
-        }
-
-        .about-content {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: var(--text);
-        }
-
-        .about-content p {
-            margin-bottom: 1.5em;
-        }
-
-        .about-title {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-            color: var(--text-dim);
-            margin-bottom: 32px;
-        }
-
-        /* Connect Section */
-        .connect-section {
-            margin: 100px 0;
-            padding: 60px 0;
-            border-top: 1px solid var(--border);
-        }
-
-        .connect-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 24px;
-            margin-top: 32px;
-        }
-
-        .connect-link {
-            display: block;
-            padding: 20px;
-            border: 1px solid var(--border);
-            text-decoration: none;
-            color: var(--text-dim);
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            transition: all 0.2s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .connect-link::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--accent);
-            transform: translateY(100%);
-            transition: transform 0.3s ease;
-            z-index: -1;
-        }
-
-        .connect-link:hover {
-            color: var(--bg);
-            border-color: var(--accent);
-        }
-
-        .connect-link:hover::before {
-            transform: translateY(0);
-        }
-
-        .connect-link strong {
-            display: block;
-            font-size: 1.1rem;
-            margin-bottom: 4px;
-            color: var(--text);
-            transition: color 0.2s;
-        }
-
-        .connect-link:hover strong {
-            color: var(--bg);
-        }
-
-        /* Testimonials */
-        .testimonials-section {
-            margin: 100px 0;
-            padding: 60px 0;
-            border-top: 1px solid var(--border);
-        }
-
-        .testimonials-intro {
-            color: var(--text-dim);
-            margin-bottom: 40px;
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
-
-        .testimonial-form {
-            background: rgba(255,255,255,0.02);
-            padding: 32px;
-            border: 1px solid var(--border);
-            margin-bottom: 48px;
-        }
-
-        .testimonials-grid {
-            display: grid;
-            gap: 32px;
-        }
-
-        .testimonial-card {
-            padding: 32px;
-            border: 1px solid var(--border);
-            transition: border-color 0.3s;
-        }
-
-        .testimonial-card:hover {
-            border-color: var(--text-dim);
-        }
-
-        .testimonial-text {
-            font-size: 1.05rem;
-            line-height: 1.8;
-            margin-bottom: 20px;
-            font-style: italic;
-            color: var(--text);
-        }
-
-        .testimonial-author {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.85rem;
-            color: var(--accent);
-        }
-
-        .testimonial-date {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.75rem;
-            color: var(--text-dim);
-            margin-top: 4px;
-        }
-
-        /* Prayer Section */
-        .prayer-section {
-            margin: 100px 0;
-            padding: 60px 0;
-            border-top: 1px solid var(--border);
-            background: rgba(255,255,255,0.01);
-        }
-
-        .prayer-content {
-            max-width: 600px;
-        }
-
-        .prayer-intro {
-            color: var(--text-dim);
-            margin-bottom: 32px;
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
-
-        .prayer-form {
-            background: rgba(255,255,255,0.02);
-            padding: 32px;
-            border: 1px solid var(--border);
-        }
-
-        .prayer-form .form-group textarea {
-            min-height: 150px;
-        }
-
-        .confidentiality-note {
-            font-size: 0.8rem;
-            color: var(--text-dim);
-            margin-top: 16px;
-            font-style: italic;
-            padding-top: 16px;
-            border-top: 1px solid var(--border);
-        }
-
-        /* Donation Section */
-        .donation-section {
-            margin: 100px 0;
-            padding: 60px 0;
-            border-top: 1px solid var(--border);
-            text-align: center;
-        }
-
-        .donation-content {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .donation-text {
-            color: var(--text);
-            font-size: 1.1rem;
-            line-height: 1.8;
-            margin-bottom: 32px;
-        }
-
-        .donation-text em {
-            color: var(--text-dim);
-            font-style: normal;
-        }
-
-        .donation-options {
-            display: flex;
-            gap: 16px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-bottom: 24px;
-        }
-
-        .donation-btn {
-            background: transparent;
-            color: var(--text);
-            border: 1px solid var(--border);
-            padding: 16px 32px;
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            cursor: pointer;
-            transition: all 0.2s;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .donation-btn:hover {
-            background: var(--accent);
-            color: var(--bg);
-            border-color: var(--accent);
-        }
-
-        .donation-note {
-            font-size: 0.85rem;
-            color: var(--text-dim);
-            font-style: italic;
-        }
-
-        /* 12. NEWSLETTER STICKY */
-        .newsletter-sticky {
-            position: fixed;
-            bottom: 24px;
-            left: 24px;
-            background: var(--bg);
-            border: 1px solid var(--border);
-            padding: 16px 20px;
-            max-width: 300px;
-            z-index: 9997;
-            transform: translateY(150%);
-            transition: transform 0.5s ease;
-        }
-
-        .newsletter-sticky.visible {
-            transform: translateY(0);
-        }
-
-        .newsletter-sticky-title {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--accent);
-            margin-bottom: 8px;
-        }
-
-        .newsletter-sticky-text {
-            font-size: 0.85rem;
-            color: var(--text-dim);
-            margin-bottom: 12px;
-            line-height: 1.5;
-        }
-
-        .newsletter-sticky-close {
-            position: absolute;
-            top: 8px;
-            right: 12px;
-            background: none;
-            border: none;
-            color: var(--text-dim);
-            cursor: pointer;
-            font-size: 1.2rem;
-        }
-
-        .newsletter-sticky-btn {
-            background: transparent;
-            border: 1px solid var(--border);
-            color: var(--text);
-            padding: 8px 16px;
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .newsletter-sticky-btn:hover {
-            background: var(--accent);
-            color: var(--bg);
-            border-color: var(--accent);
-        }
-
-        @media (max-width: 600px) {
-            .newsletter-sticky {
-                left: 16px;
-                right: 16px;
-                max-width: none;
-            }
-        }
-
-        /* Footer */
-        footer {
-            padding: 60px 0;
-            text-align: center;
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.75rem;
-            color: var(--text-dim);
-        }
-
-        .footer-mantra {
-            font-size: 0.9rem;
-            color: var(--text);
-            margin-bottom: 16px;
-            letter-spacing: 0.05em;
-        }
-
-        .footer-legal {
-            margin-top: 40px;
-            padding-top: 40px;
-            border-top: 1px solid var(--border);
-            display: flex;
-            gap: 24px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .footer-legal a {
-            color: var(--text-dim);
-            text-decoration: none;
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            transition: color 0.2s;
-        }
-
-        .footer-legal a:hover {
-            color: var(--accent);
-        }
-
-        /* Cookie Banner */
-        .cookie-banner {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: var(--bg);
-            border-top: 1px solid var(--border);
-            padding: 24px;
-            z-index: 10002;
-            display: none;
-            box-shadow: 0 -4px 20px rgba(0,0,0,0.5);
-        }
-
-        .cookie-banner.active {
-            display: block;
-        }
-
-        .cookie-content {
-            max-width: 680px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        .cookie-text {
-            font-size: 0.9rem;
-            color: var(--text);
-            line-height: 1.6;
-        }
-
-        .cookie-text a {
-            color: var(--accent);
-            text-decoration: underline;
-        }
-
-        .cookie-buttons {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
-        .cookie-btn {
-            padding: 12px 24px;
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            cursor: pointer;
-            transition: all 0.2s;
-            border: 1px solid var(--border);
-            background: transparent;
-            color: var(--text);
-        }
-
-        .cookie-btn:hover {
-            background: var(--accent);
-            color: var(--bg);
-            border-color: var(--accent);
-        }
-
-        .cookie-btn.accept {
-            background: var(--accent);
-            color: var(--bg);
-            border-color: var(--accent);
-        }
-
-        /* MODE FOCUS */
-        .focus-mode-btn {
-            position: fixed;
-            bottom: 24px;
-            right: 24px;
-            background: transparent;
-            border: 1px solid var(--border);
-            color: var(--text-dim);
-            padding: 12px 16px;
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            cursor: pointer;
-            transition: all 0.3s;
-            z-index: 9996;
-        }
-
-        .focus-mode-btn:hover {
-            background: var(--accent);
-            color: var(--bg);
-            border-color: var(--accent);
-        }
-
-        body.focus-mode header,
-        body.focus-mode footer,
-        body.focus-mode nav,
-        body.focus-mode .about-section,
-        body.focus-mode .testimonials-section,
-        body.focus-mode .prayer-section,
-        body.focus-mode .connect-section,
-        body.focus-mode .donation-section,
-        body.focus-mode .cookie-banner,
-        body.focus-mode .reading-progress,
-        body.focus-mode .header-sticky,
-        body.focus-mode .controls-bar,
-        body.focus-mode .share-bar,
-        body.focus-mode .newsletter-sticky,
-        body.focus-mode .breadcrumb {
-            opacity: 0;
-            pointer-events: none;
-            height: 0;
-            overflow: hidden;
-            margin: 0;
-            padding: 0;
-            border: none;
-        }
-
-        body.focus-mode .article-list {
-            margin-top: 40px;
-        }
-
-        body.focus-mode .focus-mode-btn {
-            background: var(--accent);
-            color: var(--bg);
-        }
-
-        body.focus-mode .toc-sidebar {
-            display: none;
-        }
-
-        /* 6. SAUVEGARDE POSITION - Indicateur */
-        .reading-position {
-            position: fixed;
-            bottom: 80px;
-            right: 24px;
-            background: var(--bg);
-            border: 1px solid var(--border);
-            padding: 8px 12px;
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.7rem;
-            color: var(--text-dim);
-            z-index: 100;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .reading-position.visible {
-            opacity: 1;
-        }
-
-        /* Page transitions */
-        .page-section {
-            display: none;
-            opacity: 0;
-            transform: translateY(10px);
-            transition: opacity 0.3s ease, transform 0.3s ease;
-        }
-
-        .page-section.active {
-            display: block;
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .back-link-legal {
-            display: inline-block;
-            margin-bottom: 40px;
-            color: var(--text-dim);
-            text-decoration: none;
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            transition: color 0.2s;
-        }
-
-        .back-link-legal:hover {
-            color: var(--accent);
-        }
-
-        /* Legal Pages */
-        .legal-section {
-            margin: 100px 0;
-            padding: 60px 0;
-            border-top: 1px solid var(--border);
-        }
-
-        .legal-content {
-            max-width: 680px;
-        }
-
-        .legal-content h2 {
-            font-size: 1.5rem;
-            color: var(--accent);
-            margin-bottom: 24px;
             font-weight: 600;
         }
 
-        .legal-content h3 {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.9rem;
+        /* Partage */
+        .share-section {
+            margin: 2rem 0;
+        }
+
+        .share-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
             text-transform: uppercase;
             letter-spacing: 0.1em;
-            color: var(--text-dim);
-            margin: 40px 0 16px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid var(--border);
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
         }
 
-        .legal-content p, .legal-content li {
-            color: var(--text);
-            line-height: 1.8;
-            margin-bottom: 16px;
-            font-size: 0.95rem;
+        .share-buttons {
+            display: flex;
+            gap: 0.75rem;
         }
 
-        .legal-content ul {
-            margin-left: 24px;
-            margin-bottom: 16px;
+        .share-btn {
+            padding: 0.6rem 1.2rem;
+            border: 1px solid var(--border);
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
         }
 
-        .legal-content li {
-            margin-bottom: 8px;
-        }
-
-        .legal-content strong {
+        .share-btn:hover {
+            border-color: var(--accent);
             color: var(--accent);
-            font-weight: 500;
+            transform: translateY(-2px);
         }
 
-        .legal-date {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.8rem;
-            color: var(--text-dim);
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid var(--border);
+        /* Newsletter Sticky */
+        .newsletter-sticky {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
+            box-shadow: 0 8px 30px var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            z-index: 997;
+            max-width: 90%;
+            width: auto;
+        }
+
+        .newsletter-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .newsletter-input {
+            padding: 0.6rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            width: 200px;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .newsletter-input:focus {
+            border-color: var(--accent);
+        }
+
+        .newsletter-btn {
+            padding: 0.6rem 1.2rem;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .newsletter-btn:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+        }
+
+        .close-newsletter {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 1.2rem;
+            padding: 0.25rem;
+            transition: color 0.3s ease;
+        }
+
+        .close-newsletter:hover {
+            color: var(--accent);
+        }
+
+        /* Mode Focus Indicator */
+        .focus-indicator {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--accent);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1001;
+            box-shadow: 0 8px 30px rgba(0,212,255,0.3);
+        }
+
+        .focus-indicator.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Reading Progress */
+        .reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: var(--accent);
+            z-index: 1002;
+            transition: width 0.1s linear;
         }
 
         /* Responsive */
-        @media (max-width: 600px) {
-            .header-sticky-nav {
+        @media (max-width: 1200px) {
+            .toc {
                 display: none;
             }
+        }
 
+        @media (max-width: 768px) {
             .controls-bar {
                 top: auto;
-                bottom: 140px;
-                right: 16px;
-                left: 16px;
-                justify-content: center;
+                bottom: 6rem;
+                right: 1rem;
+                flex-direction: row;
             }
 
-            header {
-                padding: 60px 0 40px;
-            }
-            
-            nav ul {
-                gap: 20px;
-            }
-
-            .about-photo {
-                width: 150px;
-                height: 150px;
+            .font-size-controls {
+                flex-direction: row;
+                border-top: none;
+                border-left: 1px solid var(--border);
+                padding-top: 0;
+                padding-left: 0.5rem;
+                margin-top: 0;
+                margin-left: 0.25rem;
             }
 
-            .post-title {
-                font-size: 1.4rem;
-            }
-
-            .post-content p:first-child::first-letter {
-                font-size: 2.5rem;
-            }
-
-            .article-title {
-                font-size: 1.2rem;
-            }
-
-            .footer-legal {
+            .newsletter-sticky {
                 flex-direction: column;
-                gap: 16px;
-            }
-
-            .cookie-content {
+                width: 90%;
                 text-align: center;
             }
 
-            .cookie-buttons {
-                justify-content: center;
+            .newsletter-form {
+                width: 100%;
             }
 
-            .focus-mode-btn {
-                bottom: 80px;
+            .newsletter-input {
+                flex: 1;
             }
 
-            .share-bar {
-                position: static;
-                flex-direction: row;
-                justify-content: center;
-                margin: 40px 0;
+            .article-title {
+                font-size: 1.8rem;
+            }
+
+            main {
+                padding: 2rem 1.5rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
             }
         }
 
-        ::-webkit-scrollbar {
-            width: 8px;
+        /* Focus Mode */
+        .focus-mode .article {
+            opacity: 0.3;
+            transition: opacity 0.3s ease;
         }
 
-        ::-webkit-scrollbar-track {
-            background: var(--bg);
+        .focus-mode .article:hover,
+        .focus-mode .article.active {
+            opacity: 1;
         }
 
-        ::-webkit-scrollbar-thumb {
-            background: var(--border);
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 6rem;
+            right: 2rem;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px var(--shadow);
+            border: 1px solid var(--border);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            z-index: 1003;
         }
 
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--text-dim);
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        ::selection {
-            background: var(--accent);
-            color: var(--bg);
+        /* Search Bar */
+        .search-container {
+            position: relative;
+            margin-left: 1rem;
         }
 
-        .success-message {
-            display: none;
-            padding: 16px;
-            background: rgba(74, 222, 128, 0.1);
-            border: 1px solid var(--success);
-            color: var(--success);
-            margin-top: 16px;
-            font-family: 'IBM Plex Mono', monospace;
+        .search-input {
+            padding: 0.5rem 1rem 0.5rem 2.5rem;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
             font-size: 0.85rem;
+            width: 150px;
+            transition: all 0.3s ease;
+            outline: none;
         }
 
-        .success-message.visible {
-            display: block;
+        .search-input:focus {
+            width: 200px;
+            border-color: var(--accent);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 0.8rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
         }
     </style>
+<base target="_blank">
 </head>
 <body>
-    <div class="reading-progress" id="progress-bar"></div>
-    
-    <!-- 1. MENU STICKY -->
-    <div class="header-sticky" id="headerSticky">
-        <div class="header-sticky-content">
-            <div class="header-sticky-title" onclick="showPage('main'); showJournal();">JUST A GUY</div>
-            <nav class="header-sticky-nav">
-                <a href="#" onclick="showPage('main'); showJournal();" id="nav-journal">Journal</a>
-                <a href="#" onclick="showAbout()" id="nav-about">Qui suis-je</a>
-                <a href="#" onclick="showTestimonials()" id="nav-testimonials">Témoignages</a>
-                <a href="#" onclick="showPrayer()" id="nav-prayer">Prière</a>
-                <a href="#" onclick="showConnect()" id="nav-connect">Me suivre</a>
-            </nav>
-        </div>
+    <div class="reading-progress" id="readingProgress"></div>
+
+    <div class="focus-indicator" id="focusIndicator">
+        ✨ Mode Focus activé
     </div>
 
-    <!-- BARRE DE CONTRÔLES -->
-    <div class="controls-bar" id="controlsBar">
-        <!-- 3. RECHERCHE -->
-        <div class="search-container">
-            <button class="control-btn" onclick="toggleSearch()">⌕</button>
-            <input type="text" class="search-input" id="searchInput" placeholder="Rechercher..." oninput="performSearch(this.value)">
-            <div class="search-results" id="searchResults"></div>
-        </div>
-        
-        <!-- 8. TAILLE POLICE -->
+    <div class="nav-container">
+        <nav>
+            <a href="#" class="logo">JUST A GUY</a>
+            <ul class="nav-links">
+                <li><a href="#journal" class="active">Journal</a></li>
+                <li><a href="#about">À propos</a></li>
+                <li><a href="#archives">Archives</a></li>
+                <li class="search-container">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" class="search-input" placeholder="Rechercher..." id="searchInput">
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="breadcrumb">
+        <a href="#">Accueil</a> <span>/</span> <a href="#">Journal</a> <span>/</span> Article 1
+    </div>
+
+    <div class="controls-bar">
+        <button class="control-btn" id="themeToggle" title="Mode nuit/clair">
+            🌙
+        </button>
+        <button class="control-btn" id="focusToggle" title="Mode focus">
+            👁️
+        </button>
         <div class="font-size-controls">
-            <button class="control-btn" onclick="changeFontSize(-1)">A-</button>
-            <button class="control-btn" onclick="changeFontSize(1)">A+</button>
-        </div>
-        
-        <!-- 7. MODE NUIT/CLAIR -->
-        <button class="control-btn theme-toggle" onclick="toggleTheme()"></button>
-    </div>
-
-    <!-- Cookie Banner -->
-    <div id="cookie-banner" class="cookie-banner">
-        <div class="cookie-content">
-            <p class="cookie-text">
-                Ce site utilise des cookies pour améliorer ton expérience. 
-                <a href="#" onclick="showPage('privacy')">En savoir plus</a>.
-            </p>
-            <div class="cookie-buttons">
-                <button class="cookie-btn accept" onclick="acceptCookies()">Accepter</button>
-                <button class="cookie-btn" onclick="refuseCookies()">Refuser</button>
-                <button class="cookie-btn" onclick="showPage('privacy')">Personnaliser</button>
-            </div>
+            <button class="control-btn" id="fontIncrease" title="Augmenter la taille">A+</button>
+            <button class="control-btn" id="fontDecrease" title="Diminuer la taille">A-</button>
         </div>
     </div>
 
-    <!-- Subscribe Modal -->
-    <div id="subscribe-modal" class="modal-overlay" onclick="closeModal(event)">
-        <div class="modal-content" onclick="event.stopPropagation()">
-            <div class="modal-header">
-                <h3 class="modal-title">Rester en lien</h3>
-                <button class="modal-close" onclick="closeModal()">&times;</button>
-            </div>
-            <div class="modal-body">
-                <p style="color: var(--text-dim); margin-bottom: 24px; font-size: 0.95rem; line-height: 1.6;">
-                    Tu peux laisser ton mail pour être prévenu des nouveaux articles — pas de spam, juste un message quand j'ai quelque chose à dire qui vaut le coup.
-                </p>
-                
-                <form action="https://formspree.io/f/mzdabpga" method="POST" class="comment-form">
-                    <div class="form-group">
-                        <label for="newsletter-email">Ton email</label>
-                        <input type="email" id="newsletter-email" name="email" required placeholder="ton@email.com">
-                    </div>
-                    
-                    <input type="hidden" name="_subject" value="Nouvel abonné newsletter - JUST A GUY">
-                    
-                    <button type="submit" class="submit-btn" style="margin-top: 16px;">S'abonner</button>
-                </form>
-                
-                <p style="color: var(--text-dim); font-size: 0.85rem; margin-top: 16px; font-style: italic;">
-                    Pas de fréquence fixe, juste quand il y a du vrai.
-                </p>
-            </div>
-        </div>
-    </div>
-
-    <!-- MODE FOCUS BUTTON -->
-    <button class="focus-mode-btn" id="focusBtn" onclick="toggleFocus()">Mode Focus</button>
-
-    <!-- 6. SAUVEGARDE POSITION -->
-    <div class="reading-position" id="readingPosition">Reprise de la lecture</div>
-
-    <!-- 12. NEWSLETTER STICKY -->
-    <div class="newsletter-sticky" id="newsletterSticky">
-        <button class="newsletter-sticky-close" onclick="closeNewsletterSticky()">&times;</button>
-        <div class="newsletter-sticky-title">// Newsletter</div>
-        <p class="newsletter-sticky-text">Sois prévenu des nouveaux articles. Pas de spam.</p>
-        <button class="newsletter-sticky-btn" onclick="openModal('subscribe-modal'); closeNewsletterSticky();">S'abonner</button>
-    </div>
-
-    <!-- Main Content -->
-    <div id="main-content" class="page-section active">
-        <div class="container">
-            <header>
-                <h1 class="site-title typing" id="typewriter">JUST A GUY</h1>
-                <p class="tagline">un gars, une foi, une voix</p>
-                
-                <nav>
-                    <ul>
-                        <li><a onclick="showJournal()">Journal</a></li>
-                        <li><a onclick="showAbout()">Qui suis-je</a></li>
-                        <li><a onclick="showTestimonials()">Témoignages</a></li>
-                        <li><a onclick="showPrayer()">Prière</a></li>
-                        <li><a onclick="showConnect()">Me suivre</a></li>
-                    </ul>
-                </nav>
+    <aside class="toc" id="toc">
+        <h3>Sommaire</h3>
+        <ul id="tocList">
+            <!-- Généré dynamiquement -->
+        </ul>
+    </aside>
+            
+    <main id="mainContent">
+        <!-- Article 1 Full -->
+        <article class="article" data-id="1">
+            <header class="article-header">
+                <div class="article-meta">
+                    <span class="badge-new">Nouveau</span>
+                    <time datetime="2026-02-06">06 Février 2026</time>
+                    <span>•</span>
+                    <span>5 min de lecture</span>
+                </div>
+                <h1 class="article-title" id="title-1">Je me nomme, je m'appelle...</h1>
             </header>
 
-            <!-- Fil d'Ariane -->
-            <div class="breadcrumb" id="breadcrumb">
-                <a href="#" onclick="showJournal()">Journal</a>
+            <div class="article-content">
+                <p>Je me nomme, je m'appelle… cette phrase me fait encore sourire aujourd'hui. Elle me fait visiter une partie de ma vie qui était assez simple. Pleine d'insouciance. J'étais juste un jeune dans mon quartier, entouré de mes amis avec lesquels je jouais au foot, je faisais du vélo…</p>
+
+                <h2 id="section-1-1">L'anecdote</h2>
+                <p>Bon, allons à l'anecdote. Un concours de Miss a été organisé dans mon quartier et presque toutes les jeunes filles s'étaient inscrites. Évidemment, ma petite sœur (oui, j'en ai une) était l'une des participantes qui visait la couronne.</p>
+
+                <p>Le concours s'est bien déroulé. La majorité des passages, en ce qui concerne les défilés, a été apprécié. Sans oublier, les moqueries des spectateurs. En particulier, les frères aînés qui se chambraient mutuellement.</p>
+
+                <h2 id="section-1-2">Le moment tant attendu</h2>
+                <p>Le moment le plus attendu de la compétition arriva. C'était la partie des discours. Après des passages qui nous ont bien fait rigoler, voilà, ma petite sœur, qui arrive toute enthousiaste sous les feux des projecteurs.</p>
+
+                <p>Mon cœur se mit à battre plus fort parce que je savais qu'une seule erreur suffisait pour me faire charrier pendant des jours. Et là, elle prit la parole. Un silence semblable à l'atmosphère d'un cimetière se fit entendre.</p>
+
+                <p>Puis j'entendis, d'une voix incroyablement confiante, <strong>Je me nomme, je m'appelle Marie-Emmanuelle</strong>. Aaaaaah c'était fait. Tout le monde se mit à rire aux éclats y compris moi parce que je pouvais m'attendre à tout sauf ça.</p>
+
+                <h2 id="section-1-3">Un souvenir impérissable</h2>
+                <p>C'était une scène épique. Je ne pourrai jamais oublier cette histoire. Merci à toi, ma petite sœur, pour ce beau souvenir qui me fait encore sourire bêtement quand j'y pense.</p>
             </div>
 
-            <!-- Journal List View -->
-            <main id="journal-list">
-                <h3 class="about-title mono">// Journal</h3>
-                <p style="color: var(--text-dim); margin-bottom: 40px; font-size: 0.95rem; line-height: 1.6;">
-                    Clique sur un titre pour lire.
-                </p>
-                
-                <div class="article-list" id="articleList">
-                    <article class="article-preview new" onclick="showArticle('article-1')" data-title="Je me nomme, je m'appelle..." data-date="2026-02-06">
-                        <time class="post-date mono" data-date="2026-02-06">06 Février 2026</time>
-                        <h2 class="article-title">Je me nomme, je m'appelle...</h2>
-                    </article>
+            <div class="reactions">
+                <button class="reaction-btn" data-reaction="heart" onclick="toggleReaction(this)">
+                    <span>❤️</span>
+                    <span class="reaction-count">0</span>
+                </button>
+                <button class="reaction-btn" data-reaction="fire" onclick="toggleReaction(this)">
+                    <span>🔥</span>
+                    <span class="reaction-count">0</span>
+                </button>
+                <button class="reaction-btn" data-reaction="pray" onclick="toggleReaction(this)">
+                    <span>🙏</span>
+                    <span class="reaction-count">0</span>
+                </button>
+            </div>
+
+            <div class="share-section">
+                <div class="share-title">Partager</div>
+                <div class="share-buttons">
+                    <button class="share-btn" onclick="copyLink()">
+                        <span>📋</span> Copier le lien
+                    </button>
+                    <a href="#" class="share-btn" onclick="shareWhatsApp(event)">
+                        <span>💬</span> WhatsApp
+                    </a>
+                    <a href="#" class="share-btn" onclick="shareTwitter(event)">
+                        <span>🐦</span> Twitter
+                    </a>
+                </div>
+            </div>
+        </article>
+
+        <!-- Article 2 Full -->
+        <article class="article" data-id="2">
+            <header class="article-header">
+                <div class="article-meta">
+                    <span class="badge-new">Nouveau</span>
+                    <time datetime="2026-02-19">19 Février 2026</time>
+                    <span>•</span>
+                    <span>8 min de lecture</span>
+                </div>
+                <h1 class="article-title" id="title-2">Comment j'arrive à la musique ?</h1>
+            </header>
+    
+            <div class="article-content">
+                <p>Déjà j'aimais beaucoup la musique, j'pense un peu comme tout le monde. Je me demande comment serait le monde dans lequel on vit sans musique. Je n'arrive pas l'imaginer. <strong>Même dans le ciel, Dieu, notre Père, a des anges qui chantent en son honneur.</strong> Sachant qu'il nous a fait à son image et à sa ressemblance, c'est sans doute logique que nous aimions aussi que la musique soit dans notre environnement.</p>
+        
+                <h2 id="section-2-1">Les premières notes</h2>
+                <p>Je me rappelle les séances de relaxation de mon papa les soirs, en week-end. Le lecteur de musique et ses voyants allumés. La table basse du salon qui s'ouvre, permettant d'accéder aux disques compactes de différents genres musicaux. Allant de la variété française, au jazz en passant par les caraïbes pour enfin atterrir sur le continent africain. <strong>Ce cocktail de sonorité se frayait inconsciemment un chemin dans mes oreilles.</strong></p>
+        
+                <p>Ce n'est qu'en deuxième année d'université que j'ai découvert le monde actif de la musique. Ce monde est pour moi, celui des créateurs. Le monde passif étant celui des consommateurs. Je sais, tu me diras que les créateurs sont aussi des consommateurs, oui, tu as raison. Bon, mettons alors dans le passif les personnes qui ne font que consommer.</p>
+        
+                <h2 id="section-2-2">La rencontre qui change tout</h2>
+                <p>Un ami, Dao Cheikh Omar, aaaah je bénis le Seigneur pour cette rencontre. <strong>C'est par cette amitié que ma vie a basculé.</strong> Il me faisait écouter des chansons de temps en temps. Et, je les aimais beaucoup. Puis vient ce jour, où il me fait une confidence. <em>« Tu sais que ce sont mes chansons ? »</em>. Moi, étonné, je réponds <em>« noooon sérieux ? »</em>. Et, il me le confirme.</p>
+        
+                <p><strong>Ça peut paraître stupide mais pour moi c'était incroyable parce que j'ai toujours vu les artistes à la télévision et écouter leurs œuvres sans penser une seule fois que j'en étais capable.</strong> De plus, je ne connais personne dans ma famille ni parmi mes amis toutes les années précédentes qui ait composé une chanson. Ou même qui ait manifesté ce désir. Là, mes yeux se sont comme ouverts. Les écailles qui les couvraient sont tombées. Je lui dis alors que j'aimerais apprendre à chanter et il devient mon mentor. C'est ce jour que j'ai appris à télécharger des instrus de YouTube et à m'essayer dans l'écriture.</p>
+        
+                <h2 id="section-2-3">L'obsession créative</h2>
+                <p>Au début, je ne réussissais qu'à écrire un couplet. Avec la pratique et du temps, j'ai réussi à écrire une chanson entière. Le simple fait de faire un couplet était un exploit donc imagine l'état de mon âme quand une chanson était complète. C'était comme une obsession. Soir et matin. Nuit et jour. J'avais mes écouteurs soit à la recherche d'instrus intéressantes, soit à la recherche de mélodies et de paroles. Tout le temps, enfermé dans ma chambre en train de chanter mes compositions.</p>
+        
+                <p>Petit à petit, chaque fois que j'allais vers mon ami et mentor, il me disait que le potentiel y était et m'encourageait à persévérer. Au bout de 2 à 3 ans de pratique, mon évolution était remarquable. Mes frères était ma première audience. Ils m'ont soutenu dans cette aventure. J'profite pour dire ceci, <strong>un projet est comme un bébé. Et, un bébé est vulnérable donc on ne l'expose pas à n'importe qui. Du fait de sa fragilité on peut facilement le tuer.</strong> Beaucoup de personne autour de nous sont des tueurs de projet. Que celui qui a des oreilles entende.</p>
+        
+                <h2 id="section-2-4">ABBA voit le jour</h2>
+                <p>Aujourd'hui, pendant que j'écris ceci, cela fait 11 ans que j'écris des chansons. Et, mon premier projet, un EP intitulé <strong>ABBA</strong> est disponible sur les plateformes de musique depuis le 17 janvier 2026. Dans l'onglet <em>« Me suivre »</em>, vers la fin de page, tu verras <em>« Soutenir le projet »</em>. Là, tu pourras cliquer sur le lien qui te convient que ce soit Spotify ou Apple Music.</p>
+        
+                <p>Pendant longtemps, des amis qui écoutaient des freestyles que je mettais sur Facebook me disaient de rendre disponible mes compositions sur les plateformes mais je n'en avais pas encore la conviction. J'expliquerai la raison dans les prochains écrits. D'ici là, prends soins de toi et à la prochaine !</p>
+            </div>
+
+            <div class="reactions">
+                <button class="reaction-btn" data-reaction="heart" onclick="toggleReaction(this)">
+                    <span>❤️</span>
+                    <span class="reaction-count">0</span>
+                </button>
+                <button class="reaction-btn" data-reaction="fire" onclick="toggleReaction(this)">
+                    <span>🔥</span>
+                    <span class="reaction-count">0</span>
+                </button>
+                <button class="reaction-btn" data-reaction="pray" onclick="toggleReaction(this)">
+                    <span>🙏</span>
+                    <span class="reaction-count">0</span>
+                </button>
+            </div>
+
+            <div class="share-section">
+                <div class="share-title">Partager</div>
+                <div class="share-buttons">
+                    <button class="share-btn" onclick="copyLink()">
+                        <span>📋</span> Copier le lien
+                    </button>
+                    <a href="#" class="share-btn" onclick="shareWhatsApp(event)">
+                        <span>💬</span> WhatsApp
+                    </a>
+                    <a href="#" class="share-btn" onclick="shareTwitter(event)">
+                        <span>🐦</span> Twitter
+                    </a>
+                </div>
+            </div>
+        </article>
+    </main>
+
+    <div class="newsletter-sticky" id="newsletter">
+        <span class="newsletter-text">📧 Recevoir les nouvelles histoires</span>
+        <form class="newsletter-form" onsubmit="subscribeNewsletter(event)">
+            <input type="email" class="newsletter-input" placeholder="votre@email.com" required>
+            <button type="submit" class="newsletter-btn">S'abonner</button>
+        </form>
+        <button class="close-newsletter" onclick="closeNewsletter()">×</button>
+    </div>
+
+    <div class="toast" id="toast"></div>
+    <!-- Privacy Policy Page -->
+    <div id="privacy-page" class="page-section" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-primary); z-index: 2000; overflow-y: auto;">
+        <div style="max-width: 800px; margin: 0 auto; padding: 2rem;">
+            <a href="#" class="back-link-legal" onclick="showPage('main')" style="display: inline-flex; align-items: center; gap: 0.5rem; color: var(--accent); text-decoration: none; font-family: 'Inter', sans-serif; margin-bottom: 2rem; transition: transform 0.3s ease;" onmouseover="this.style.transform='translateX(-5px)'" onmouseout="this.style.transform='translateX(0)'">← Retour au site</a>
+            
+            <div class="legal-section" style="background: var(--bg-secondary); border: 1px solid var(--border); padding: 3rem; border-radius: 12px;">
+                <div class="legal-content" style="font-family: 'Inter', sans-serif; font-size: 0.95rem; line-height: 1.8; color: var(--text-primary);">
+                    <h2 style="font-size: 2rem; margin-bottom: 1.5rem; font-weight: 600;">Politique de confidentialité</h2>
                     
-                    <article class="article-preview new" onclick="showArticle('article-2')" data-title="Comment j'arrive à la musique ?" data-date="2026-02-19">
-                        <time class="post-date mono" data-date="2026-02-19">19 Février 2026</time>
-                        <h2 class="article-title">Comment j'arrive à la musique ?</h2>
-                    </article>
-                </div>
-            </main>
-            
-            <!-- 5. SOMMAIRE FLOTTANT -->
-            <div class="toc-sidebar" id="tocSidebar">
-                <div class="toc-title">// Sommaire</div>
-                <ul class="toc-list" id="tocList">
-                    <!-- Généré dynamiquement -->
-                </ul>
-            </div>
-
-            <!-- 10. PARTAGE NATIF -->
-            <div class="share-bar" id="shareBar">
-                <button class="share-btn" onclick="copyLink()" title="Copier le lien">🔗</button>
-                <button class="share-btn" onclick="shareWhatsApp()" title="WhatsApp">📱</button>
-                <button class="share-btn" onclick="shareTwitter()" title="Twitter">𝕏</button>
-            </div>
-            
-            <!-- Article 1 Full -->
-            <div id="article-1" class="article-full" data-title="Je me nomme, je m'appelle...">
-                <a href="#" class="back-link" onclick="showJournal()">← Retour au journal</a>
-                
-                <!-- 11. RÉACTIONS EMOJI -->
-                <div class="reactions-bar">
-                    <button class="reaction-btn" onclick="toggleReaction(this, '❤️')">
-                        ❤️ <span class="reaction-count">12</span>
-                    </button>
-                    <button class="reaction-btn" onclick="toggleReaction(this, '🔥')">
-                        🔥 <span class="reaction-count">8</span>
-                    </button>
-                    <button class="reaction-btn" onclick="toggleReaction(this, '🙏')">
-                        🙏 <span class="reaction-count">15</span>
-                    </button>
-                    <button class="reaction-btn" onclick="toggleReaction(this, '💭')">
-                        💭 <span class="reaction-count">3</span>
-                    </button>
-                </div>
-                
-                <article class="post">
-                    <time class="post-date mono" data-date="2026-02-06">06 Février 2026</time>
-                    <h2 class="post-title">Je me nomme, je m'appelle...</h2>
-                    <div class="post-content" id="content-1">
-                        <p>
-                           <q>Je me nomme, je m'appelle…</q> cette phrase me fait encore sourire aujourd'hui. 
-                            Elle me fait visiter une partie de ma vie qui était assez simple. Pleine d'insouciance. J'étais juste un jeune dans mon quartier, entouré de mes amis avec lesquels je jouais au foot, je faisais du vélo…
-                        </p>
-                        <p>
-                            Bon, allons à l'anecdote. 
-                            Un concours de Miss a été organisé dans mon quartier et presque toutes les jeunes filles s'étaient inscrites. Évidemment, ma petite sœur (oui, j'en ai une) était l'une des participantes qui visait la couronne. 
-                            Le concours s'est bien déroulé. La majorité des passages, en ce qui concerne les défilés, a été apprécié. Sans oublier, les moqueries des spectateurs. En particulier, les frères aînés qui se chambraient mutuellement. 
-                        </p>
-                        <p>
-                            Le moment le plus attendu de la compétition arriva. C'était la partie des discours.
-                            Après des passages qui nous ont bien fait rigoler, voilà, ma petite sœur, qui arrive toute enthousiaste sous les feux des projecteurs. 
-                            Mon cœur se mit à battre plus fort parce que je savais <strong>qu'une seule erreur suffisait pour me faire charrier pendant des jours</strong>.
-                            Et là, elle prit la parole. 
-                            Un silence semblable à l'atmosphère d'un cimetière se fit entendre. 
-                            Puis j'entendis, d'une voix incroyablement confiante, <q><strong>Je me nomme, je m'appelle Marie-Emmanuelle</strong></q>
-                        </p>
-                        <p>
-                            Aaaaaah c'était fait. 
-                            Tout le monde se mit à rire aux éclats y compris moi parce que je pouvais m'attendre à tout sauf ça.
-                            C'était une scène épique. Je ne pourrai jamais oublier cette histoire.
-                        </p>
-                        <p>
-                            Merci à toi, ma petite sœur, pour ce beau souvenir qui me fait encore sourire bêtement quand j'y pense.
-                        </p>
-                    </div>
-
-                    <!-- MESSAGE PRIVÉ -->
-                    <div class="comments-section">
-                        <h3 class="comments-title">// Me laisser un message</h3>
-                        <p style="color: var(--text-dim); margin-bottom: 24px; font-size: 0.95rem; line-height: 1.6;">
-                            Envie de partager ton ressenti ? Envoie-moi un message directement, je le lirai personnellement.
-                        </p>
-                        
-                        <form class="comment-form" action="https://formspree.io/f/mjgebnoe" method="POST">
-                            <div class="form-group">
-                                <label for="name-1">Ton prénom ou pseudo</label>
-                                <input type="text" id="name-1" name="name" required placeholder="Comment tu veux qu'on t'appelle ?">
-                            </div>
-                            <div class="form-group">
-                                <label for="comment-1">Ton message</label>
-                                <textarea id="comment-1" name="message" required placeholder="Ce texte t'a fait penser à quoi ? Tu as une anecdote de famille à partager ?"></textarea>
-                            </div>
-                            <input type="hidden" name="_subject" value="Nouveau message privé - JUST A GUY">
-                            <button type="submit" class="submit-btn">Envoyer</button>
-                            <p class="moderation-note">Ton message reste privé — je lis tout personnellement.</p>
-                        </form>
-                    </div>
-                </article>
-            </div>
-            
-            <!-- Article 2 Full -->
-            <div id="article-2" class="article-full" data-title="Comment j'arrive à la musique ?">
-                <a href="#" class="back-link" onclick="showJournal()">← Retour au journal</a>
-                
-                <!-- RÉACTIONS EMOJI -->
-                <div class="reactions-bar">
-                    <button class="reaction-btn" onclick="toggleReaction(this, '❤️')">
-                        ❤️ <span class="reaction-count">24</span>
-                    </button>
-                    <button class="reaction-btn" onclick="toggleReaction(this, '🔥')">
-                        🔥 <span class="reaction-count">18</span>
-                    </button>
-                    <button class="reaction-btn" onclick="toggleReaction(this, '🙏')">
-                        🙏 <span class="reaction-count">31</span>
-                    </button>
-                    <button class="reaction-btn" onclick="toggleReaction(this, '🎵')">
-                        🎵 <span class="reaction-count">12</span>
-                    </button>
-                </div>
-                
-                <article class="post">
-                    <time class="post-date mono" data-date="2026-02-19">19 Février 2026</time>
-                    <h2 class="post-title">Comment j'arrive à la musique ?</h2>
-                    <div class="post-content" id="content-2">
-                        <p>
-                           Déjà j'aimais beaucoup la musique, j'pense un peu comme tout le monde. Je me demande comment serait le monde dans lequel on vit sans musique. 
-                           Je n'arrive pas l'imaginer. 
-                           <b> Même dans le ciel, Dieu, notre Père, a des anges qui chantent en son honneur. </b>
-                           Sachant qu'il nous a fait à son image et à sa ressemblance, c'est sans doute logique que nous aimions aussi que la musique soit dans notre environnement.
-                        </p>    
-                        <p>
-                            Je me rappelle les séances de relaxation de mon papa les soirs, en week-end. 
-                            Le lecteur de musique et ses voyants allumés. 
-                            La table basse du salon qui s'ouvre, permettant d'accéder aux disques compactes de différents genres musicaux. Allant de la variété française, au jazz en passant par les caraïbes pour enfin atterrir sur le continent africain. 
-                        </p>    
-                        <p>
-                            <b> Ce cocktail de sonorité se frayait inconsciemment un chemin dans mes oreilles. </b>
-                            Ce n'est qu'en deuxième année d'université que j'ai découvert le monde actif de la musique. 
-                            Ce monde est pour moi, celui des créateurs. Le monde passif étant celui des consommateurs. 
-                            Je sais, tu me diras que les créateurs sont aussi des consommateurs, oui, tu as raison. 
-                            Bon, mettons alors dans le passif les personnes qui ne font que consommer. 
-                        </p>
-                        <p>
-                            Un ami, Dao Cheikh Omar, aaaah je bénis le Seigneur pour cette rencontre. <b> C'est par cette amitié que ma vie a basculé. </b>
-                            Il me faisait écouter des chansons de temps en temps. Et, je les aimais beaucoup. 
-                            Puis vient ce jour, où il me fait une confidence. <q> Tu sais que ce sont mes chansons ? </q>.
-                            Moi, étonné, je réponds <q> noooon sérieux ? </q>. Et, il me le confirme. 
-                        </p>
-                        <p>
-                            <b> Ça peut paraître stupide mais pour moi c'était incroyable parce que j'ai toujours vu les artistes à la télévision et écouter leurs œuvres sans penser une seule fois que j'en étais capable. </b>
-                            De plus, je ne connais personne dans ma famille ni parmi mes amis toutes les années précédentes qui ait composé une chanson. Ou même qui ait manifesté ce désir. 
-                            Là, mes yeux se sont comme ouverts. Les écailles qui les couvraient sont tombées. 
-                            Je lui dis alors que j'aimerais apprendre à chanter et il devient mon mentor. 
-                            C'est ce jour que j'ai appris à télécharger des instrus de YouTube et à m'essayer dans l'écriture.
-                        </p>
-                        <p>
-                            Au début, je ne réussissais qu'à écrire un couplet. 
-                            Avec la pratique et du temps, j'ai réussi à écrire une chanson entière. Le simple fait de faire un couplet était un exploit donc imagine l'état de mon âme quand une chanson était complète. 
-                            C'était comme une obsession. Soir et matin. Nuit et jour. 
-                            J'avais mes écouteurs soit à la recherche d'instrus intéressantes, soit à la recherche de mélodies et de paroles. 
-                            Tout le temps, enfermé dans ma chambre en train de chanter mes compositions.
-                        </p>
-                        <p>
-                            Petit à petit, chaque fois que j'allais vers mon ami et mentor, il me disait que le potentiel y était et m'encourageait à persévérer. 
-                            Au bout de 2 à 3 ans de pratique, mon évolution était remarquable. 
-                            Mes frères était ma première audience. Ils m'ont soutenu dans cette aventure. 
-                            J'profite pour dire ceci, <b> un projet est comme un bébé. Et, un bébé est vulnérable donc on ne l'expose pas à n'importe qui. Du fait de sa fragilité on peut facilement le tuer. </b> 
-                            Beaucoup de personne autour de nous sont des tueurs de projet. 
-                            Que celui qui a des oreilles entende.
-                        </p>
-                        <p>
-                            Aujourd'hui, pendant que j'écris ceci, cela fait 11 ans que j'écris des chansons. 
-                            Et, mon premier projet, un EP intitulé <b> ABBA </b> est disponible sur les plateformes de musique depuis le 17 janvier 2026.
-                            Dans l'onglet <q> Me suivre </q>, vers la fin de page, tu verras <q> Soutenir le projet </q>. 
-                        </p>
-                        <p>
-                            Là, tu pourras cliquer sur le lien qui te convient que ce soit Spotify ou Apple Music.
-                            Pendant longtemps, des amis qui écoutaient des freestyles que je mettais sur Facebook me disaient de rendre disponible mes compositions sur les plateformes mais je n'en avais pas encore la conviction. 
-                            J'expliquerai la raison dans les prochains écrits. 
-                            D'ici là, prends soins de toi et à la prochaine !
-                        </p>
-                    </div>
-
-                    <!-- MESSAGE PRIVÉ -->
-                    <div class="comments-section">
-                        <h3 class="comments-title">// Me laisser un message</h3>
-                        <p style="color: var(--text-dim); margin-bottom: 24px; font-size: 0.95rem; line-height: 1.6;">
-                            Envie de partager ton ressenti ? Envoie-moi un message directement, je le lirai personnellement.
-                        </p>
-                        
-                        <form class="comment-form" action="https://formspree.io/f/mjgebnoe" method="POST">
-                            <div class="form-group">
-                                <label for="name-2">Ton prénom ou pseudo</label>
-                                <input type="text" id="name-2" name="name" required placeholder="Comment tu veux qu'on t'appelle ?">
-                                <div class="form-group"><label for="comment-2">
-<textarea id="comment-2" name="message" required placeholder="T'as quelque chose à partager ? Vas-y, feel free">
-    <input type="hidden" name="_subject" value="Nouveau message privé - JUST A GUY"><button type="submit" class="submit-btn">
-<p class="moderation-note">
-            <!-- About Section -->
-        <section id="about" class="about-section" style="display: none;">
-            <h3 class="about-title mono">// Qui suis-je</h3>
-            
-            <img src="https://raw.githubusercontent.com/Jahbarii/JUST-A-GUY/main/photo.jpg" 
-                 alt="Jahbarii" 
-                 class="about-photo"
-                 onerror="this.style.display='none'">
-            
-            <div class="about-content">
-                <p>
-                    Je ne suis pas venu pour distraire. Je suis là pour rappeler.
-                    Mon art est un retour vers l'Origine. Un cri dans la brume, une lumière dans la vallée.
-                    Je t'invite à écouter, à réfléchir, à te reconnecter. 
-                    Dans un monde qui vend du rêve, je choisis de vendre du réel. Mes doutes, mes espoirs, mes faiblesses, mes victoires...
-                </p>
-                <p>
-                    Je suis Jahbarii. 
-                    Juste un gars qui fait de la musique pour glorifier son Père <strong> (Dieu) </strong> et partager sa foi dans l'objectif d'aider ses frères à travers le monde à revenir à la Source. 
-                    J'ai 28 ans, une foi qui tient debout malgré les épreuves par la grâce reçu en <strong> Jésus-Christ </strong> car tout est grâce.
-                </p>
-                <p>
-                    Tu n'as pas besoin d'être réligieux mais tu as besoin de vérité. 
-                    Cette vérité est une personne avec laquelle une relation est indispensable pour un bien-être vrai et durable.
-                    Si seulement tu ouvres ton coeur, tu pourras l'entendre.
-                </p>
-                <p class="mono" style="color: var(--text-dim); margin-top: 32px; font-size: 0.9rem;">
-                    Un gars, une foi, une voix.
-                </p>
-            </div>
-        </section>
-
-        <!-- Testimonials Section -->
-        <section id="testimonials" class="testimonials-section" style="display: none;">
-            <h3 class="about-title mono">// Témoignages</h3>
-            <p class="testimonials-intro">
-                Un espace pour partager ce que Dieu fait dans nos vies. Pas pour performer, mais pour édifier. Témoigne de ce qui t'anime, ce que tu traverses, ou comment la foi te soutient. Ensemble, on avance.
-            </p>
-
-            <form class="testimonial-form" onsubmit="handleTestimonial(event)">
-                <div class="form-group">
-                    <label for="testimonial-name">Ton prénom (ou anonyme)</label>
-                    <input type="text" id="testimonial-name" placeholder="Comment tu veux signer ?">
-                </div>
-                <div class="form-group">
-                    <label for="testimonial-content">Ton témoignage</label>
-                    <textarea id="testimonial-content" required placeholder="Partage ce que tu veux... un verset qui t'a parlé, une victoire, un combat, une gratitude..."></textarea>
-                </div>
-                <button type="submit" class="submit-btn">Partager le témoignage</button>
-                <p class="moderation-note">Je relis chaque témoignage avant publication pour préserver la bienveillance de cet espace.</p>
-            </form>
-
-            <div class="success-message" id="testimonial-success">
-                Merci pour ce partage. Il sera publié après relecture.
-            </div>
-
-            <div class="testimonials-grid">
-                <div class="testimonial-card">
-                    <p class="testimonial-text">
-                        "J'ai découvert ce blog par hasard alors que je traversais une période de doute profond. Lire que quelqu'un d'autre se lève à 6h par anxiété m'a fait me sentir moins seule. Aujourd'hui, je remonte la pente, pas encore arrivée, mais en chemin."
+                    <p style="margin-bottom: 1.5rem; color: var(--text-secondary);">
+                        Cette politique de confidentialité décrit comment JUST A GUY (Jahbarii) collecte, utilise et protège tes données personnelles lorsque tu utilises ce site.
                     </p>
-                    <div class="testimonial-author">Marie</div>
-                    <div class="testimonial-date">Partagé il y a 3 jours</div>
-                </div>
 
-                <div class="testimonial-card">
-                    <p class="testimonial-text">
-                        "La phrase 'Le succès est une vague. La foi est l'océan.' est devenue mon fond d'écran. Je la relis chaque matin avant d'aller au travail. Ça change la perspective."
+                    <h3 style="font-size: 1.1rem; margin: 2rem 0 1rem; color: var(--text-primary); font-weight: 600;">1. Responsable du traitement</h3>
+                    <p style="margin-bottom: 1rem;">
+                        <strong>Nom :</strong> Jahbarii (artiste indépendant)<br>
+                        <strong>Contact :</strong> via les réseaux sociaux listés sur le site<br>
+                        <strong>Hébergeur :</strong> GitHub Pages
                     </p>
-                    <div class="testimonial-author">Thomas</div>
-                    <div class="testimonial-date">Partagé il y a 1 semaine</div>
-                </div>
 
-                <div class="testimonial-card">
-                    <p class="testimonial-text">
-                        "Je ne suis pas croyant, mais je lis chaque article. Il y a une authenticité ici qui me touche. Ça me rappelle qu'on est tous en train de chercher, peu importe vers quoi."
+                    <h3 style="font-size: 1.1rem; margin: 2rem 0 1rem; color: var(--text-primary); font-weight: 600;">2. Données collectées</h3>
+                    <p style="margin-bottom: 1rem;">Nous collectons uniquement les données que tu choisis de nous communiquer :</p>
+                    <ul style="margin-left: 1.5rem; margin-bottom: 1.5rem; color: var(--text-secondary);">
+                        <li style="margin-bottom: 0.5rem;"><strong>Messages privés :</strong> Prénom/pseudo et contenu du message</li>
+                        <li style="margin-bottom: 0.5rem;"><strong>Témoignages :</strong> Prénom (optionnel) et contenu du témoignage</li>
+                        <li style="margin-bottom: 0.5rem;"><strong>Demandes de prière :</strong> Prénom (optionnel) et contenu de la demande (strictement confidentiel)</li>
+                        <li style="margin-bottom: 0.5rem;"><strong>Newsletter :</strong> Adresse email uniquement</li>
+                        <li style="margin-bottom: 0.5rem;"><strong>Cookies :</strong> Préférences de navigation (si tu acceptes)</li>
+                    </ul>
+
+                    <h3 style="font-size: 1.1rem; margin: 2rem 0 1rem; color: var(--text-primary); font-weight: 600;">3. Finalités du traitement</h3>
+                    <p style="margin-bottom: 1rem;">Tes données sont utilisées pour :</p>
+                    <ul style="margin-left: 1.5rem; margin-bottom: 1.5rem; color: var(--text-secondary);">
+                        <li style="margin-bottom: 0.5rem;">Te répondre personnellement aux messages privés</li>
+                        <li style="margin-bottom: 0.5rem;">T'envoyer les nouveaux articles si tu t'abonnes à la newsletter</li>
+                        <li style="margin-bottom: 0.5rem;">Prier pour tes demandes (confidentielles)</li>
+                        <li style="margin-bottom: 0.5rem;">Améliorer l'expérience utilisateur</li>
+                    </ul>
+
+                    <h3 style="font-size: 1.1rem; margin: 2rem 0 1rem; color: var(--text-primary); font-weight: 600;">4. Base légale</h3>
+                    <p style="margin-bottom: 1.5rem;">
+                        Le traitement de tes données repose sur ton <strong>consentement explicite</strong> (article 6.1.a du RGPD). Tu peux retirer ce consentement à tout moment.
                     </p>
-                    <div class="testimonial-author">Anonyme</div>
-                    <div class="testimonial-date">Partagé il y a 2 semaines</div>
-                </div>
-            </div>
-        </section>
 
-        <!-- Prayer Section -->
-        <section id="prayer" class="prayer-section" style="display: none;">
-            <h3 class="about-title mono">// Demande de prière</h3>
-            <div class="prayer-content">
-                <p class="prayer-intro">
-                    Il y a des choses trop lourdes pour être portées seules. Si tu traverses quelque chose et que tu veux que quelqu'un prie avec toi, laisse un message ici. Je prie pour chaque demande personnellement.
-                </p>
+                    <h3 style="font-size: 1.1rem; margin: 2rem 0 1rem; color: var(--text-primary); font-weight: 600;">5. Durée de conservation</h3>
+                    <ul style="margin-left: 1.5rem; margin-bottom: 1.5rem; color: var(--text-secondary);">
+                        <li style="margin-bottom: 0.5rem;"><strong>Messages privés :</strong> 1 an maximum, puis suppression</li>
+                        <li style="margin-bottom: 0.5rem;"><strong>Newsletter :</strong> Jusqu'à désinscription</li>
+                        <li style="margin-bottom: 0.5rem;"><strong>Demandes de prière :</strong> 1 an maximum, puis suppression</li>
+                        <li style="margin-bottom: 0.5rem;"><strong>Cookies :</strong> 13 mois maximum</li>
+                    </ul>
 
-                <form class="prayer-form" onsubmit="handlePrayer(event)">
-                    <div class="form-group">
-                        <label for="prayer-name">Ton prénom (ou anonyme)</label>
-                        <input type="text" id="prayer-name" placeholder="Comment je peux t'appeler dans la prière ?">
-                    </div>
-                    <div class="form-group">
-                        <label for="prayer-request">Ta demande</label>
-                        <textarea id="prayer-request" required placeholder="Partage ce que tu veux... pas besoin de formules, juste ce qui pèse sur ton cœur."></textarea>
-                    </div>
-                    <button type="submit" class="submit-btn">Envoyer la demande</button>
-                    <p class="confidentiality-note">
-                        Cette demande reste entre toi et moi. Je ne partage jamais ces messages, sauf si tu me demandes explicitement d'en faire un témoignage.
+                    <h3 style="font-size: 1.1rem; margin: 2rem 0 1rem; color: var(--text-primary); font-weight: 600;">6. Tes droits</h3>
+                    <p style="margin-bottom: 1rem;">Conformément au RGPD, tu disposes des droits suivants :</p>
+                    <ul style="margin-left: 1.5rem; margin-bottom: 1.5rem; color: var(--text-secondary);">
+                        <li style="margin-bottom: 0.5rem;"><strong>Droit d'accès :</strong> Savoir quelles données te concernent</li>
+                        <li style="margin-bottom: 0.5rem;"><strong>Droit de rectification :</strong> Modifier des données inexactes</li>
+                        <li style="margin-bottom: 0.5rem;"><strong>Droit à l'effacement :</strong> Demander la suppression de tes données</li>
+                        <li style="margin-bottom: 0.5rem;"><strong>Droit d'opposition :</strong> Te désinscrire à tout moment</li>
+                        <li style="margin-bottom: 0.5rem;"><strong>Droit à la portabilité :</strong> Récupérer tes données</li>
+                    </ul>
+                    <p style="margin-bottom: 1.5rem;">
+                        Pour exercer ces droits, contacte-moi via les réseaux sociaux. Je réponds dans un délai de 30 jours maximum.
                     </p>
-                </form>
 
-                <div class="success-message" id="prayer-success">
-                    C'est reçu. Je prie pour toi dans les prochaines 24h.
+                    <h3 style="font-size: 1.1rem; margin: 2rem 0 1rem; color: var(--text-primary); font-weight: 600;">7. Sécurité</h3>
+                    <p style="margin-bottom: 1.5rem;">
+                        Tes données sont stockées de manière sécurisée. Les demandes de prière sont traitées avec une confidentialité absolue et ne sont jamais partagées publiquement sans ton consentement explicite.
+                    </p>
+
+                    <h3 style="font-size: 1.1rem; margin: 2rem 0 1rem; color: var(--text-primary); font-weight: 600;">8. Cookies</h3>
+                    <p style="margin-bottom: 1.5rem;">
+                        Ce site utilise des cookies essentiels au fonctionnement et, avec ton accord, des cookies d'analyse pour améliorer l'expérience. Tu peux modifier tes préférences à tout moment.
+                    </p>
+
+                    <p style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border); font-size: 0.85rem; color: var(--text-secondary); font-style: italic;">
+                        Dernière mise à jour : 20 février 2026<br>
+                        [Générée automatiquement - Version simplifiée RGPD]
+                    </p>
                 </div>
-            </div>
-        </section>
-
-        <!-- Connect Section -->
-        <section id="connect" class="connect-section" style="display: none;">
-            <h3 class="about-title mono">// Retrouve-moi Ici</h3>
-            <div class="connect-grid">
-                <a href="https://instagram.com/Jahbarii_on_di_gram" target="_blank" class="connect-link">
-                    <strong>Instagram</strong>
-                    @Jahbarii_on_di_gram
-                </a>
-                <a href="https://instagram.com/Jahbarii_on_di_side" target="_blank" class="connect-link">
-                    <strong>IG Secondaire</strong>
-                    @Jahbarii_on_di_side
-                </a>
-                <a href="https://tiktok.com/@Jahbarii" target="_blank" class="connect-link">
-                    <strong>TikTok</strong>
-                    @Jahbarii
-                </a>
-                <a href="https://open.spotify.com/artist/0slr5Qw4qjYzBoRC95cWJw" target="_blank" class="connect-link">
-                    <strong>Spotify</strong>
-                    Jahbarii
-                </a>
-                <a href="https://music.apple.com/us/artist/jahbarii/1693066953" target="_blank" class="connect-link">
-                    <strong>Apple Music</strong>
-                    Jahbarii
-                </a>
-            </div>
-
-            <div style="margin: 60px 0; text-align: center;">
-                <h3 class="about-title mono" style="margin-bottom: 24px;">// Soutenir le projet</h3>
-                <p class="donation-text" style="color: var(--text); font-size: 1.1rem; line-height: 1.8; margin-bottom: 32px;">
-                    Si ce contenu ou ma musique t'encourage, tu peux soutenir le projet librement. Les dons servent à financer la création musicale et les futurs albums. <em style="color: var(--text-dim); font-style: normal;">Aucun montant n'est trop petit.</em> Merci pour ton soutien.
-                </p>
-                
-                <div class="donation-options" style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-bottom: 24px;">
-                   <a href="https://paypal.me/PSokoury" target="_blank" class="donation-btn">Faire un don</a>
-                    <a href="https://open.spotify.com/artist/0slr5Qw4qjYzBoRC95cWJw" target="_blank" class="donation-btn">Écouter sur Spotify</a>
-                    <a href="https://music.apple.com/us/artist/jahbarii/1693066953" target="_blank" class="donation-btn">Écouter sur Apple Music</a>
-                </div>
-                
-                <p class="donation-note" style="font-size: 0.85rem; color: var(--text-dim); font-style: italic;">
-                    Partager la musique ou ce blog avec quelqu'un qui en a besoin est aussi un soutien précieux.
-                </p>
-            </div>
-        </section>
-
-        <footer>
-            <p class="footer-mantra mono">un gars, une foi, une voix</p>
-            <p>&copy; 2026 JUST A GUY — Jahbarii. Tous droits réservés.</p>
-            
-            <div class="footer-legal">
-                <a href="#" onclick="showPage('privacy')">Politique de confidentialité</a>
-                <a href="#" onclick="showPage('legal')">Mentions légales</a>
-                <a href="#" onclick="showPage('cookies')">Politique cookies</a>
-            </div>
-
-            <div style="margin-top: 40px;">
-                <button class="submit-btn" onclick="openModal('subscribe-modal')">S'abonner aux nouveaux articles</button>
-            </div>
-        </footer>
-    </div>
-</div>
-
-<!-- Privacy Policy Page -->
-<div id="privacy-page" class="page-section">
-    <div class="container">
-        <a href="#" class="back-link-legal" onclick="showPage('main')">← Retour au site</a>
-        
-        <div class="legal-section">
-            <div class="legal-content">
-                <h2>Politique de confidentialité</h2>
-                
-                <p>
-                    Cette politique de confidentialité décrit comment JUST A GUY (Jahbarii) collecte, utilise et protège tes données personnelles lorsque tu utilises ce site.
-                </p>
-
-                <h3>1. Responsable du traitement</h3>
-                <p>
-                    <strong>Nom :</strong> Jahbarii (artiste indépendant)<br>
-                    <strong>Contact :</strong> via les réseaux sociaux listés sur le site<br>
-                    <strong>Hébergeur :</strong> GitHub Pages
-                </p>
-
-                <h3>2. Données collectées</h3>
-                <p>Nous collectons uniquement les données que tu choisis de nous communiquer :</p>
-                <ul>
-                    <li><strong>Messages privés :</strong> Prénom/pseudo et contenu du message (envoyé via Formspree)</li>
-                    <li><strong>Témoignages :</strong> Prénom (optionnel) et contenu du témoignage</li>
-                    <li><strong>Demandes de prière :</strong> Prénom (optionnel) et contenu de la demande (strictement confidentiel)</li>
-                    <li><strong>Newsletter :</strong> Adresse email uniquement</li>
-                    <li><strong>Cookies :</strong> Préférences de navigation (si tu acceptes)</li>
-                </ul>
-
-                <h3>3. Finalités du traitement</h3>
-                <p>Tes données sont utilisées pour :</p>
-                <ul>
-                    <li>Te répondre personnellement aux messages privés</li>
-                    <li>T'envoyer les nouveaux articles si tu t'abonnes à la newsletter</li>
-                    <li>Prier pour tes demandes (confidentielles)</li>
-                    <li>Améliorer l'expérience utilisateur</li>
-                </ul>
-
-                <h3>4. Base légale</h3>
-                <p>
-                    Le traitement de tes données repose sur ton <strong>consentement explicite</strong> (article 6.1.a du RGPD). Tu peux retirer ce consentement à tout moment.
-                </p>
-
-                <h3>5. Durée de conservation</h3>
-                <ul>
-                    <li><strong>Messages privés :</strong> 1 an maximum, puis suppression</li>
-                    <li><strong>Newsletter :</strong> Jusqu'à désinscription</li>
-                    <li><strong>Demandes de prière :</strong> 1 an maximum, puis suppression</li>
-                    <li><strong>Cookies :</strong> 13 mois maximum</li>
-                </ul>
-
-                <h3>6. Tes droits</h3>
-                <p>Conformément au RGPD, tu disposes des droits suivants :</p>
-                <ul>
-                    <li><strong>Droit d'accès :</strong> Savoir quelles données te concernent</li>
-                    <li><strong>Droit de rectification :</strong> Modifier des données inexactes</li>
-                    <li><strong>Droit à l'effacement :</strong> Demander la suppression de tes données</li>
-                    <li><strong>Droit d'opposition :</strong> Te désinscrire à tout moment</li>
-                    <li><strong>Droit à la portabilité :</strong> Récupérer tes données</li>
-                </ul>
-                <p>
-                    Pour exercer ces droits, contacte-moi via les réseaux sociaux ou par email. Je réponds dans un délai de 30 jours maximum.
-                </p>
-
-                <h3>7. Sécurité</h3>
-                <p>
-                    Tes données sont stockées de manière sécurisée. Les demandes de prière sont traitées avec une confidentialité absolue et ne sont jamais partagées publiquement sans ton consentement explicite.
-                </p>
-
-                <h3>8. Cookies</h3>
-                <p>
-                    Ce site utilise des cookies essentiels au fonctionnement et, avec ton accord, des cookies d'analyse pour améliorer l'expérience. Tu peux modifier tes préférences à tout moment via la bannière cookies.
-                </p>
-
-                <p class="legal-date">
-                    Dernière mise à jour : 20 février 2026<br>
-                    [Générée automatiquement - Version simplifiée RGPD]
-                </p>
             </div>
         </div>
     </div>
-</div>
 
-<!-- Legal Mentions Page -->
-<div id="legal-page" class="page-section">
-    <div class="container">
-        <a href="#" class="back-link-legal" onclick="showPage('main')">← Retour au site</a>
-        
-        <div class="legal-section">
-            <div class="legal-content">
-                <h2>Mentions légales</h2>
+    <!-- Legal Mentions Page -->
+    <div id="legal-page" class="page-section" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-primary); z-index: 2000; overflow-y: auto;">
+        <div style="max-width: 800px; margin: 0 auto; padding: 2rem;">
+            <a href="#" class="back-link-legal" onclick="showPage('main')" style="display: inline-flex; align-items: center; gap: 0.5rem; color: var(--accent); text-decoration: none; font-family: 'Inter', sans-serif; margin-bottom: 2rem; transition: transform 0.3s ease;" onmouseover="this.style.transform='translateX(-5px)'" onmouseout="this.style.transform='translateX(0)'">← Retour au site</a>
+            
+            <div class="legal-section" style="background: var(--bg-secondary); border: 1px solid var(--border); padding: 3rem; border-radius: 12px;">
+                <div class="legal-content" style="font-family: 'Inter', sans-serif; font-size: 0.95rem; line-height: 1.8; color: var(--text-primary);">
+                    <h2 style="font-size: 2rem; margin-bottom: 1.5rem; font-weight: 600;">Mentions légales</h2>
 
-                <h3>1. Éditeur du site</h3>
-                <p>
-                    <strong>Nom :</strong> Jahbarii (artiste indépendant)<br>
-                    <strong>Statut :</strong> Auto-entrepreneur / Artiste indépendant<br>
-                    <strong>Adresse :</strong> Sur demande via Instagram<br>
-                    <strong>Contact :</strong> Via Instagram @Jahbarii_on_di_gram
-                </p>
+                    <h3 style="font-size: 1.1rem; margin: 2rem 0 1rem; color: var(--text-primary); font-weight: 600;">1. Éditeur du site</h3>
+                    <p style="margin-bottom: 1.5rem;">
+                        <strong>Nom :</strong> Jahbarii (artiste indépendant)<br>
+                        <strong>Statut :</strong> Auto-entrepreneur / Artiste indépendant<br>
+                        <strong>Contact :</strong> Via Instagram @Jahbarii_on_di_gram
+                    </p>
 
-                <h3>2. Hébergement</h3>
-                <p>
-                    <strong>Hébergeur :</strong> GitHub Pages<br>
-                    <strong>Adresse :</strong> 88 Colin P Kelly Jr St, San Francisco, CA 94107, United States<br>
-                    <strong>Site :</strong> https://github.com  
-                </p>
+                    <h3 style="font-size: 1.1rem; margin: 2rem 0 1rem; color: var(--text-primary); font-weight: 600;">2. Hébergement</h3>
+                    <p style="margin-bottom: 1.5rem;">
+                        <strong>Hébergeur :</strong> GitHub Pages<br>
+                        <strong>Adresse :</strong> 88 Colin P Kelly Jr St, San Francisco, CA 94107, United States<br>
+                        <strong>Site :</strong> https://github.com   
+                    </p>
 
-                <h3>3. Propriété intellectuelle</h3>
-                <p>
-                    L'ensemble du contenu de ce site (textes, images, musique, code) est la propriété exclusive de Jahbarii, sauf mention contraire. Toute reproduction, distribution ou utilisation sans autorisation préalable est interdite.
-                </p>
-                <p>
-                    Les liens vers Spotify, Apple Music, Instagram et TikTok sont des marques déposées appartenant à leurs propriétaires respectifs.
-                </p>
+                    <h3 style="font-size: 1.1rem; margin: 2rem 0 1rem; color: var(--text-primary); font-weight: 600;">3. Propriété intellectuelle</h3>
+                    <p style="margin-bottom: 1rem;">
+                        L'ensemble du contenu de ce site (textes, images, musique, code) est la propriété exclusive de Jahbarii, sauf mention contraire. Toute reproduction, distribution ou utilisation sans autorisation préalable est interdite.
+                    </p>
+                    <p style="margin-bottom: 1.5rem;">
+                        Les liens vers Spotify, Apple Music, Instagram et TikTok sont des marques déposées appartenant à leurs propriétaires respectifs.
+                    </p>
 
-                <h3>4. Responsabilité</h3>
-                <p>
-                    Les informations fournies sur ce site le sont à titre indicatif. Jahbarii ne peut être tenu responsable des erreurs ou omissions. Les témoignages publiés n'engagent que leurs auteurs.
-                </p>
+                    <h3 style="font-size: 1.1rem; margin: 2rem 0 1rem; color: var(--text-primary); font-weight: 600;">4. Responsabilité</h3>
+                    <p style="margin-bottom: 1.5rem;">
+                        Les informations fournies sur ce site le sont à titre indicatif. Jahbarii ne peut être tenu responsable des erreurs ou omissions. Les témoignages publiés n'engagent que leurs auteurs.
+                    </p>
 
-                <h3>5. Liens externes</h3>
-                <p>
-                    Ce site contient des liens vers des plateformes tierces (Spotify, Apple Music, Instagram, TikTok). Je ne suis pas responsable du contenu ou des pratiques de confidentialité de ces sites.
-                </p>
+                    <h3 style="font-size: 1.1rem; margin: 2rem 0 1rem; color: var(--text-primary); font-weight: 600;">5. Liens externes</h3>
+                    <p style="margin-bottom: 1.5rem;">
+                        Ce site contient des liens vers des plateformes tierces (Spotify, Apple Music, Instagram, TikTok). Je ne suis pas responsable du contenu ou des pratiques de confidentialité de ces sites.
+                    </p>
 
-                <h3>6. Crédits</h3>
-                <p>
-                    <strong>Conception :</strong> Jahbarii<br>
-                    <strong>Développement :</strong> Design brutaliste personnalisé<br>
-                    <strong>Typographie :</strong> IBM Plex Mono & Inter (Google Fonts)
-                </p>
+                    <h3 style="font-size: 1.1rem; margin: 2rem 0 1rem; color: var(--text-primary); font-weight: 600;">6. Crédits</h3>
+                    <p style="margin-bottom: 1.5rem;">
+                        <strong>Conception :</strong> Jahbarii<br>
+                        <strong>Développement :</strong> Design personnalisé<br>
+                        <strong>Typographie :</strong> Cormorant Garamond & Inter (Google Fonts)
+                    </p>
 
-                <p class="legal-date">
-                    Dernière mise à jour : 20 février 2026
-                </p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Cookies Policy Page -->
-<div id="cookies-page" class="page-section">
-    <div class="container">
-        <a href="#" class="back-link-legal" onclick="showPage('main')">← Retour au site</a>
-        
-        <div class="legal-section">
-            <div class="legal-content">
-                <h2>Politique des cookies</h2>
-
-                <h3>Qu'est-ce qu'un cookie ?</h3>
-                <p>
-                    Un cookie est un petit fichier texte déposé sur ton appareil lors de la visite d'un site. Il permet de mémoriser tes préférences et d'améliorer ton expérience.
-                </p>
-
-                <h3>Cookies utilisés sur ce site</h3>
-
-                <h3 style="margin-top: 24px; font-size: 0.85rem;">1. Cookies essentiels (obligatoires)</h3>
-                <p>
-                    Ces cookies sont nécessaires au fonctionnement du site. Ils ne peuvent pas être désactivés.
-                </p>
-                <ul>
-                    <li><strong>cookie-consent :</strong> Mémorise ton choix concernant les cookies (13 mois)</li>
-                    <li><strong>session :</strong> Maintient ta session active</li>
-                    <li><strong>reading-position :</strong> Sauvegarde ta position de lecture</li>
-                    <li><strong>theme :</strong> Mode nuit/clair préféré</li>
-                    <li><strong>font-size :</strong> Taille de police préférée</li>
-                </ul>
-
-                <h3 style="margin-top: 24px; font-size: 0.85rem;">2. Cookies de préférences</h3>
-                <p>
-                    Ces cookies mémorisent tes choix pour améliorer ton expérience.
-                </p>
-                <ul>
-                    <li><strong>focus-mode :</strong> Préférence du mode focus</li>
-                </ul>
-
-                <h3 style="margin-top: 24px; font-size: 0.85rem;">3. Cookies d'analyse (optionnels)</h3>
-                <p>
-                    Ces cookies nous aident à comprendre comment le site est utilisé, uniquement si tu acceptes.
-                </p>
-                <ul>
-                    <li><strong>Google Analytics :</strong> Statistiques de visite (anonymisées)</li>
-                </ul>
-
-                <h3>Gérer tes préférences</h3>
-                <p>
-                    Tu peux modifier ton choix à tout moment en cliquant sur le bouton ci-dessous. Tu peux aussi supprimer les cookies via les paramètres de ton navigateur.
-                </p>
-
-                <div style="margin: 32px 0; padding: 24px; border: 1px solid var(--border);">
-                    <p style="margin-bottom: 16px;"><strong>Ton choix actuel :</strong> <span id="current-consent">En attente de choix</span></p>
-                    <button class="cookie-btn accept" onclick="acceptCookies()">Accepter tous les cookies</button>
-                    <button class="cookie-btn" onclick="refuseCookies()" style="margin-left: 12px;">Refuser les cookies optionnels</button>
+                    <p style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border); font-size: 0.85rem; color: var(--text-secondary); font-style: italic;">
+                        Dernière mise à jour : 20 février 2026
+                    </p>
                 </div>
-
-                <h3>Impact du refus</h3>
-                <p>
-                    Si tu refuses les cookies optionnels, le site fonctionnera normalement mais nous n'aurons pas de statistiques de visite. Cela ne change rien à ton expérience de lecture.
-                </p>
-
-                <h3>Durée de conservation</h3>
-                <p>
-                    Les cookies sont conservés maximum 13 mois. Passé ce délai, ton consentement sera à nouveau demandé.
-                </p>
-
-                <p class="legal-date">
-                    Dernière mise à jour : 20 février 2026
-                </p>
             </div>
         </div>
     </div>
-</div>
 
-<script>
-    // Cookie management
-    function setCookie(name, value, days) {
-        const expires = new Date(Date.now() + days * 864e5).toUTCString();
-        document.cookie = name + '=' + encodeURIComponent(value) + '; expires=' + expires + '; path=/; SameSite=Lax';
-    }
+    <!-- Cookies Policy Page -->
+    <div id="cookies-page" class="page-section" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-primary); z-index: 2000; overflow-y: auto;">
+        <div style="max-width: 800px; margin: 0 auto; padding: 2rem;">
+            <a href="#" class="back-link-legal" onclick="showPage('main')" style="display: inline-flex; align-items: center; gap: 0.5rem; color: var(--accent); text-decoration: none; font-family: 'Inter', sans-serif; margin-bottom: 2rem; transition: transform 0.3s ease;" onmouseover="this.style.transform='translateX(-5px)'" onmouseout="this.style.transform='translateX(0)'">← Retour au site</a>
+            
+            <div class="legal-section" style="background: var(--bg-secondary); border: 1px solid var(--border); padding: 3rem; border-radius: 12px;">
+                <div class="legal-content" style="font-family: 'Inter', sans-serif; font-size: 0.95rem; line-height: 1.8; color: var(--text-primary);">
+                    <h2 style="font-size: 2rem; margin-bottom: 1.5rem; font-weight: 600;">Politique des cookies</h2>
 
-    function getCookie(name) {
-        return document.cookie.split('; ').reduce((r, v) => {
-            const parts = v.split('=');
-            return parts[0] === name ? decodeURIComponent(parts[1]) : r;
-        }, '');
-    }
+                    <h3 style="font-size: 1.1rem; margin: 2rem 0 1rem; color: var(--text-primary); font-weight: 600;">Qu'est-ce qu'un cookie ?</h3>
+                    <p style="margin-bottom: 1.5rem;">
+                        Un cookie est un petit fichier texte déposé sur ton appareil lors de la visite d'un site. Il permet de mémoriser tes préférences et d'améliorer ton expérience.
+                    </p>
 
-    function showCookieBanner() {
-        const consent = getCookie('cookie-consent');
-        if (!consent) {
-            document.getElementById('cookie-banner').classList.add('active');
-        } else {
-            updateConsentDisplay(consent);
-        }
-    }
+                    <h3 style="font-size: 1.1rem; margin: 2rem 0 1rem; color: var(--text-primary); font-weight: 600;">Cookies utilisés sur ce site</h3>
 
-    function acceptCookies() {
-        setCookie('cookie-consent', 'accepted', 365);
-        document.getElementById('cookie-banner').classList.remove('active');
-        updateConsentDisplay('accepted');
-    }
+                    <h4 style="font-size: 1rem; margin: 1.5rem 0 0.5rem; color: var(--text-primary); font-weight: 600;">1. Cookies essentiels (obligatoires)</h4>
+                    <p style="margin-bottom: 1rem;">
+                        Ces cookies sont nécessaires au fonctionnement du site. Ils ne peuvent pas être désactivés.
+                    </p>
+                    <ul style="margin-left: 1.5rem; margin-bottom: 1.5rem; color: var(--text-secondary);">
+                        <li style="margin-bottom: 0.5rem;"><strong>theme :</strong> Préférences d'affichage clair/sombre</li>
+                        <li style="margin-bottom: 0.5rem;"><strong>fontSize :</strong> Taille de police personnalisée</li>
+                        <li style="margin-bottom: 0.5rem;"><strong>scrollPosition :</strong> Position de lecture sauvegardée</li>
+                        <li style="margin-bottom: 0.5rem;"><strong>newsletterClosed :</strong> État de la barre newsletter</li>
+                    </ul>
 
-    function refuseCookies() {
-        setCookie('cookie-consent', 'refused', 365);
-        document.getElementById('cookie-banner').classList.remove('active');
-        updateConsentDisplay('refusé');
-    }
+                    <h4 style="font-size: 1rem; margin: 1.5rem 0 0.5rem; color: var(--text-primary); font-weight: 600;">2. Cookies de préférences</h4>
+                    <p style="margin-bottom: 1rem;">
+                        Ces cookies mémorisent tes choix pour améliorer ton expérience.
+                    </p>
+                    <ul style="margin-left: 1.5rem; margin-bottom: 1.5rem; color: var(--text-secondary);">
+                        <li style="margin-bottom: 0.5rem;"><strong>cookie-consent :</strong> Ton choix concernant les cookies (13 mois)</li>
+                    </ul>
 
-    function updateConsentDisplay(status) {
-        const display = document.getElementById('current-consent');
-        if (display) {
-            display.textContent = status === 'accepted' ? 'Tous les cookies acceptés' : 'Cookies essentiels uniquement';
-        }
-    }
+                    <h3 style="font-size: 1.1rem; margin: 2rem 0 1rem; color: var(--text-primary); font-weight: 600;">Gérer tes préférences</h3>
+                    <p style="margin-bottom: 1.5rem;">
+                        Tu peux modifier ton choix à tout moment. Tu peux aussi supprimer les cookies via les paramètres de ton navigateur.
+                    </p>
 
-    // 1. MENU STICKY - Apparition au scroll
-    let lastScroll = 0;
-    window.addEventListener('scroll', () => {
-        const currentScroll = window.pageYOffset;
-        const headerSticky = document.getElementById('headerSticky');
-        const controlsBar = document.getElementById('controlsBar');
-        
-        if (currentScroll > 300) {
-            headerSticky.classList.add('visible');
-            controlsBar.classList.add('visible');
-        } else {
-            headerSticky.classList.remove('visible');
-            controlsBar.classList.remove('visible');
-        }
-        
-        lastScroll = currentScroll;
-    });
+                    <div style="margin: 32px 0; padding: 24px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg-primary);">
+                        <p style="margin-bottom: 16px; font-family: 'Inter', sans-serif;"><strong>Ton choix actuel :</strong> <span id="current-consent">Cookies essentiels uniquement</span></p>
+                        <button class="share-btn" onclick="acceptCookies()" style="margin-right: 12px;">✓ Accepter tous les cookies</button>
+                        <button class="share-btn" onclick="refuseCookies()">✗ Refuser les cookies optionnels</button>
+                    </div>
 
-    // 15. ÉTAT ACTIF DU MENU
-    function updateActiveNav(section) {
-        document.querySelectorAll('.header-sticky-nav a').forEach(link => {
-            link.classList.remove('active');
+                    <h3 style="font-size: 1.1rem; margin: 2rem 0 1rem; color: var(--text-primary); font-weight: 600;">Impact du refus</h3>
+                    <p style="margin-bottom: 1.5rem;">
+                        Si tu refuses les cookies optionnels, le site fonctionnera normalement mais certaines fonctionnalités comme la sauvegarde de ta position de lecture pourraient être limitées.
+                    </p>
+
+                    <h3 style="font-size: 1.1rem; margin: 2rem 0 1rem; color: var(--text-primary); font-weight: 600;">Durée de conservation</h3>
+                    <p style="margin-bottom: 1.5rem;">
+                        Les cookies sont conservés maximum 13 mois. Passé ce délai, ton consentement sera à nouveau demandé.
+                    </p>
+
+                    <p style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border); font-size: 0.85rem; color: var(--text-secondary); font-style: italic;">
+                        Dernière mise à jour : 20 février 2026
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer avec liens légaux -->
+    <footer style="max-width: 800px; margin: 4rem auto 2rem; padding: 2rem; text-align: center; border-top: 1px solid var(--border); font-family: 'Inter', sans-serif; font-size: 0.85rem; color: var(--text-secondary);">
+        <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; margin-bottom: 1rem;">
+            <a href="#" onclick="showPage('privacy'); return false;" style="color: var(--text-secondary); text-decoration: none; transition: color 0.3s ease;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-secondary)'">Politique de confidentialité</a>
+            <a href="#" onclick="showPage('legal'); return false;" style="color: var(--text-secondary); text-decoration: none; transition: color 0.3s ease;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-secondary)'">Mentions légales</a>
+            <a href="#" onclick="showPage('cookies'); return false;" style="color: var(--text-secondary); text-decoration: none; transition: 0.3s ease;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-secondary)'">Politique des cookies</a>
+        </div>
+        <p style="font-size: 0.8rem;">© 2026 JUST A GUY — un gars, une foi, une voix</p>
+    </footer>
+
+    <script>
+        // Gestion du thème
+        const themeToggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+
+        // Charger le thème sauvegardé
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        html.setAttribute('data-theme', savedTheme);
+        themeToggle.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            themeToggle.textContent = newTheme === 'dark' ? '☀️' : '🌙';
         });
-        const activeLink = document.getElementById('nav-' + section);
-        if (activeLink) activeLink.classList.add('active');
-    }
 
-    // Fil d'Ariane
-    function updateBreadcrumb(page, articleTitle) {
-        const breadcrumb = document.getElementById('breadcrumb');
-        if (page === 'journal') {
-            breadcrumb.innerHTML = '<a href="#" onclick="showJournal()">Journal</a>';
-            breadcrumb.classList.remove('visible');
-        } else if (page === 'article' && articleTitle) {
-            breadcrumb.innerHTML = '<a href="#" onclick="showJournal()">Journal</a> > <span>' + articleTitle + '</span>';
-            breadcrumb.classList.add('visible');
-        } else {
-            breadcrumb.innerHTML = '<span>' + page + '</span>';
-            breadcrumb.classList.add('visible');
-        }
-    }
+        // Gestion de la taille de police
+        let currentFontSize = parseInt(localStorage.getItem('fontSize')) || 18;
+        document.documentElement.style.setProperty('--font-size-base', currentFontSize + 'px');
 
-    // Page navigation
-    function showPage(page) {
-        document.querySelectorAll('.page-section').forEach(section => {
-            section.classList.remove('active');
-        });
-        
-        if (page === 'main') {
-            document.getElementById('main-content').classList.add('active');
-            resetSections();
-        } else if (page === 'privacy') {
-            document.getElementById('privacy-page').classList.add('active');
-        } else if (page === 'legal') {
-            document.getElementById('legal-page').classList.add('active');
-        } else if (page === 'cookies') {
-            document.getElementById('cookies-page').classList.add('active');
-        }
-        window.scrollTo(0, 0);
-    }
-
-    function resetSections() {
-        document.getElementById('journal-list').style.display = 'block';
-        document.querySelectorAll('.article-full').forEach(el => {
-            el.style.display = 'none';
-            el.classList.remove('active');
-        });
-        document.getElementById('about').style.display = 'none';
-        document.getElementById('testimonials').style.display = 'none';
-        document.getElementById('prayer').style.display = 'none';
-        document.getElementById('connect').style.display = 'none';
-        document.getElementById('tocSidebar').classList.remove('visible');
-        document.getElementById('shareBar').style.display = 'none';
-        updateBreadcrumb('journal');
-        updateActiveNav('journal');
-    }
-
-    // Navigation functions
-    function showJournal() {
-        resetSections();
-        document.getElementById('journal-list').style.display = 'block';
-        window.scrollTo(0, 0);
-        // 6. Restaurer position si existante
-        restoreReadingPosition('journal');
-    }
-
-    function showArticle(id) {
-        document.getElementById('journal-list').style.display = 'none';
-        document.querySelectorAll('.article-full').forEach(el => {
-            el.style.display = 'none';
-            el.classList.remove('active');
-        });
-        
-        const article = document.getElementById(id);
-        article.style.display = 'block';
-        article.classList.add('active');
-        
-        const title = article.getAttribute('data-title');
-        updateBreadcrumb('article', title);
-        
-        // 5. Générer sommaire
-        generateTOC(id);
-        document.getElementById('tocSidebar').classList.add('visible');
-        
-        // 10. Afficher barre de partage
-        document.getElementById('shareBar').style.display = 'flex';
-        
-        window.scrollTo(0, 0);
-        
-        // Calculer temps de lecture
-        const text = document.querySelector('#' + id + ' .post-content').innerText;
-        const words = text.trim().split(/\s+/).length;
-        const minutes = Math.ceil(words / 200);
-        
-        let readingTimeEl = document.getElementById('reading-time-' + id);
-        if (!readingTimeEl) {
-            readingTimeEl = document.createElement('span');
-            readingTimeEl.id = 'reading-time-' + id;
-            readingTimeEl.className = 'post-date mono';
-            readingTimeEl.style.marginLeft = '16px';
-            const dateEl = document.querySelector('#' + id + ' .post-date');
-            if (dateEl) {
-                dateEl.parentNode.insertBefore(readingTimeEl, dateEl.nextSibling);
+        document.getElementById('fontIncrease').addEventListener('click', () => {
+            if (currentFontSize < 24) {
+                currentFontSize += 2;
+                document.documentElement.style.setProperty('--font-size-base', currentFontSize + 'px');
+                localStorage.setItem('fontSize', currentFontSize);
             }
-        }
-        readingTimeEl.textContent = '— ' + minutes + ' min de lecture';
-        
-        // 6. Sauvegarder position
-        saveReadingPosition(id);
-    }
+        });
 
-    function showAbout() {
-        resetSections();
-        document.getElementById('about').style.display = 'block';
-        window.scrollTo(0, 0);
-        updateBreadcrumb('Qui suis-je');
-        updateActiveNav('about');
-    }
+        document.getElementById('fontDecrease').addEventListener('click', () => {
+            if (currentFontSize > 14) {
+                currentFontSize -= 2;
+                document.documentElement.style.setProperty('--font-size-base', currentFontSize + 'px');
+                localStorage.setItem('fontSize', currentFontSize);
+            }
+        });
 
-    function showTestimonials() {
-        resetSections();
-        document.getElementById('testimonials').style.display = 'block';
-        window.scrollTo(0, 0);
-        updateBreadcrumb('Témoignages');
-        updateActiveNav('testimonials');
-    }
+        // Mode Focus
+        const focusToggle = document.getElementById('focusToggle');
+        const focusIndicator = document.getElementById('focusIndicator');
+        let focusMode = false;
 
-    function showPrayer() {
-        resetSections();
-        document.getElementById('prayer').style.display = 'block';
-        window.scrollTo(0, 0);
-        updateBreadcrumb('Prière');
-        updateActiveNav('prayer');
-    }
+        focusToggle.addEventListener('click', () => {
+            focusMode = !focusMode;
+            document.body.classList.toggle('focus-mode', focusMode);
+            focusIndicator.classList.toggle('show', focusMode);
 
-    function showConnect() {
-        resetSections();
-        document.getElementById('connect').style.display = 'block';
-        window.scrollTo(0, 0);
-        updateBreadcrumb('Me suivre');
-        updateActiveNav('connect');
-    }
+            if (focusMode) {
+                setTimeout(() => focusIndicator.classList.remove('show'), 2000);
+            }
+        });
 
-    // 5. SOMMAIRE FLOTTANT
-    function generateTOC(articleId) {
-        const content = document.querySelector('#' + articleId + ' .post-content');
-        const tocList = document.getElementById('tocList');
-        tocList.innerHTML = '';
-        
-        const paragraphs = content.querySelectorAll('p');
-        paragraphs.forEach((p, index) => {
-            if (p.textContent.length > 50) { // Paragraphes substantiels uniquement
+        // Génération du sommaire
+        function generateTOC() {
+            const tocList = document.getElementById('tocList');
+            const headings = document.querySelectorAll('h2[id^="section-"]');
+
+            headings.forEach(heading => {
                 const li = document.createElement('li');
-                li.className = 'toc-item';
-                const link = document.createElement('a');
-                link.className = 'toc-link';
-                link.href = '#';
-                link.textContent = p.textContent.substring(0, 40) + '...';
-                link.onclick = (e) => {
+                const a = document.createElement('a');
+                a.href = '#' + heading.id;
+                a.textContent = heading.textContent;
+                a.addEventListener('click', (e) => {
                     e.preventDefault();
-                    p.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    highlightTOC(link);
-                };
-                li.appendChild(link);
-                tocList.appendChild(li);
-            }
-        });
-    }
-
-    function highlightTOC(activeLink) {
-        document.querySelectorAll('.toc-link').forEach(link => {
-            link.classList.remove('active');
-        });
-        activeLink.classList.add('active');
-    }
-
-    // 3. RECHERCHE
-    function toggleSearch() {
-        const input = document.getElementById('searchInput');
-        const results = document.getElementById('searchResults');
-        input.classList.toggle('active');
-        if (input.classList.contains('active')) {
-            input.focus();
-        } else {
-            results.classList.remove('active');
-        }
-    }
-
-    function performSearch(query) {
-        const results = document.getElementById('searchResults');
-        if (query.length < 2) {
-            results.classList.remove('active');
-            return;
-        }
-        
-        const articles = document.querySelectorAll('.article-preview');
-        const matches = [];
-        
-        articles.forEach(article => {
-            const title = article.getAttribute('data-title').toLowerCase();
-            const date = article.getAttribute('data-date');
-            if (title.includes(query.toLowerCase())) {
-                matches.push({
-                    title: article.getAttribute('data-title'),
-                    date: date,
-                    id: article.onclick.toString().match(/'([^']+)'/)[1]
+                    heading.scrollIntoView({ behavior: 'smooth' });
                 });
-            }
-        });
-        
-        results.innerHTML = '';
-        if (matches.length > 0) {
-            matches.forEach(match => {
-                const div = document.createElement('div');
-                div.className = 'search-result-item';
-                div.innerHTML = '<div>' + match.title + '</div><div class="result-date">' + match.date + '</div>';
-                div.onclick = () => {
-                    showArticle(match.id);
-                    toggleSearch();
-                };
-                results.appendChild(div);
+                li.appendChild(a);
+                tocList.appendChild(li);
             });
-            results.classList.add('active');
-        } else {
-            results.innerHTML = '<div class="search-result-item">Aucun résultat</div>';
-            results.classList.add('active');
         }
-    }
 
-    // 7. MODE NUIT/CLAIR
-    function toggleTheme() {
-        document.body.classList.toggle('light-mode');
-        const isLight = document.body.classList.contains('light-mode');
-        setCookie('theme', isLight ? 'light' : 'dark', 365);
-    }
+        generateTOC();
 
-    // Charger thème sauvegardé
-    if (getCookie('theme') === 'light') {
-        document.body.classList.add('light-mode');
-    }
+        // Afficher/masquer le sommaire au scroll
+        const toc = document.getElementById('toc');
+        let lastScrollY = window.scrollY;
 
-    // 8. TAILLE POLICE
-    let currentFontSize = 16;
-    function changeFontSize(delta) {
-        currentFontSize = Math.max(12, Math.min(24, currentFontSize + delta));
-        document.documentElement.style.setProperty('--font-size', currentFontSize + 'px');
-        setCookie('font-size', currentFontSize, 365);
-    }
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
 
-    // Charger taille sauvegardée
-    const savedSize = getCookie('font-size');
-    if (savedSize) {
-        currentFontSize = parseInt(savedSize);
-        document.documentElement.style.setProperty('--font-size', currentFontSize + 'px');
-    }
-
-    // 6. SAUVEGARDE POSITION LECTURE
-    function saveReadingPosition(articleId) {
-        const scrollPos = window.pageYOffset;
-        setCookie('reading-position', articleId + ':' + scrollPos, 7);
-    }
-
-    function restoreReadingPosition(defaultSection) {
-        const saved = getCookie('reading-position');
-        if (saved) {
-            const [articleId, pos] = saved.split(':');
-            if (document.getElementById(articleId)) {
-                const indicator = document.getElementById('readingPosition');
-                indicator.classList.add('visible');
-                setTimeout(() => {
-                    indicator.classList.remove('visible');
-                }, 3000);
+            // Afficher le TOC après avoir scrollé un peu
+            if (scrollY > 300) {
+                toc.classList.add('visible');
+            } else {
+                toc.classList.remove('visible');
             }
-        }
-    }
 
-    // Sauvegarder position toutes les 5 secondes
-    setInterval(() => {
-        const activeArticle = document.querySelector('.article-full.active');
-        if (activeArticle) {
-            saveReadingPosition(activeArticle.id);
-        }
-    }, 5000);
+            // Mise à jour du lien actif dans le TOC
+            const headings = document.querySelectorAll('h2[id^="section-"]');
+            const tocLinks = document.querySelectorAll('.toc a');
 
-    // 10. PARTAGE NATIF
-    function copyLink() {
-        const url = window.location.href;
-        navigator.clipboard.writeText(url).then(() => {
-            const btn = event.target;
-            btn.classList.add('copied');
-            btn.textContent = '✓';
-            setTimeout(() => {
-                btn.classList.remove('copied');
-                btn.textContent = '🔗';
-            }, 2000);
-        });
-    }
-
-    function shareWhatsApp() {
-        const url = encodeURIComponent(window.location.href);
-        const text = encodeURIComponent('À lire sur JUST A GUY de Jahbarii');
-        window.open('https://wa.me/?text=' + text + '%20' + url, '_blank');
-    }
-
-    function shareTwitter() {
-        const url = encodeURIComponent(window.location.href);
-        const text = encodeURIComponent('À lire sur JUST A GUY de Jahbarii');
-        window.open('https://twitter.com/intent/tweet?text=' + text + '&url=' + url, '_blank');
-    }
-
-    // 11. RÉACTIONS EMOJI
-    function toggleReaction(btn, emoji) {
-        btn.classList.toggle('active');
-        const count = btn.querySelector('.reaction-count');
-        let num = parseInt(count.textContent);
-        if (btn.classList.contains('active')) {
-            num++;
-        } else {
-            num--;
-        }
-        count.textContent = num;
-        // Sauvegarder dans cookie (simplifié)
-        setCookie('reaction-' + emoji, btn.classList.contains('active'), 365);
-    }
-
-    // Restaurer réactions
-    document.querySelectorAll('.reaction-btn').forEach(btn => {
-        const emoji = btn.textContent.trim().split(' ')[0];
-        if (getCookie('reaction-' + emoji) === 'true') {
-            btn.classList.add('active');
-        }
-    });
-
-    // 12. NEWSLETTER STICKY
-    function showNewsletterSticky() {
-        if (!getCookie('newsletter-closed') && !getCookie('newsletter-subscribed')) {
-            setTimeout(() => {
-                document.getElementById('newsletterSticky').classList.add('visible');
-            }, 10000); // Apparaît après 10 secondes
-        }
-    }
-
-    function closeNewsletterSticky() {
-        document.getElementById('newsletterSticky').classList.remove('visible');
-        setCookie('newsletter-closed', 'true', 30);
-    }
-
-    // MODE FOCUS
-    function toggleFocus() {
-        document.body.classList.toggle('focus-mode');
-        const btn = document.getElementById('focusBtn');
-        const isFocus = document.body.classList.contains('focus-mode');
-        btn.textContent = isFocus ? 'Quitter Focus' : 'Mode Focus';
-        setCookie('focus-mode', isFocus ? 'active' : '', 365);
-    }
-
-    // Charger focus mode
-    if (getCookie('focus-mode') === 'active') {
-        toggleFocus();
-    }
-
-    // Modal functions
-    function openModal(modalId) {
-        document.getElementById(modalId).classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
-
-    function closeModal(event) {
-        if (!event || event.target.classList.contains('modal-overlay')) {
-            document.querySelectorAll('.modal-overlay').forEach(modal => {
-                modal.classList.remove('active');
+            headings.forEach((heading, index) => {
+                const rect = heading.getBoundingClientRect();
+                if (rect.top >= 100 && rect.top <= 300) {
+                    tocLinks.forEach(link => link.classList.remove('active'));
+                    if (tocLinks[index]) tocLinks[index].classList.add('active');
+                }
             });
-            document.body.style.overflow = '';
-        }
-    }
 
-    // Handle testimonial
-    function handleTestimonial(event) {
-        event.preventDefault();
-        const form = event.target;
-        form.style.display = 'none';
-        document.getElementById('testimonial-success').classList.add('visible');
-    }
+            // Barre de progression de lecture
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('readingProgress').style.width = scrolled + '%';
 
-    // Handle prayer request
-    function handlePrayer(event) {
-        event.preventDefault();
-        const form = event.target;
-        form.style.display = 'none';
-        document.getElementById('prayer-success').classList.add('visible');
-    }
+            lastScrollY = scrollY;
+        });
 
-    // Close modal on escape key
-    document.addEventListener('keydown', function(event) {
-        if (event.key === 'Escape') {
-            closeModal();
-        }
-    });
-    
-    // Barre de progression de lecture
-    window.addEventListener('scroll', function() {
-        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        const scrolled = (winScroll / height) * 100;
-        document.getElementById("progress-bar").style.width = scrolled + "%";
-    });
-    
-    // EFFET MACHINE À ÉCRIRE
-    setTimeout(() => {
-        const title = document.getElementById('typewriter');
-        if (title) {
-            title.classList.remove('typing');
-            title.classList.add('typing-done');
-        }
-    }, 2000);
+        // Sauvegarde de la position de lecture
+        window.addEventListener('beforeunload', () => {
+            localStorage.setItem('scrollPosition', window.scrollY);
+        });
 
-    // HORODATAGE VIVANT
-    function updateLiveTimes() {
-        const now = new Date();
-        const timeElements = document.querySelectorAll('[data-date]');
-        
-        timeElements.forEach(el => {
-            const dateStr = el.getAttribute('data-date');
-            const date = new Date(dateStr);
-            const diffTime = Math.abs(now - date);
-            const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-            
-            let liveText = '';
-            if (diffDays === 0) {
-                liveText = "aujourd'hui";
-            } else if (diffDays === 1) {
-                liveText = "hier";
-            } else if (diffDays < 7) {
-                liveText = `il y a ${diffDays} jours`;
-            } else if (diffDays < 30) {
-                const weeks = Math.floor(diffDays / 7);
-                liveText = `il y a ${weeks} semaine${weeks > 1 ? 's' : ''}`;
-            } else if (diffDays < 365) {
-                const months = Math.floor(diffDays / 30);
-                liveText = `il y a ${months} mois`;
-            } else {
-                const years = Math.floor(diffDays / 365);
-                liveText = `il y a ${years} an${years > 1 ? 's' : ''}`;
-            }
-            
-            const originalText = el.textContent.split('(')[0].trim();
-            if (!el.querySelector('.live-time')) {
-                el.innerHTML = `${originalText} <span class="live-time">(${liveText})</span>`;
-            } else {
-                el.querySelector('.live-time').textContent = `(${liveText})`;
+        window.addEventListener('load', () => {
+            const savedPosition = localStorage.getItem('scrollPosition');
+            if (savedPosition) {
+                window.scrollTo(0, parseInt(savedPosition));
             }
         });
-    }
 
-    updateLiveTimes();
-    setInterval(updateLiveTimes, 3600000); // Met à jour toutes les heures
+        // Réactions
+        function toggleReaction(btn) {
+            const isActive = btn.classList.contains('active');
+            const countSpan = btn.querySelector('.reaction-count');
+            let count = parseInt(countSpan.textContent);
 
-    // Initialize
-    document.addEventListener('DOMContentLoaded', function() {
-        showCookieBanner();
-        showNewsletterSticky();
-    });
-</script>
+            if (isActive) {
+                btn.classList.remove('active');
+                countSpan.textContent = count - 1;
+            } else {
+                btn.classList.add('active');
+                countSpan.textContent = count + 1;
+
+                // Animation
+                btn.style.transform = 'scale(1.2)';
+                setTimeout(() => btn.style.transform = '', 200);
+            }
+        }
+
+        // Partage
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        function copyLink() {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                showToast('Lien copié dans le presse-papier !');
+            });
+        }
+
+        function shareWhatsApp(e) {
+            e.preventDefault();
+            const text = encodeURIComponent(document.title + ' ' + window.location.href);
+            window.open('https://wa.me/?text=' + text, '_blank');
+        }
+
+        function shareTwitter(e) {
+            e.preventDefault();
+            const text = encodeURIComponent(document.title);
+            const url = encodeURIComponent(window.location.href);
+            window.open('https://twitter.com/intent/tweet?text=' + text + '&url=' + url, '_blank');
+        }
+
+        // Newsletter
+        function closeNewsletter() {
+            document.getElementById('newsletter').style.display = 'none';
+            localStorage.setItem('newsletterClosed', 'true');
+        }
+
+        // Vérifier si la newsletter a été fermée
+        if (localStorage.getItem('newsletterClosed') === 'true') {
+            document.getElementById('newsletter').style.display = 'none';
+        }
+
+        function subscribeNewsletter(e) {
+            e.preventDefault();
+            showToast('Merci pour votre inscription ! 🎉');
+            document.querySelector('.newsletter-input').value = '';
+        }
+
+        // Recherche simple
+        const searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase();
+            const articles = document.querySelectorAll('.article');
+
+            articles.forEach(article => {
+                const text = article.textContent.toLowerCase();
+                if (text.includes(term)) {
+                    article.style.display = 'block';
+                } else {
+                    article.style.display = term === '' ? 'block' : 'none';
+                }
+            });
+        });
+
+        // Animation au scroll pour les articles
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.article').forEach(article => {
+            observer.observe(article);
+        });
+
+        // Gestion des clics sur les titres d'articles
+        document.querySelectorAll('.article-title').forEach(title => {
+            title.addEventListener('click', () => {
+                const article = title.closest('.article');
+                article.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+        // Navigation entre pages
+        function showPage(page) {
+            if (page === 'main') {
+                document.getElementById('privacy-page').style.display = 'none';
+                document.getElementById('legal-page').style.display = 'none';
+                document.getElementById('cookies-page').style.display = 'none';
+                document.body.style.overflow = 'auto';
+            } else {
+                document.getElementById(page + '-page').style.display = 'block';
+                document.body.style.overflow = 'hidden';
+                window.scrollTo(0, 0);
+            }
+        }
+
+        // Gestion des cookies
+        function acceptCookies() {
+            localStorage.setItem('cookieConsent', 'accepted');
+            document.getElementById('current-consent').textContent = 'Tous les cookies acceptés';
+            showToast('Préférences enregistrées !');
+        }
+
+        function refuseCookies() {
+            localStorage.setItem('cookieConsent', 'refused');
+            document.getElementById('current-consent').textContent = 'Cookies essentiels uniquement';
+            showToast('Préférences enregistrées !');
+        }
+
+        // Charger le statut des cookies
+        const cookieConsent = localStorage.getItem('cookieConsent');
+        if (cookieConsent === 'accepted') {
+            document.getElementById('current-consent').textContent = 'Tous les cookies acceptés';
+        }
+    </script>
+</body>
+</html>
