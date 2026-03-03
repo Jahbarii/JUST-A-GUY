@@ -10,7 +10,7 @@
     <meta name="author" content="Jahbarii">
     <meta name="google-site-verification" content="euLg6ILhEgmUgeFKPp84C3j23PCVWK9sc_qw2tq4JLs" />
     
-    <!-- Open Graph (Facebook, WhatsApp, etc.) -->
+    <!-- Open Graph -->
     <meta property="og:title" content="JUST A GUY — Jahbarii | Afrobeat & Récits">
     <meta property="og:description" content="Un gars, une foi, une voix. Musique afrobeat et récits authentiques.">
     <meta property="og:image" content="https://jahbarii.github.io/JUST-A-GUY/photo.jpg">
@@ -23,6 +23,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
     <style>
         * {
             margin: 0;
@@ -39,6 +40,17 @@
             --hover: #fff;
             --success: #4ade80;
             --warning: #fbbf24;
+            --font-size: 16px;
+        }
+
+        /* MODE CLAIR */
+        body.light-mode {
+            --bg: #f5f5f5;
+            --text: #1a1a1a;
+            --text-dim: #666;
+            --accent: #000;
+            --border: #ccc;
+            --hover: #000;
         }
 
         body {
@@ -46,8 +58,9 @@
             color: var(--text);
             font-family: 'Inter', sans-serif;
             line-height: 1.6;
-            font-size: 16px;
+            font-size: var(--font-size);
             -webkit-font-smoothing: antialiased;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
         
         /* Barre de progression */
@@ -58,7 +71,7 @@
             width: 0%;
             height: 3px;
             background: var(--accent);
-            z-index: 10000;
+            z-index: 10001;
             transition: width 0.1s;
         }
         
@@ -72,13 +85,226 @@
             padding: 0 24px;
         }
 
+        /* 1. MENU STICKY */
+        .header-sticky {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--bg);
+            border-bottom: 1px solid var(--border);
+            z-index: 9999;
+            padding: 16px 0;
+            transform: translateY(-100%);
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .header-sticky.visible {
+            transform: translateY(0);
+        }
+
+        .header-sticky-content {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-sticky-title {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--accent);
+            cursor: pointer;
+        }
+
+        .header-sticky-nav {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .header-sticky-nav a {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: color 0.2s;
+            position: relative;
+        }
+
+        .header-sticky-nav a:hover,
+        .header-sticky-nav a.active {
+            color: var(--accent);
+        }
+
+        /* 15. ÉTAT ACTIF DU MENU - Indicateur */
+        .header-sticky-nav a.active::after {
+            content: "";
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--accent);
+        }
+
+        /* BARRE DE CONTRÔLES - Recherche, Taille, Theme */
+        .controls-bar {
+            position: fixed;
+            top: 70px;
+            right: 24px;
+            display: flex;
+            gap: 8px;
+            z-index: 9998;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            padding: 8px;
+            border-radius: 4px;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+
+        .controls-bar.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .control-btn {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-dim);
+            cursor: pointer;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.75rem;
+            padding: 6px 10px;
+            transition: all 0.2s;
+            border-radius: 2px;
+        }
+
+        .control-btn:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        /* 3. RECHERCHE */
+        .search-container {
+            position: relative;
+        }
+
+        .search-input {
+            position: absolute;
+            right: 0;
+            top: 0;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 6px 12px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.8rem;
+            width: 0;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .search-input.active {
+            width: 200px;
+            opacity: 1;
+        }
+
+        .search-results {
+            position: absolute;
+            top: 40px;
+            right: 0;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            min-width: 280px;
+            max-height: 300px;
+            overflow-y: auto;
+            display: none;
+            z-index: 10000;
+        }
+
+        .search-results.active {
+            display: block;
+        }
+
+        .search-result-item {
+            padding: 12px;
+            border-bottom: 1px solid var(--border);
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: background 0.2s;
+        }
+
+        .search-result-item:hover {
+            background: rgba(255,255,255,0.05);
+        }
+
+        .search-result-item .result-date {
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            font-family: 'IBM Plex Mono', monospace;
+        }
+
+        /* 7. MODE NUIT/CLAIR */
+        .theme-toggle::before {
+            content: "☀";
+        }
+
+        body.light-mode .theme-toggle::before {
+            content: "☾";
+        }
+
+        /* 8. TAILLE DE POLICE AJUSTABLE */
+        .font-size-controls {
+            display: flex;
+            gap: 4px;
+        }
+
+        /* FIL D'ARIANE */
+        .breadcrumb {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            margin-bottom: 24px;
+            padding-top: 20px;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+
+        .breadcrumb.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .breadcrumb a {
+            color: var(--text-dim);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--accent);
+        }
+
+        .breadcrumb span {
+            color: var(--accent);
+        }
+
         header {
             padding: 80px 0 60px;
             border-bottom: 1px solid var(--border);
             margin-bottom: 60px;
         }
 
-        /* EFFET MACHINE À ÉCRIRE sur le titre */
+        /* EFFET MACHINE À ÉCRIRE */
         .site-title {
             font-family: 'IBM Plex Mono', monospace;
             font-size: clamp(2rem, 8vw, 4rem);
@@ -138,7 +364,6 @@
             flex-wrap: wrap;
         }
 
-        /* SURLIGNAGE MANUSCRIT au hover */
         nav a {
             color: var(--text-dim);
             text-decoration: none;
@@ -146,36 +371,12 @@
             font-size: 0.85rem;
             text-transform: uppercase;
             letter-spacing: 0.1em;
-            transition: all 0.3s;
-            position: relative;
+            transition: color 0.2s;
             cursor: pointer;
-            padding: 4px 0;
-            display: inline-block;
-        }
-
-        nav a::after {
-            content: "";
-            position: absolute;
-            bottom: -2px;
-            left: -4px;
-            right: -4px;
-            height: 8px;
-            background: var(--accent);
-            opacity: 0;
-            transform: scaleY(0) skewX(-8deg) rotate(-1deg);
-            transform-origin: bottom;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: -1;
-            border-radius: 2px;
         }
 
         nav a:hover {
-            color: var(--bg);
-        }
-
-        nav a:hover::after {
-            opacity: 0.95;
-            transform: scaleY(1) skewX(-8deg) rotate(-1deg);
+            color: var(--accent);
         }
 
         /* Article List */
@@ -189,7 +390,8 @@
             padding: 32px;
             border: 1px solid var(--border);
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
+            position: relative;
         }
 
         .article-preview:hover {
@@ -197,16 +399,31 @@
             background: rgba(255,255,255,0.02);
         }
 
+        /* Indicateur "Nouveau" */
+        .article-preview.new::before {
+            content: "NOUVEAU";
+            position: absolute;
+            top: -1px;
+            right: -1px;
+            background: var(--accent);
+            color: var(--bg);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.6rem;
+            padding: 4px 8px;
+            letter-spacing: 0.1em;
+        }
+
         .article-title {
             font-size: 1.4rem;
             color: var(--accent);
             margin-top: 12px;
             font-weight: 600;
+            transition: color 0.3s;
         }
 
         .article-full {
             display: none;
-            animation: fadeIn 0.5s;
+            animation: fadeIn 0.5s ease;
         }
 
         .article-full.active {
@@ -247,7 +464,6 @@
             border-bottom: none;
         }
 
-        /* HORODATAGE VIVANT - Style */
         .post-date {
             font-family: 'IBM Plex Mono', monospace;
             font-size: 0.75rem;
@@ -293,48 +509,157 @@
             font-weight: 600;
         }
 
-        /* Music Note */
-        .music-note {
-            margin-top: 40px;
-            padding: 24px;
-            background: rgba(255,255,255,0.02);
-            border-left: 2px solid var(--border);
+        /* 5. SOMMAIRE FLOTTANT */
+        .toc-sidebar {
+            position: fixed;
+            left: 24px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 200px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            z-index: 100;
+        }
+
+        .toc-sidebar.visible {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .toc-title {
             font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.85rem;
-            color: var(--text-dim);
-            transition: all 0.3s;
-        }
-
-        .music-note:hover {
-            border-left-color: var(--accent);
-            background: rgba(255,255,255,0.04);
-        }
-
-        .music-note p {
-            margin-bottom: 12px;
-            font-style: italic;
-        }
-
-        .track-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--text);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.2s;
-        }
-
-        .track-link:hover {
-            color: var(--accent);
-        }
-
-        .track-link::before {
-            content: "▶";
             font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-dim);
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border);
         }
 
-        /* Comments Section - Messages Privés uniquement */
+        .toc-list {
+            list-style: none;
+        }
+
+        .toc-item {
+            margin-bottom: 8px;
+        }
+
+        .toc-link {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 0.85rem;
+            line-height: 1.4;
+            display: block;
+            padding: 4px 0;
+            transition: all 0.2s;
+            border-left: 2px solid transparent;
+            padding-left: 12px;
+        }
+
+        .toc-link:hover,
+        .toc-link.active {
+            color: var(--accent);
+            border-left-color: var(--accent);
+        }
+
+        @media (max-width: 1200px) {
+            .toc-sidebar {
+                display: none;
+            }
+        }
+
+        /* 10. PARTAGE NATIF */
+        .share-bar {
+            position: fixed;
+            left: 24px;
+            bottom: 100px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            z-index: 100;
+        }
+
+        .share-btn {
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--border);
+            background: var(--bg);
+            color: var(--text-dim);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+
+        .share-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: scale(1.1);
+        }
+
+        .share-btn.copied {
+            background: var(--success);
+            color: var(--bg);
+            border-color: var(--success);
+        }
+
+        @media (max-width: 900px) {
+            .share-bar {
+                position: static;
+                flex-direction: row;
+                justify-content: center;
+                margin: 40px 0;
+            }
+        }
+
+        /* 11. RÉACTIONS EMOJI */
+        .reactions-bar {
+            display: flex;
+            gap: 12px;
+            margin: 40px 0;
+            padding: 20px;
+            border: 1px solid var(--border);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .reaction-btn {
+            background: transparent;
+            border: 1px solid var(--border);
+            padding: 8px 16px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .reaction-btn:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent);
+        }
+
+        .reaction-btn.active {
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .reaction-count {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--text-dim);
+        }
+
+        .reaction-btn.active .reaction-count {
+            color: var(--bg);
+        }
+
+        /* Comments Section */
         .comments-section {
             margin-top: 60px;
             padding-top: 40px;
@@ -429,14 +754,17 @@
             width: 100%;
             height: 100%;
             background: rgba(0,0,0,0.9);
-            z-index: 1000;
+            z-index: 10000;
             justify-content: center;
             align-items: center;
             padding: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
         .modal-overlay.active {
             display: flex;
+            opacity: 1;
         }
 
         .modal-content {
@@ -447,6 +775,12 @@
             max-height: 90vh;
             overflow-y: auto;
             position: relative;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
         }
 
         .modal-header {
@@ -482,7 +816,7 @@
             padding: 24px;
         }
 
-        /* About Section with Photo */
+        /* About Section */
         .about-section {
             margin: 100px 0;
             padding: 60px 0;
@@ -560,7 +894,7 @@
             height: 100%;
             background: var(--accent);
             transform: translateY(100%);
-            transition: transform 0.3s;
+            transition: transform 0.3s ease;
             z-index: -1;
         }
 
@@ -740,6 +1074,77 @@
             font-style: italic;
         }
 
+        /* 12. NEWSLETTER STICKY */
+        .newsletter-sticky {
+            position: fixed;
+            bottom: 24px;
+            left: 24px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            padding: 16px 20px;
+            max-width: 300px;
+            z-index: 9997;
+            transform: translateY(150%);
+            transition: transform 0.5s ease;
+        }
+
+        .newsletter-sticky.visible {
+            transform: translateY(0);
+        }
+
+        .newsletter-sticky-title {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+
+        .newsletter-sticky-text {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+
+        .newsletter-sticky-close {
+            position: absolute;
+            top: 8px;
+            right: 12px;
+            background: none;
+            border: none;
+            color: var(--text-dim);
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        .newsletter-sticky-btn {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 8px 16px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .newsletter-sticky-btn:hover {
+            background: var(--accent);
+            color: var(--bg);
+            border-color: var(--accent);
+        }
+
+        @media (max-width: 600px) {
+            .newsletter-sticky {
+                left: 16px;
+                right: 16px;
+                max-width: none;
+            }
+        }
+
         /* Footer */
         footer {
             padding: 60px 0;
@@ -789,7 +1194,7 @@
             background: var(--bg);
             border-top: 1px solid var(--border);
             padding: 24px;
-            z-index: 9999;
+            z-index: 10002;
             display: none;
             box-shadow: 0 -4px 20px rgba(0,0,0,0.5);
         }
@@ -848,7 +1253,7 @@
             border-color: var(--accent);
         }
 
-        /* MODE FOCUS - Bouton et états */
+        /* MODE FOCUS */
         .focus-mode-btn {
             position: fixed;
             bottom: 24px;
@@ -863,7 +1268,7 @@
             letter-spacing: 0.1em;
             cursor: pointer;
             transition: all 0.3s;
-            z-index: 100;
+            z-index: 9996;
         }
 
         .focus-mode-btn:hover {
@@ -881,7 +1286,12 @@
         body.focus-mode .connect-section,
         body.focus-mode .donation-section,
         body.focus-mode .cookie-banner,
-        body.focus-mode .reading-progress {
+        body.focus-mode .reading-progress,
+        body.focus-mode .header-sticky,
+        body.focus-mode .controls-bar,
+        body.focus-mode .share-bar,
+        body.focus-mode .newsletter-sticky,
+        body.focus-mode .breadcrumb {
             opacity: 0;
             pointer-events: none;
             height: 0;
@@ -900,100 +1310,42 @@
             color: var(--bg);
         }
 
-        body.focus-mode .back-link {
+        body.focus-mode .toc-sidebar {
             display: none;
         }
 
-        /* Responsive */
-        @media (max-width: 600px) {
-            header {
-                padding: 60px 0 40px;
-            }
-            
-            nav ul {
-                gap: 20px;
-            }
-
-            .about-photo {
-                width: 150px;
-                height: 150px;
-            }
-
-            .post-title {
-                font-size: 1.4rem;
-            }
-
-            .post-content p:first-child::first-letter {
-                font-size: 2.5rem;
-            }
-
-            .article-title {
-                font-size: 1.2rem;
-            }
-
-            .footer-legal {
-                flex-direction: column;
-                gap: 16px;
-            }
-
-            .cookie-content {
-                text-align: center;
-            }
-
-            .cookie-buttons {
-                justify-content: center;
-            }
-
-            .focus-mode-btn {
-                bottom: 16px;
-                right: 16px;
-                padding: 10px 12px;
-                font-size: 0.7rem;
-            }
-        }
-
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
+        /* 6. SAUVEGARDE POSITION - Indicateur */
+        .reading-position {
+            position: fixed;
+            bottom: 80px;
+            right: 24px;
             background: var(--bg);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--border);
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--text-dim);
-        }
-
-        ::selection {
-            background: var(--accent);
-            color: var(--bg);
-        }
-
-        .success-message {
-            display: none;
-            padding: 16px;
-            background: rgba(74, 222, 128, 0.1);
-            border: 1px solid var(--success);
-            color: var(--success);
-            margin-top: 16px;
+            border: 1px solid var(--border);
+            padding: 8px 12px;
             font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.85rem;
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            z-index: 100;
+            opacity: 0;
+            transition: opacity 0.3s;
         }
 
-        .success-message.visible {
-            display: block;
+        .reading-position.visible {
+            opacity: 1;
         }
 
+        /* Page transitions */
         .page-section {
             display: none;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
         }
 
         .page-section.active {
             display: block;
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .back-link-legal {
@@ -1005,6 +1357,7 @@
             font-size: 0.8rem;
             text-transform: uppercase;
             letter-spacing: 0.1em;
+            transition: color 0.2s;
         }
 
         .back-link-legal:hover {
@@ -1069,11 +1422,144 @@
             padding-top: 20px;
             border-top: 1px solid var(--border);
         }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .header-sticky-nav {
+                display: none;
+            }
+
+            .controls-bar {
+                top: auto;
+                bottom: 140px;
+                right: 16px;
+                left: 16px;
+                justify-content: center;
+            }
+
+            header {
+                padding: 60px 0 40px;
+            }
+            
+            nav ul {
+                gap: 20px;
+            }
+
+            .about-photo {
+                width: 150px;
+                height: 150px;
+            }
+
+            .post-title {
+                font-size: 1.4rem;
+            }
+
+            .post-content p:first-child::first-letter {
+                font-size: 2.5rem;
+            }
+
+            .article-title {
+                font-size: 1.2rem;
+            }
+
+            .footer-legal {
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .cookie-content {
+                text-align: center;
+            }
+
+            .cookie-buttons {
+                justify-content: center;
+            }
+
+            .focus-mode-btn {
+                bottom: 80px;
+            }
+
+            .share-bar {
+                position: static;
+                flex-direction: row;
+                justify-content: center;
+                margin: 40px 0;
+            }
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text-dim);
+        }
+
+        ::selection {
+            background: var(--accent);
+            color: var(--bg);
+        }
+
+        .success-message {
+            display: none;
+            padding: 16px;
+            background: rgba(74, 222, 128, 0.1);
+            border: 1px solid var(--success);
+            color: var(--success);
+            margin-top: 16px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.85rem;
+        }
+
+        .success-message.visible {
+            display: block;
+        }
     </style>
 </head>
 <body>
     <div class="reading-progress" id="progress-bar"></div>
     
+    <!-- 1. MENU STICKY -->
+    <div class="header-sticky" id="headerSticky">
+        <div class="header-sticky-content">
+            <div class="header-sticky-title" onclick="showPage('main'); showJournal();">JUST A GUY</div>
+            <nav class="header-sticky-nav">
+                <a href="#" onclick="showPage('main'); showJournal();" id="nav-journal">Journal</a>
+                <a href="#" onclick="showAbout()" id="nav-about">Qui suis-je</a>
+                <a href="#" onclick="showTestimonials()" id="nav-testimonials">Témoignages</a>
+                <a href="#" onclick="showPrayer()" id="nav-prayer">Prière</a>
+                <a href="#" onclick="showConnect()" id="nav-connect">Me suivre</a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- BARRE DE CONTRÔLES -->
+    <div class="controls-bar" id="controlsBar">
+        <!-- 3. RECHERCHE -->
+        <div class="search-container">
+            <button class="control-btn" onclick="toggleSearch()">⌕</button>
+            <input type="text" class="search-input" id="searchInput" placeholder="Rechercher..." oninput="performSearch(this.value)">
+            <div class="search-results" id="searchResults"></div>
+        </div>
+        
+        <!-- 8. TAILLE POLICE -->
+        <div class="font-size-controls">
+            <button class="control-btn" onclick="changeFontSize(-1)">A-</button>
+            <button class="control-btn" onclick="changeFontSize(1)">A+</button>
+        </div>
+        
+        <!-- 7. MODE NUIT/CLAIR -->
+        <button class="control-btn theme-toggle" onclick="toggleTheme()"></button>
+    </div>
+
     <!-- Cookie Banner -->
     <div id="cookie-banner" class="cookie-banner">
         <div class="cookie-content">
@@ -1122,6 +1608,17 @@
     <!-- MODE FOCUS BUTTON -->
     <button class="focus-mode-btn" id="focusBtn" onclick="toggleFocus()">Mode Focus</button>
 
+    <!-- 6. SAUVEGARDE POSITION -->
+    <div class="reading-position" id="readingPosition">Reprise de la lecture</div>
+
+    <!-- 12. NEWSLETTER STICKY -->
+    <div class="newsletter-sticky" id="newsletterSticky">
+        <button class="newsletter-sticky-close" onclick="closeNewsletterSticky()">&times;</button>
+        <div class="newsletter-sticky-title">// Newsletter</div>
+        <p class="newsletter-sticky-text">Sois prévenu des nouveaux articles. Pas de spam.</p>
+        <button class="newsletter-sticky-btn" onclick="openModal('subscribe-modal'); closeNewsletterSticky();">S'abonner</button>
+    </div>
+
     <!-- Main Content -->
     <div id="main-content" class="page-section active">
         <div class="container">
@@ -1140,6 +1637,11 @@
                 </nav>
             </header>
 
+            <!-- Fil d'Ariane -->
+            <div class="breadcrumb" id="breadcrumb">
+                <a href="#" onclick="showJournal()">Journal</a>
+            </div>
+
             <!-- Journal List View -->
             <main id="journal-list">
                 <h3 class="about-title mono">// Journal</h3>
@@ -1147,28 +1649,58 @@
                     Clique sur un titre pour lire.
                 </p>
                 
-                <div class="article-list">
-                    <article class="article-preview" onclick="showArticle('article-1')">
+                <div class="article-list" id="articleList">
+                    <article class="article-preview new" onclick="showArticle('article-1')" data-title="Je me nomme, je m'appelle..." data-date="2026-02-06">
                         <time class="post-date mono" data-date="2026-02-06">06 Février 2026</time>
                         <h2 class="article-title">Je me nomme, je m'appelle...</h2>
                     </article>
-                </div>
-            </main>
-                <div class="article-list">
-                    <article class="article-preview" onclick="showArticle('article-2')">
+                    
+                    <article class="article-preview new" onclick="showArticle('article-2')" data-title="Comment j'arrive à la musique ?" data-date="2026-02-19">
                         <time class="post-date mono" data-date="2026-02-19">19 Février 2026</time>
                         <h2 class="article-title">Comment j'arrive à la musique ?</h2>
                     </article>
                 </div>
             </main>
             
+            <!-- 5. SOMMAIRE FLOTTANT -->
+            <div class="toc-sidebar" id="tocSidebar">
+                <div class="toc-title">// Sommaire</div>
+                <ul class="toc-list" id="tocList">
+                    <!-- Généré dynamiquement -->
+                </ul>
+            </div>
+
+            <!-- 10. PARTAGE NATIF -->
+            <div class="share-bar" id="shareBar">
+                <button class="share-btn" onclick="copyLink()" title="Copier le lien">🔗</button>
+                <button class="share-btn" onclick="shareWhatsApp()" title="WhatsApp">📱</button>
+                <button class="share-btn" onclick="shareTwitter()" title="Twitter">𝕏</button>
+            </div>
+            
             <!-- Article 1 Full -->
-            <div id="article-1" class="article-full">
+            <div id="article-1" class="article-full" data-title="Je me nomme, je m'appelle...">
                 <a href="#" class="back-link" onclick="showJournal()">← Retour au journal</a>
+                
+                <!-- 11. RÉACTIONS EMOJI -->
+                <div class="reactions-bar">
+                    <button class="reaction-btn" onclick="toggleReaction(this, '❤️')">
+                        ❤️ <span class="reaction-count">12</span>
+                    </button>
+                    <button class="reaction-btn" onclick="toggleReaction(this, '🔥')">
+                        🔥 <span class="reaction-count">8</span>
+                    </button>
+                    <button class="reaction-btn" onclick="toggleReaction(this, '🙏')">
+                        🙏 <span class="reaction-count">15</span>
+                    </button>
+                    <button class="reaction-btn" onclick="toggleReaction(this, '💭')">
+                        💭 <span class="reaction-count">3</span>
+                    </button>
+                </div>
+                
                 <article class="post">
                     <time class="post-date mono" data-date="2026-02-06">06 Février 2026</time>
                     <h2 class="post-title">Je me nomme, je m'appelle...</h2>
-                    <div class="post-content">
+                    <div class="post-content" id="content-1">
                         <p>
                            <q>Je me nomme, je m'appelle…</q> cette phrase me fait encore sourire aujourd'hui. 
                             Elle me fait visiter une partie de ma vie qui était assez simple. Pleine d'insouciance. J'étais juste un jeune dans mon quartier, entouré de mes amis avec lesquels je jouais au foot, je faisais du vélo…
@@ -1196,7 +1728,7 @@
                         </p>
                     </div>
 
-                    <!-- MESSAGE PRIVÉ UNIQUEMENT -->
+                    <!-- MESSAGE PRIVÉ -->
                     <div class="comments-section">
                         <h3 class="comments-title">// Me laisser un message</h3>
                         <p style="color: var(--text-dim); margin-bottom: 24px; font-size: 0.95rem; line-height: 1.6;">
@@ -1221,12 +1753,29 @@
             </div>
             
             <!-- Article 2 Full -->
-            <div id="article-2" class="article-full">
+            <div id="article-2" class="article-full" data-title="Comment j'arrive à la musique ?">
                 <a href="#" class="back-link" onclick="showJournal()">← Retour au journal</a>
+                
+                <!-- RÉACTIONS EMOJI -->
+                <div class="reactions-bar">
+                    <button class="reaction-btn" onclick="toggleReaction(this, '❤️')">
+                        ❤️ <span class="reaction-count">24</span>
+                    </button>
+                    <button class="reaction-btn" onclick="toggleReaction(this, '🔥')">
+                        🔥 <span class="reaction-count">18</span>
+                    </button>
+                    <button class="reaction-btn" onclick="toggleReaction(this, '🙏')">
+                        🙏 <span class="reaction-count">31</span>
+                    </button>
+                    <button class="reaction-btn" onclick="toggleReaction(this, '🎵')">
+                        🎵 <span class="reaction-count">12</span>
+                    </button>
+                </div>
+                
                 <article class="post">
                     <time class="post-date mono" data-date="2026-02-19">19 Février 2026</time>
                     <h2 class="post-title">Comment j'arrive à la musique ?</h2>
-                    <div class="post-content">
+                    <div class="post-content" id="content-2">
                         <p>
                            Déjà j'aimais beaucoup la musique, j'pense un peu comme tout le monde. Je me demande comment serait le monde dans lequel on vit sans musique. 
                            Je n'arrive pas l'imaginer. 
@@ -1286,7 +1835,7 @@
                         </p>
                     </div>
 
-                    <!-- MESSAGE PRIVÉ UNIQUEMENT -->
+                    <!-- MESSAGE PRIVÉ -->
                     <div class="comments-section">
                         <h3 class="comments-title">// Me laisser un message</h3>
                         <p style="color: var(--text-dim); margin-bottom: 24px; font-size: 0.95rem; line-height: 1.6;">
@@ -1297,654 +1846,919 @@
                             <div class="form-group">
                                 <label for="name-2">Ton prénom ou pseudo</label>
                                 <input type="text" id="name-2" name="name" required placeholder="Comment tu veux qu'on t'appelle ?">
-                            </div>
-                            <div class="form-group">
-                                <label for="comment-2">Ton message</label>
-                                <textarea id="comment-2" name="message" required placeholder="T'as quelque chose à partager ? Vas-y, feel free"></textarea>
-                            </div>
-                            <input type="hidden" name="_subject" value="Nouveau message privé - JUST A GUY">
-                            <button type="submit" class="submit-btn">Envoyer</button>
-                            <p class="moderation-note">Ton message reste privé — je lis tout personnellement.</p>
-                        </form>
-                    </div>
-                </article>
-            </div>
-            
+                                <div class="form-group"><label for="comment-2">
+<textarea id="comment-2" name="message" required placeholder="T'as quelque chose à partager ? Vas-y, feel free">
+    <input type="hidden" name="_subject" value="Nouveau message privé - JUST A GUY"><button type="submit" class="submit-btn">
+<p class="moderation-note">
             <!-- About Section -->
-            <section id="about" class="about-section" style="display: none;">
-                <h3 class="about-title mono">// Qui suis-je</h3>
-                
-                <img src="https://raw.githubusercontent.com/Jahbarii/JUST-A-GUY/main/photo.jpg" 
-                     alt="Jahbarii" 
-                     class="about-photo"
-                     onerror="this.style.display='none'">
-                
-                <div class="about-content">
-                    <p>
-                        Je ne suis pas venu pour distraire. Je suis là pour rappeler.
-                        Mon art est un retour vers l'Origine. Un cri dans la brume, une lumière dans la vallée.
-                        Je t'invite à écouter, à réfléchir, à te reconnecter. 
-                        Dans un monde qui vend du rêve, je choisis de vendre du réel. Mes doutes, mes espoirs, mes faiblesses, mes victoires...
-                    </p>
-                    <p>
-                        Je suis Jahbarii. 
-                        Juste un gars qui fait de la musique pour glorifier son Père <strong> (Dieu) </strong> et partager sa foi dans l'objectif d'aider ses frères à travers le monde à revenir à la Source. 
-                        J'ai 28 ans, une foi qui tient debout malgré les épreuves par la grâce reçu en <strong> Jésus-Christ </strong> car tout est grâce.
-                    </p>
-                    <p>
-                        Tu n'as pas besoin d'être réligieux mais tu as besoin de vérité. 
-                        Cette vérité est une personne avec laquelle une relation est indispensable pour un bien-être vrai et durable.
-                        Si seulement tu ouvres ton coeur, tu pourras l'entendre.
-                    </p>
-                    <p class="mono" style="color: var(--text-dim); margin-top: 32px; font-size: 0.9rem;">
-                        Un gars, une foi, une voix.
-                    </p>
-                </div>
-            </section>
+        <section id="about" class="about-section" style="display: none;">
+            <h3 class="about-title mono">// Qui suis-je</h3>
+            
+            <img src="https://raw.githubusercontent.com/Jahbarii/JUST-A-GUY/main/photo.jpg" 
+                 alt="Jahbarii" 
+                 class="about-photo"
+                 onerror="this.style.display='none'">
+            
+            <div class="about-content">
+                <p>
+                    Je ne suis pas venu pour distraire. Je suis là pour rappeler.
+                    Mon art est un retour vers l'Origine. Un cri dans la brume, une lumière dans la vallée.
+                    Je t'invite à écouter, à réfléchir, à te reconnecter. 
+                    Dans un monde qui vend du rêve, je choisis de vendre du réel. Mes doutes, mes espoirs, mes faiblesses, mes victoires...
+                </p>
+                <p>
+                    Je suis Jahbarii. 
+                    Juste un gars qui fait de la musique pour glorifier son Père <strong> (Dieu) </strong> et partager sa foi dans l'objectif d'aider ses frères à travers le monde à revenir à la Source. 
+                    J'ai 28 ans, une foi qui tient debout malgré les épreuves par la grâce reçu en <strong> Jésus-Christ </strong> car tout est grâce.
+                </p>
+                <p>
+                    Tu n'as pas besoin d'être réligieux mais tu as besoin de vérité. 
+                    Cette vérité est une personne avec laquelle une relation est indispensable pour un bien-être vrai et durable.
+                    Si seulement tu ouvres ton coeur, tu pourras l'entendre.
+                </p>
+                <p class="mono" style="color: var(--text-dim); margin-top: 32px; font-size: 0.9rem;">
+                    Un gars, une foi, une voix.
+                </p>
+            </div>
+        </section>
 
-            <!-- Testimonials Section -->
-            <section id="testimonials" class="testimonials-section" style="display: none;">
-                <h3 class="about-title mono">// Témoignages</h3>
-                <p class="testimonials-intro">
-                    Un espace pour partager ce que Dieu fait dans nos vies. Pas pour performer, mais pour édifier. Témoigne de ce qui t'anime, ce que tu traverses, ou comment la foi te soutient. Ensemble, on avance.
+        <!-- Testimonials Section -->
+        <section id="testimonials" class="testimonials-section" style="display: none;">
+            <h3 class="about-title mono">// Témoignages</h3>
+            <p class="testimonials-intro">
+                Un espace pour partager ce que Dieu fait dans nos vies. Pas pour performer, mais pour édifier. Témoigne de ce qui t'anime, ce que tu traverses, ou comment la foi te soutient. Ensemble, on avance.
+            </p>
+
+            <form class="testimonial-form" onsubmit="handleTestimonial(event)">
+                <div class="form-group">
+                    <label for="testimonial-name">Ton prénom (ou anonyme)</label>
+                    <input type="text" id="testimonial-name" placeholder="Comment tu veux signer ?">
+                </div>
+                <div class="form-group">
+                    <label for="testimonial-content">Ton témoignage</label>
+                    <textarea id="testimonial-content" required placeholder="Partage ce que tu veux... un verset qui t'a parlé, une victoire, un combat, une gratitude..."></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Partager le témoignage</button>
+                <p class="moderation-note">Je relis chaque témoignage avant publication pour préserver la bienveillance de cet espace.</p>
+            </form>
+
+            <div class="success-message" id="testimonial-success">
+                Merci pour ce partage. Il sera publié après relecture.
+            </div>
+
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">
+                        "J'ai découvert ce blog par hasard alors que je traversais une période de doute profond. Lire que quelqu'un d'autre se lève à 6h par anxiété m'a fait me sentir moins seule. Aujourd'hui, je remonte la pente, pas encore arrivée, mais en chemin."
+                    </p>
+                    <div class="testimonial-author">Marie</div>
+                    <div class="testimonial-date">Partagé il y a 3 jours</div>
+                </div>
+
+                <div class="testimonial-card">
+                    <p class="testimonial-text">
+                        "La phrase 'Le succès est une vague. La foi est l'océan.' est devenue mon fond d'écran. Je la relis chaque matin avant d'aller au travail. Ça change la perspective."
+                    </p>
+                    <div class="testimonial-author">Thomas</div>
+                    <div class="testimonial-date">Partagé il y a 1 semaine</div>
+                </div>
+
+                <div class="testimonial-card">
+                    <p class="testimonial-text">
+                        "Je ne suis pas croyant, mais je lis chaque article. Il y a une authenticité ici qui me touche. Ça me rappelle qu'on est tous en train de chercher, peu importe vers quoi."
+                    </p>
+                    <div class="testimonial-author">Anonyme</div>
+                    <div class="testimonial-date">Partagé il y a 2 semaines</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Prayer Section -->
+        <section id="prayer" class="prayer-section" style="display: none;">
+            <h3 class="about-title mono">// Demande de prière</h3>
+            <div class="prayer-content">
+                <p class="prayer-intro">
+                    Il y a des choses trop lourdes pour être portées seules. Si tu traverses quelque chose et que tu veux que quelqu'un prie avec toi, laisse un message ici. Je prie pour chaque demande personnellement.
                 </p>
 
-                <form class="testimonial-form" onsubmit="handleTestimonial(event)">
+                <form class="prayer-form" onsubmit="handlePrayer(event)">
                     <div class="form-group">
-                        <label for="testimonial-name">Ton prénom (ou anonyme)</label>
-                        <input type="text" id="testimonial-name" placeholder="Comment tu veux signer ?">
+                        <label for="prayer-name">Ton prénom (ou anonyme)</label>
+                        <input type="text" id="prayer-name" placeholder="Comment je peux t'appeler dans la prière ?">
                     </div>
                     <div class="form-group">
-                        <label for="testimonial-content">Ton témoignage</label>
-                        <textarea id="testimonial-content" required placeholder="Partage ce que tu veux... un verset qui t'a parlé, une victoire, un combat, une gratitude..."></textarea>
+                        <label for="prayer-request">Ta demande</label>
+                        <textarea id="prayer-request" required placeholder="Partage ce que tu veux... pas besoin de formules, juste ce qui pèse sur ton cœur."></textarea>
                     </div>
-                    <button type="submit" class="submit-btn">Partager le témoignage</button>
-                    <p class="moderation-note">Je relis chaque témoignage avant publication pour préserver la bienveillance de cet espace.</p>
+                    <button type="submit" class="submit-btn">Envoyer la demande</button>
+                    <p class="confidentiality-note">
+                        Cette demande reste entre toi et moi. Je ne partage jamais ces messages, sauf si tu me demandes explicitement d'en faire un témoignage.
+                    </p>
                 </form>
 
-                <div class="success-message" id="testimonial-success">
-                    Merci pour ce partage. Il sera publié après relecture.
+                <div class="success-message" id="prayer-success">
+                    C'est reçu. Je prie pour toi dans les prochaines 24h.
                 </div>
+            </div>
+        </section>
 
-                <div class="testimonials-grid">
-                    <div class="testimonial-card">
-                        <p class="testimonial-text">
-                            "J'ai découvert ce blog par hasard alors que je traversais une période de doute profond. Lire que quelqu'un d'autre se lève à 6h par anxiété m'a fait me sentir moins seule. Aujourd'hui, je remonte la pente, pas encore arrivée, mais en chemin."
-                        </p>
-                        <div class="testimonial-author">Marie</div>
-                        <div class="testimonial-date">Partagé il y a 3 jours</div>
-                    </div>
+        <!-- Connect Section -->
+        <section id="connect" class="connect-section" style="display: none;">
+            <h3 class="about-title mono">// Retrouve-moi Ici</h3>
+            <div class="connect-grid">
+                <a href="https://instagram.com/Jahbarii_on_di_gram" target="_blank" class="connect-link">
+                    <strong>Instagram</strong>
+                    @Jahbarii_on_di_gram
+                </a>
+                <a href="https://instagram.com/Jahbarii_on_di_side" target="_blank" class="connect-link">
+                    <strong>IG Secondaire</strong>
+                    @Jahbarii_on_di_side
+                </a>
+                <a href="https://tiktok.com/@Jahbarii" target="_blank" class="connect-link">
+                    <strong>TikTok</strong>
+                    @Jahbarii
+                </a>
+                <a href="https://open.spotify.com/artist/0slr5Qw4qjYzBoRC95cWJw" target="_blank" class="connect-link">
+                    <strong>Spotify</strong>
+                    Jahbarii
+                </a>
+                <a href="https://music.apple.com/us/artist/jahbarii/1693066953" target="_blank" class="connect-link">
+                    <strong>Apple Music</strong>
+                    Jahbarii
+                </a>
+            </div>
 
-                    <div class="testimonial-card">
-                        <p class="testimonial-text">
-                            "La phrase 'Le succès est une vague. La foi est l'océan.' est devenue mon fond d'écran. Je la relis chaque matin avant d'aller au travail. Ça change la perspective."
-                        </p>
-                        <div class="testimonial-author">Thomas</div>
-                        <div class="testimonial-date">Partagé il y a 1 semaine</div>
-                    </div>
-
-                    <div class="testimonial-card">
-                        <p class="testimonial-text">
-                            "Je ne suis pas croyant, mais je lis chaque article. Il y a une authenticité ici qui me touche. Ça me rappelle qu'on est tous en train de chercher, peu importe vers quoi."
-                        </p>
-                        <div class="testimonial-author">Anonyme</div>
-                        <div class="testimonial-date">Partagé il y a 2 semaines</div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Prayer Section -->
-            <section id="prayer" class="prayer-section" style="display: none;">
-                <h3 class="about-title mono">// Demande de prière</h3>
-                <div class="prayer-content">
-                    <p class="prayer-intro">
-                        Il y a des choses trop lourdes pour être portées seules. Si tu traverses quelque chose et que tu veux que quelqu'un prie avec toi, laisse un message ici. Je prie pour chaque demande personnellement.
-                    </p>
-
-                    <form class="prayer-form" onsubmit="handlePrayer(event)">
-                        <div class="form-group">
-                            <label for="prayer-name">Ton prénom (ou anonyme)</label>
-                            <input type="text" id="prayer-name" placeholder="Comment je peux t'appeler dans la prière ?">
-                        </div>
-                        <div class="form-group">
-                            <label for="prayer-request">Ta demande</label>
-                            <textarea id="prayer-request" required placeholder="Partage ce que tu veux... pas besoin de formules, juste ce qui pèse sur ton cœur."></textarea>
-                        </div>
-                        <button type="submit" class="submit-btn">Envoyer la demande</button>
-                        <p class="confidentiality-note">
-                            Cette demande reste entre toi et moi. Je ne partage jamais ces messages, sauf si tu me demandes explicitement d'en faire un témoignage.
-                        </p>
-                    </form>
-
-                    <div class="success-message" id="prayer-success">
-                        C'est reçu. Je prie pour toi dans les prochaines 24h.
-                    </div>
-                </div>
-            </section>
-
-            <!-- Connect Section -->
-            <section id="connect" class="connect-section" style="display: none;">
-                <h3 class="about-title mono">// Retrouve-moi Ici</h3>
-                <div class="connect-grid">
-                    <a href="https://instagram.com/Jahbarii_on_di_gram" target="_blank" class="connect-link">
-                        <strong>Instagram</strong>
-                        @Jahbarii_on_di_gram
-                    </a>
-                    <a href="https://instagram.com/Jahbarii_on_di_side" target="_blank" class="connect-link">
-                        <strong>IG Secondaire</strong>
-                        @Jahbarii_on_di_side
-                    </a>
-                    <a href="https://tiktok.com/@Jahbarii" target="_blank" class="connect-link">
-                        <strong>TikTok</strong>
-                        @Jahbarii
-                    </a>
-                    <a href="https://open.spotify.com/artist/0slr5Qw4qjYzBoRC95cWJw" target="_blank" class="connect-link">
-                        <strong>Spotify</strong>
-                        Jahbarii
-                    </a>
-                    <a href="https://music.apple.com/us/artist/jahbarii/1693066953" target="_blank" class="connect-link">
-                        <strong>Apple Music</strong>
-                        Jahbarii
-                    </a>
-                </div>
-
-                <div style="margin: 60px 0; text-align: center;">
-                    <h3 class="about-title mono" style="margin-bottom: 24px;">// Soutenir le projet</h3>
-                    <p class="donation-text" style="color: var(--text); font-size: 1.1rem; line-height: 1.8; margin-bottom: 32px;">
-                        Si ce contenu ou ma musique t'encourage, tu peux soutenir le projet librement. Les dons servent à financer la création musicale et les futurs albums. <em style="color: var(--text-dim); font-style: normal;">Aucun montant n'est trop petit.</em> Merci pour ton soutien.
-                    </p>
-                    
-                    <div class="donation-options" style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-bottom: 24px;">
-                       <a href="https://paypal.me/PSokoury" target="_blank" class="donation-btn">Faire un don</a>
-                        <a href="https://open.spotify.com/artist/0slr5Qw4qjYzBoRC95cWJw" target="_blank" class="donation-btn">Écouter sur Spotify</a>
-                        <a href="https://music.apple.com/us/artist/jahbarii/1693066953" target="_blank" class="donation-btn">Écouter sur Apple Music</a>
-                    </div>
-                    
-                    <p class="donation-note" style="font-size: 0.85rem; color: var(--text-dim); font-style: italic;">
-                        Partager la musique ou ce blog avec quelqu'un qui en a besoin est aussi un soutien précieux.
-                    </p>
-                </div>
-            </section>
-
-            <footer>
-                <p class="footer-mantra mono">un gars, une foi, une voix</p>
-                <p>&copy; 2026 JUST A GUY — Jahbarii. Tous droits réservés.</p>
+            <div style="margin: 60px 0; text-align: center;">
+                <h3 class="about-title mono" style="margin-bottom: 24px;">// Soutenir le projet</h3>
+                <p class="donation-text" style="color: var(--text); font-size: 1.1rem; line-height: 1.8; margin-bottom: 32px;">
+                    Si ce contenu ou ma musique t'encourage, tu peux soutenir le projet librement. Les dons servent à financer la création musicale et les futurs albums. <em style="color: var(--text-dim); font-style: normal;">Aucun montant n'est trop petit.</em> Merci pour ton soutien.
+                </p>
                 
-                <div class="footer-legal">
-                    <a href="#" onclick="showPage('privacy')">Politique de confidentialité</a>
-                    <a href="#" onclick="showPage('legal')">Mentions légales</a>
-                    <a href="#" onclick="showPage('cookies')">Politique cookies</a>
+                <div class="donation-options" style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-bottom: 24px;">
+                   <a href="https://paypal.me/PSokoury" target="_blank" class="donation-btn">Faire un don</a>
+                    <a href="https://open.spotify.com/artist/0slr5Qw4qjYzBoRC95cWJw" target="_blank" class="donation-btn">Écouter sur Spotify</a>
+                    <a href="https://music.apple.com/us/artist/jahbarii/1693066953" target="_blank" class="donation-btn">Écouter sur Apple Music</a>
                 </div>
+                
+                <p class="donation-note" style="font-size: 0.85rem; color: var(--text-dim); font-style: italic;">
+                    Partager la musique ou ce blog avec quelqu'un qui en a besoin est aussi un soutien précieux.
+                </p>
+            </div>
+        </section>
 
-                <div style="margin-top: 40px;">
-                    <button class="submit-btn" onclick="openModal('subscribe-modal')">S'abonner aux nouveaux articles</button>
-                </div>
-            </footer>
-        </div>
-    </div>
-
-    <!-- Privacy Policy Page -->
-    <div id="privacy-page" class="page-section">
-        <div class="container">
-            <a href="#" class="back-link-legal" onclick="showPage('main')">← Retour au site</a>
+        <footer>
+            <p class="footer-mantra mono">un gars, une foi, une voix</p>
+            <p>&copy; 2026 JUST A GUY — Jahbarii. Tous droits réservés.</p>
             
-            <div class="legal-section">
-                <div class="legal-content">
-                    <h2>Politique de confidentialité</h2>
-                    
-                    <p>
-                        Cette politique de confidentialité décrit comment JUST A GUY (Jahbarii) collecte, utilise et protège tes données personnelles lorsque tu utilises ce site.
-                    </p>
+            <div class="footer-legal">
+                <a href="#" onclick="showPage('privacy')">Politique de confidentialité</a>
+                <a href="#" onclick="showPage('legal')">Mentions légales</a>
+                <a href="#" onclick="showPage('cookies')">Politique cookies</a>
+            </div>
 
-                    <h3>1. Responsable du traitement</h3>
-                    <p>
-                        <strong>Nom :</strong> Jahbarii (artiste indépendant)<br>
-                        <strong>Contact :</strong> via les réseaux sociaux listés sur le site<br>
-                        <strong>Hébergeur :</strong> GitHub Pages
-                    </p>
+            <div style="margin-top: 40px;">
+                <button class="submit-btn" onclick="openModal('subscribe-modal')">S'abonner aux nouveaux articles</button>
+            </div>
+        </footer>
+    </div>
+</div>
 
-                    <h3>2. Données collectées</h3>
-                    <p>Nous collectons uniquement les données que tu choisis de nous communiquer :</p>
-                    <ul>
-                        <li><strong>Messages privés :</strong> Prénom/pseudo et contenu du message (envoyé via Formspree)</li>
-                        <li><strong>Témoignages :</strong> Prénom (optionnel) et contenu du témoignage</li>
-                        <li><strong>Demandes de prière :</strong> Prénom (optionnel) et contenu de la demande (strictement confidentiel)</li>
-                        <li><strong>Newsletter :</strong> Adresse email uniquement</li>
-                        <li><strong>Cookies :</strong> Préférences de navigation (si tu acceptes)</li>
-                    </ul>
+<!-- Privacy Policy Page -->
+<div id="privacy-page" class="page-section">
+    <div class="container">
+        <a href="#" class="back-link-legal" onclick="showPage('main')">← Retour au site</a>
+        
+        <div class="legal-section">
+            <div class="legal-content">
+                <h2>Politique de confidentialité</h2>
+                
+                <p>
+                    Cette politique de confidentialité décrit comment JUST A GUY (Jahbarii) collecte, utilise et protège tes données personnelles lorsque tu utilises ce site.
+                </p>
 
-                    <h3>3. Finalités du traitement</h3>
-                    <p>Tes données sont utilisées pour :</p>
-                    <ul>
-                        <li>Te répondre personnellement aux messages privés</li>
-                        <li>T'envoyer les nouveaux articles si tu t'abonnes à la newsletter</li>
-                        <li>Prier pour tes demandes (confidentielles)</li>
-                        <li>Améliorer l'expérience utilisateur</li>
-                    </ul>
+                <h3>1. Responsable du traitement</h3>
+                <p>
+                    <strong>Nom :</strong> Jahbarii (artiste indépendant)<br>
+                    <strong>Contact :</strong> via les réseaux sociaux listés sur le site<br>
+                    <strong>Hébergeur :</strong> GitHub Pages
+                </p>
 
-                    <h3>4. Base légale</h3>
-                    <p>
-                        Le traitement de tes données repose sur ton <strong>consentement explicite</strong> (article 6.1.a du RGPD). Tu peux retirer ce consentement à tout moment.
-                    </p>
+                <h3>2. Données collectées</h3>
+                <p>Nous collectons uniquement les données que tu choisis de nous communiquer :</p>
+                <ul>
+                    <li><strong>Messages privés :</strong> Prénom/pseudo et contenu du message (envoyé via Formspree)</li>
+                    <li><strong>Témoignages :</strong> Prénom (optionnel) et contenu du témoignage</li>
+                    <li><strong>Demandes de prière :</strong> Prénom (optionnel) et contenu de la demande (strictement confidentiel)</li>
+                    <li><strong>Newsletter :</strong> Adresse email uniquement</li>
+                    <li><strong>Cookies :</strong> Préférences de navigation (si tu acceptes)</li>
+                </ul>
 
-                    <h3>5. Durée de conservation</h3>
-                    <ul>
-                        <li><strong>Messages privés :</strong> 1 an maximum, puis suppression</li>
-                        <li><strong>Newsletter :</strong> Jusqu'à désinscription</li>
-                        <li><strong>Demandes de prière :</strong> 1 an maximum, puis suppression</li>
-                        <li><strong>Cookies :</strong> 13 mois maximum</li>
-                    </ul>
+                <h3>3. Finalités du traitement</h3>
+                <p>Tes données sont utilisées pour :</p>
+                <ul>
+                    <li>Te répondre personnellement aux messages privés</li>
+                    <li>T'envoyer les nouveaux articles si tu t'abonnes à la newsletter</li>
+                    <li>Prier pour tes demandes (confidentielles)</li>
+                    <li>Améliorer l'expérience utilisateur</li>
+                </ul>
 
-                    <h3>6. Tes droits</h3>
-                    <p>Conformément au RGPD, tu disposes des droits suivants :</p>
-                    <ul>
-                        <li><strong>Droit d'accès :</strong> Savoir quelles données te concernent</li>
-                        <li><strong>Droit de rectification :</strong> Modifier des données inexactes</li>
-                        <li><strong>Droit à l'effacement :</strong> Demander la suppression de tes données</li>
-                        <li><strong>Droit d'opposition :</strong> Te désinscrire à tout moment</li>
-                        <li><strong>Droit à la portabilité :</strong> Récupérer tes données</li>
-                    </ul>
-                    <p>
-                        Pour exercer ces droits, contacte-moi via les réseaux sociaux ou par email. Je réponds dans un délai de 30 jours maximum.
-                    </p>
+                <h3>4. Base légale</h3>
+                <p>
+                    Le traitement de tes données repose sur ton <strong>consentement explicite</strong> (article 6.1.a du RGPD). Tu peux retirer ce consentement à tout moment.
+                </p>
 
-                    <h3>7. Sécurité</h3>
-                    <p>
-                        Tes données sont stockées de manière sécurisée. Les demandes de prière sont traitées avec une confidentialité absolue et ne sont jamais partagées publiquement sans ton consentement explicite.
-                    </p>
+                <h3>5. Durée de conservation</h3>
+                <ul>
+                    <li><strong>Messages privés :</strong> 1 an maximum, puis suppression</li>
+                    <li><strong>Newsletter :</strong> Jusqu'à désinscription</li>
+                    <li><strong>Demandes de prière :</strong> 1 an maximum, puis suppression</li>
+                    <li><strong>Cookies :</strong> 13 mois maximum</li>
+                </ul>
 
-                    <h3>8. Cookies</h3>
-                    <p>
-                        Ce site utilise des cookies essentiels au fonctionnement et, avec ton accord, des cookies d'analyse pour améliorer l'expérience. Tu peux modifier tes préférences à tout moment via la bannière cookies.
-                    </p>
+                <h3>6. Tes droits</h3>
+                <p>Conformément au RGPD, tu disposes des droits suivants :</p>
+                <ul>
+                    <li><strong>Droit d'accès :</strong> Savoir quelles données te concernent</li>
+                    <li><strong>Droit de rectification :</strong> Modifier des données inexactes</li>
+                    <li><strong>Droit à l'effacement :</strong> Demander la suppression de tes données</li>
+                    <li><strong>Droit d'opposition :</strong> Te désinscrire à tout moment</li>
+                    <li><strong>Droit à la portabilité :</strong> Récupérer tes données</li>
+                </ul>
+                <p>
+                    Pour exercer ces droits, contacte-moi via les réseaux sociaux ou par email. Je réponds dans un délai de 30 jours maximum.
+                </p>
 
-                    <p class="legal-date">
-                        Dernière mise à jour : 20 février 2026<br>
-                        [Générée automatiquement - Version simplifiée RGPD]
-                    </p>
-                </div>
+                <h3>7. Sécurité</h3>
+                <p>
+                    Tes données sont stockées de manière sécurisée. Les demandes de prière sont traitées avec une confidentialité absolue et ne sont jamais partagées publiquement sans ton consentement explicite.
+                </p>
+
+                <h3>8. Cookies</h3>
+                <p>
+                    Ce site utilise des cookies essentiels au fonctionnement et, avec ton accord, des cookies d'analyse pour améliorer l'expérience. Tu peux modifier tes préférences à tout moment via la bannière cookies.
+                </p>
+
+                <p class="legal-date">
+                    Dernière mise à jour : 20 février 2026<br>
+                    [Générée automatiquement - Version simplifiée RGPD]
+                </p>
             </div>
         </div>
     </div>
+</div>
 
-    <!-- Legal Mentions Page -->
-    <div id="legal-page" class="page-section">
-        <div class="container">
-            <a href="#" class="back-link-legal" onclick="showPage('main')">← Retour au site</a>
-            
-            <div class="legal-section">
-                <div class="legal-content">
-                    <h2>Mentions légales</h2>
+<!-- Legal Mentions Page -->
+<div id="legal-page" class="page-section">
+    <div class="container">
+        <a href="#" class="back-link-legal" onclick="showPage('main')">← Retour au site</a>
+        
+        <div class="legal-section">
+            <div class="legal-content">
+                <h2>Mentions légales</h2>
 
-                    <h3>1. Éditeur du site</h3>
-                    <p>
-                        <strong>Nom :</strong> Jahbarii (artiste indépendant)<br>
-                        <strong>Statut :</strong> Auto-entrepreneur / Artiste indépendant<br>
-                        <strong>Adresse :</strong> Sur demande via Instagram<br>
-                        <strong>Contact :</strong> Via Instagram @Jahbarii_on_di_gram
-                    </p>
+                <h3>1. Éditeur du site</h3>
+                <p>
+                    <strong>Nom :</strong> Jahbarii (artiste indépendant)<br>
+                    <strong>Statut :</strong> Auto-entrepreneur / Artiste indépendant<br>
+                    <strong>Adresse :</strong> Sur demande via Instagram<br>
+                    <strong>Contact :</strong> Via Instagram @Jahbarii_on_di_gram
+                </p>
 
-                    <h3>2. Hébergement</h3>
-                    <p>
-                        <strong>Hébergeur :</strong> GitHub Pages<br>
-                        <strong>Adresse :</strong> 88 Colin P Kelly Jr St, San Francisco, CA 94107, United States<br>
-                        <strong>Site :</strong> https://github.com  
-                    </p>
+                <h3>2. Hébergement</h3>
+                <p>
+                    <strong>Hébergeur :</strong> GitHub Pages<br>
+                    <strong>Adresse :</strong> 88 Colin P Kelly Jr St, San Francisco, CA 94107, United States<br>
+                    <strong>Site :</strong> https://github.com  
+                </p>
 
-                    <h3>3. Propriété intellectuelle</h3>
-                    <p>
-                        L'ensemble du contenu de ce site (textes, images, musique, code) est la propriété exclusive de Jahbarii, sauf mention contraire. Toute reproduction, distribution ou utilisation sans autorisation préalable est interdite.
-                    </p>
-                    <p>
-                        Les liens vers Spotify, Apple Music, Instagram et TikTok sont des marques déposées appartenant à leurs propriétaires respectifs.
-                    </p>
+                <h3>3. Propriété intellectuelle</h3>
+                <p>
+                    L'ensemble du contenu de ce site (textes, images, musique, code) est la propriété exclusive de Jahbarii, sauf mention contraire. Toute reproduction, distribution ou utilisation sans autorisation préalable est interdite.
+                </p>
+                <p>
+                    Les liens vers Spotify, Apple Music, Instagram et TikTok sont des marques déposées appartenant à leurs propriétaires respectifs.
+                </p>
 
-                    <h3>4. Responsabilité</h3>
-                    <p>
-                        Les informations fournies sur ce site le sont à titre indicatif. Jahbarii ne peut être tenu responsable des erreurs ou omissions. Les témoignages publiés n'engagent que leurs auteurs.
-                    </p>
+                <h3>4. Responsabilité</h3>
+                <p>
+                    Les informations fournies sur ce site le sont à titre indicatif. Jahbarii ne peut être tenu responsable des erreurs ou omissions. Les témoignages publiés n'engagent que leurs auteurs.
+                </p>
 
-                    <h3>5. Liens externes</h3>
-                    <p>
-                        Ce site contient des liens vers des plateformes tierces (Spotify, Apple Music, Instagram, TikTok). Je ne suis pas responsable du contenu ou des pratiques de confidentialité de ces sites.
-                    </p>
+                <h3>5. Liens externes</h3>
+                <p>
+                    Ce site contient des liens vers des plateformes tierces (Spotify, Apple Music, Instagram, TikTok). Je ne suis pas responsable du contenu ou des pratiques de confidentialité de ces sites.
+                </p>
 
-                    <h3>6. Crédits</h3>
-                    <p>
-                        <strong>Conception :</strong> Jahbarii<br>
-                        <strong>Développement :</strong> Design brutaliste personnalisé<br>
-                        <strong>Typographie :</strong> IBM Plex Mono & Inter (Google Fonts)
-                    </p>
+                <h3>6. Crédits</h3>
+                <p>
+                    <strong>Conception :</strong> Jahbarii<br>
+                    <strong>Développement :</strong> Design brutaliste personnalisé<br>
+                    <strong>Typographie :</strong> IBM Plex Mono & Inter (Google Fonts)
+                </p>
 
-                    <p class="legal-date">
-                        Dernière mise à jour : 20 février 2026
-                    </p>
-                </div>
+                <p class="legal-date">
+                    Dernière mise à jour : 20 février 2026
+                </p>
             </div>
         </div>
     </div>
+</div>
 
-    <!-- Cookies Policy Page -->
-    <div id="cookies-page" class="page-section">
-        <div class="container">
-            <a href="#" class="back-link-legal" onclick="showPage('main')">← Retour au site</a>
-            
-            <div class="legal-section">
-                <div class="legal-content">
-                    <h2>Politique des cookies</h2>
+<!-- Cookies Policy Page -->
+<div id="cookies-page" class="page-section">
+    <div class="container">
+        <a href="#" class="back-link-legal" onclick="showPage('main')">← Retour au site</a>
+        
+        <div class="legal-section">
+            <div class="legal-content">
+                <h2>Politique des cookies</h2>
 
-                    <h3>Qu'est-ce qu'un cookie ?</h3>
-                    <p>
-                        Un cookie est un petit fichier texte déposé sur ton appareil lors de la visite d'un site. Il permet de mémoriser tes préférences et d'améliorer ton expérience.
-                    </p>
+                <h3>Qu'est-ce qu'un cookie ?</h3>
+                <p>
+                    Un cookie est un petit fichier texte déposé sur ton appareil lors de la visite d'un site. Il permet de mémoriser tes préférences et d'améliorer ton expérience.
+                </p>
 
-                    <h3>Cookies utilisés sur ce site</h3>
+                <h3>Cookies utilisés sur ce site</h3>
 
-                    <h3 style="margin-top: 24px; font-size: 0.85rem;">1. Cookies essentiels (obligatoires)</h3>
-                    <p>
-                        Ces cookies sont nécessaires au fonctionnement du site. Ils ne peuvent pas être désactivés.
-                    </p>
-                    <ul>
-                        <li><strong>cookie-consent :</strong> Mémorise ton choix concernant les cookies (13 mois)</li>
-                        <li><strong>session :</strong> Maintient ta session active</li>
-                    </ul>
+                <h3 style="margin-top: 24px; font-size: 0.85rem;">1. Cookies essentiels (obligatoires)</h3>
+                <p>
+                    Ces cookies sont nécessaires au fonctionnement du site. Ils ne peuvent pas être désactivés.
+                </p>
+                <ul>
+                    <li><strong>cookie-consent :</strong> Mémorise ton choix concernant les cookies (13 mois)</li>
+                    <li><strong>session :</strong> Maintient ta session active</li>
+                    <li><strong>reading-position :</strong> Sauvegarde ta position de lecture</li>
+                    <li><strong>theme :</strong> Mode nuit/clair préféré</li>
+                    <li><strong>font-size :</strong> Taille de police préférée</li>
+                </ul>
 
-                    <h3 style="margin-top: 24px; font-size: 0.85rem;">2. Cookies de préférences</h3>
-                    <p>
-                        Ces cookies mémorisent tes choix pour améliorer ton expérience.
-                    </p>
-                    <ul>
-                        <li><strong>theme :</strong> Préférences d'affichage (si applicable)</li>
-                    </ul>
+                <h3 style="margin-top: 24px; font-size: 0.85rem;">2. Cookies de préférences</h3>
+                <p>
+                    Ces cookies mémorisent tes choix pour améliorer ton expérience.
+                </p>
+                <ul>
+                    <li><strong>focus-mode :</strong> Préférence du mode focus</li>
+                </ul>
 
-                    <h3 style="margin-top: 24px; font-size: 0.85rem;">3. Cookies d'analyse (optionnels)</h3>
-                    <p>
-                        Ces cookies nous aident à comprendre comment le site est utilisé, uniquement si tu acceptes.
-                    </p>
-                    <ul>
-                        <li><strong>Google Analytics :</strong> Statistiques de visite (anonymisées)</li>
-                    </ul>
+                <h3 style="margin-top: 24px; font-size: 0.85rem;">3. Cookies d'analyse (optionnels)</h3>
+                <p>
+                    Ces cookies nous aident à comprendre comment le site est utilisé, uniquement si tu acceptes.
+                </p>
+                <ul>
+                    <li><strong>Google Analytics :</strong> Statistiques de visite (anonymisées)</li>
+                </ul>
 
-                    <h3>Gérer tes préférences</h3>
-                    <p>
-                        Tu peux modifier ton choix à tout moment en cliquant sur le bouton ci-dessous. Tu peux aussi supprimer les cookies via les paramètres de ton navigateur.
-                    </p>
+                <h3>Gérer tes préférences</h3>
+                <p>
+                    Tu peux modifier ton choix à tout moment en cliquant sur le bouton ci-dessous. Tu peux aussi supprimer les cookies via les paramètres de ton navigateur.
+                </p>
 
-                    <div style="margin: 32px 0; padding: 24px; border: 1px solid var(--border);">
-                        <p style="margin-bottom: 16px;"><strong>Ton choix actuel :</strong> <span id="current-consent">En attente de choix</span></p>
-                        <button class="cookie-btn accept" onclick="acceptCookies()">Accepter tous les cookies</button>
-                        <button class="cookie-btn" onclick="refuseCookies()" style="margin-left: 12px;">Refuser les cookies optionnels</button>
-                    </div>
-
-                    <h3>Impact du refus</h3>
-                    <p>
-                        Si tu refuses les cookies optionnels, le site fonctionnera normalement mais nous n'aurons pas de statistiques de visite. Cela ne change rien à ton expérience de lecture.
-                    </p>
-
-                    <h3>Durée de conservation</h3>
-                    <p>
-                        Les cookies sont conservés maximum 13 mois. Passé ce délai, ton consentement sera à nouveau demandé.
-                    </p>
-
-                    <p class="legal-date">
-                        Dernière mise à jour : 20 février 2026
-                    </p>
+                <div style="margin: 32px 0; padding: 24px; border: 1px solid var(--border);">
+                    <p style="margin-bottom: 16px;"><strong>Ton choix actuel :</strong> <span id="current-consent">En attente de choix</span></p>
+                    <button class="cookie-btn accept" onclick="acceptCookies()">Accepter tous les cookies</button>
+                    <button class="cookie-btn" onclick="refuseCookies()" style="margin-left: 12px;">Refuser les cookies optionnels</button>
                 </div>
+
+                <h3>Impact du refus</h3>
+                <p>
+                    Si tu refuses les cookies optionnels, le site fonctionnera normalement mais nous n'aurons pas de statistiques de visite. Cela ne change rien à ton expérience de lecture.
+                </p>
+
+                <h3>Durée de conservation</h3>
+                <p>
+                    Les cookies sont conservés maximum 13 mois. Passé ce délai, ton consentement sera à nouveau demandé.
+                </p>
+
+                <p class="legal-date">
+                    Dernière mise à jour : 20 février 2026
+                </p>
             </div>
         </div>
     </div>
+</div>
 
-    <script>
-        // Cookie management
-        function setCookie(name, value, days) {
-            const expires = new Date(Date.now() + days * 864e5).toUTCString();
-            document.cookie = name + '=' + encodeURIComponent(value) + '; expires=' + expires + '; path=/; SameSite=Lax';
+<script>
+    // Cookie management
+    function setCookie(name, value, days) {
+        const expires = new Date(Date.now() + days * 864e5).toUTCString();
+        document.cookie = name + '=' + encodeURIComponent(value) + '; expires=' + expires + '; path=/; SameSite=Lax';
+    }
+
+    function getCookie(name) {
+        return document.cookie.split('; ').reduce((r, v) => {
+            const parts = v.split('=');
+            return parts[0] === name ? decodeURIComponent(parts[1]) : r;
+        }, '');
+    }
+
+    function showCookieBanner() {
+        const consent = getCookie('cookie-consent');
+        if (!consent) {
+            document.getElementById('cookie-banner').classList.add('active');
+        } else {
+            updateConsentDisplay(consent);
         }
+    }
 
-        function getCookie(name) {
-            return document.cookie.split('; ').reduce((r, v) => {
-                const parts = v.split('=');
-                return parts[0] === name ? decodeURIComponent(parts[1]) : r;
-            }, '');
+    function acceptCookies() {
+        setCookie('cookie-consent', 'accepted', 365);
+        document.getElementById('cookie-banner').classList.remove('active');
+        updateConsentDisplay('accepted');
+    }
+
+    function refuseCookies() {
+        setCookie('cookie-consent', 'refused', 365);
+        document.getElementById('cookie-banner').classList.remove('active');
+        updateConsentDisplay('refusé');
+    }
+
+    function updateConsentDisplay(status) {
+        const display = document.getElementById('current-consent');
+        if (display) {
+            display.textContent = status === 'accepted' ? 'Tous les cookies acceptés' : 'Cookies essentiels uniquement';
         }
+    }
 
-        function showCookieBanner() {
-            const consent = getCookie('cookie-consent');
-            if (!consent) {
-                document.getElementById('cookie-banner').classList.add('active');
-            } else {
-                updateConsentDisplay(consent);
+    // 1. MENU STICKY - Apparition au scroll
+    let lastScroll = 0;
+    window.addEventListener('scroll', () => {
+        const currentScroll = window.pageYOffset;
+        const headerSticky = document.getElementById('headerSticky');
+        const controlsBar = document.getElementById('controlsBar');
+        
+        if (currentScroll > 300) {
+            headerSticky.classList.add('visible');
+            controlsBar.classList.add('visible');
+        } else {
+            headerSticky.classList.remove('visible');
+            controlsBar.classList.remove('visible');
+        }
+        
+        lastScroll = currentScroll;
+    });
+
+    // 15. ÉTAT ACTIF DU MENU
+    function updateActiveNav(section) {
+        document.querySelectorAll('.header-sticky-nav a').forEach(link => {
+            link.classList.remove('active');
+        });
+        const activeLink = document.getElementById('nav-' + section);
+        if (activeLink) activeLink.classList.add('active');
+    }
+
+    // Fil d'Ariane
+    function updateBreadcrumb(page, articleTitle) {
+        const breadcrumb = document.getElementById('breadcrumb');
+        if (page === 'journal') {
+            breadcrumb.innerHTML = '<a href="#" onclick="showJournal()">Journal</a>';
+            breadcrumb.classList.remove('visible');
+        } else if (page === 'article' && articleTitle) {
+            breadcrumb.innerHTML = '<a href="#" onclick="showJournal()">Journal</a> > <span>' + articleTitle + '</span>';
+            breadcrumb.classList.add('visible');
+        } else {
+            breadcrumb.innerHTML = '<span>' + page + '</span>';
+            breadcrumb.classList.add('visible');
+        }
+    }
+
+    // Page navigation
+    function showPage(page) {
+        document.querySelectorAll('.page-section').forEach(section => {
+            section.classList.remove('active');
+        });
+        
+        if (page === 'main') {
+            document.getElementById('main-content').classList.add('active');
+            resetSections();
+        } else if (page === 'privacy') {
+            document.getElementById('privacy-page').classList.add('active');
+        } else if (page === 'legal') {
+            document.getElementById('legal-page').classList.add('active');
+        } else if (page === 'cookies') {
+            document.getElementById('cookies-page').classList.add('active');
+        }
+        window.scrollTo(0, 0);
+    }
+
+    function resetSections() {
+        document.getElementById('journal-list').style.display = 'block';
+        document.querySelectorAll('.article-full').forEach(el => {
+            el.style.display = 'none';
+            el.classList.remove('active');
+        });
+        document.getElementById('about').style.display = 'none';
+        document.getElementById('testimonials').style.display = 'none';
+        document.getElementById('prayer').style.display = 'none';
+        document.getElementById('connect').style.display = 'none';
+        document.getElementById('tocSidebar').classList.remove('visible');
+        document.getElementById('shareBar').style.display = 'none';
+        updateBreadcrumb('journal');
+        updateActiveNav('journal');
+    }
+
+    // Navigation functions
+    function showJournal() {
+        resetSections();
+        document.getElementById('journal-list').style.display = 'block';
+        window.scrollTo(0, 0);
+        // 6. Restaurer position si existante
+        restoreReadingPosition('journal');
+    }
+
+    function showArticle(id) {
+        document.getElementById('journal-list').style.display = 'none';
+        document.querySelectorAll('.article-full').forEach(el => {
+            el.style.display = 'none';
+            el.classList.remove('active');
+        });
+        
+        const article = document.getElementById(id);
+        article.style.display = 'block';
+        article.classList.add('active');
+        
+        const title = article.getAttribute('data-title');
+        updateBreadcrumb('article', title);
+        
+        // 5. Générer sommaire
+        generateTOC(id);
+        document.getElementById('tocSidebar').classList.add('visible');
+        
+        // 10. Afficher barre de partage
+        document.getElementById('shareBar').style.display = 'flex';
+        
+        window.scrollTo(0, 0);
+        
+        // Calculer temps de lecture
+        const text = document.querySelector('#' + id + ' .post-content').innerText;
+        const words = text.trim().split(/\s+/).length;
+        const minutes = Math.ceil(words / 200);
+        
+        let readingTimeEl = document.getElementById('reading-time-' + id);
+        if (!readingTimeEl) {
+            readingTimeEl = document.createElement('span');
+            readingTimeEl.id = 'reading-time-' + id;
+            readingTimeEl.className = 'post-date mono';
+            readingTimeEl.style.marginLeft = '16px';
+            const dateEl = document.querySelector('#' + id + ' .post-date');
+            if (dateEl) {
+                dateEl.parentNode.insertBefore(readingTimeEl, dateEl.nextSibling);
             }
         }
+        readingTimeEl.textContent = '— ' + minutes + ' min de lecture';
+        
+        // 6. Sauvegarder position
+        saveReadingPosition(id);
+    }
 
-        function acceptCookies() {
-            setCookie('cookie-consent', 'accepted', 365);
-            document.getElementById('cookie-banner').classList.remove('active');
-            updateConsentDisplay('accepted');
-        }
+    function showAbout() {
+        resetSections();
+        document.getElementById('about').style.display = 'block';
+        window.scrollTo(0, 0);
+        updateBreadcrumb('Qui suis-je');
+        updateActiveNav('about');
+    }
 
-        function refuseCookies() {
-            setCookie('cookie-consent', 'refused', 365);
-            document.getElementById('cookie-banner').classList.remove('active');
-            updateConsentDisplay('refusé');
-        }
+    function showTestimonials() {
+        resetSections();
+        document.getElementById('testimonials').style.display = 'block';
+        window.scrollTo(0, 0);
+        updateBreadcrumb('Témoignages');
+        updateActiveNav('testimonials');
+    }
 
-        function updateConsentDisplay(status) {
-            const display = document.getElementById('current-consent');
-            if (display) {
-                display.textContent = status === 'accepted' ? 'Tous les cookies acceptés' : 'Cookies essentiels uniquement';
+    function showPrayer() {
+        resetSections();
+        document.getElementById('prayer').style.display = 'block';
+        window.scrollTo(0, 0);
+        updateBreadcrumb('Prière');
+        updateActiveNav('prayer');
+    }
+
+    function showConnect() {
+        resetSections();
+        document.getElementById('connect').style.display = 'block';
+        window.scrollTo(0, 0);
+        updateBreadcrumb('Me suivre');
+        updateActiveNav('connect');
+    }
+
+    // 5. SOMMAIRE FLOTTANT
+    function generateTOC(articleId) {
+        const content = document.querySelector('#' + articleId + ' .post-content');
+        const tocList = document.getElementById('tocList');
+        tocList.innerHTML = '';
+        
+        const paragraphs = content.querySelectorAll('p');
+        paragraphs.forEach((p, index) => {
+            if (p.textContent.length > 50) { // Paragraphes substantiels uniquement
+                const li = document.createElement('li');
+                li.className = 'toc-item';
+                const link = document.createElement('a');
+                link.className = 'toc-link';
+                link.href = '#';
+                link.textContent = p.textContent.substring(0, 40) + '...';
+                link.onclick = (e) => {
+                    e.preventDefault();
+                    p.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    highlightTOC(link);
+                };
+                li.appendChild(link);
+                tocList.appendChild(li);
             }
+        });
+    }
+
+    function highlightTOC(activeLink) {
+        document.querySelectorAll('.toc-link').forEach(link => {
+            link.classList.remove('active');
+        });
+        activeLink.classList.add('active');
+    }
+
+    // 3. RECHERCHE
+    function toggleSearch() {
+        const input = document.getElementById('searchInput');
+        const results = document.getElementById('searchResults');
+        input.classList.toggle('active');
+        if (input.classList.contains('active')) {
+            input.focus();
+        } else {
+            results.classList.remove('active');
         }
+    }
 
-        // Page navigation
-        function showPage(page) {
-            document.querySelectorAll('.page-section').forEach(section => {
-                section.classList.remove('active');
-            });
-            
-            if (page === 'main') {
-                document.getElementById('main-content').classList.add('active');
-                resetSections();
-            } else if (page === 'privacy') {
-                document.getElementById('privacy-page').classList.add('active');
-            } else if (page === 'legal') {
-                document.getElementById('legal-page').classList.add('active');
-            } else if (page === 'cookies') {
-                document.getElementById('cookies-page').classList.add('active');
-            }
-            window.scrollTo(0, 0);
+    function performSearch(query) {
+        const results = document.getElementById('searchResults');
+        if (query.length < 2) {
+            results.classList.remove('active');
+            return;
         }
-
-        function resetSections() {
-            document.getElementById('journal-list').style.display = 'block';
-            document.querySelectorAll('.article-full').forEach(el => el.style.display = 'none');
-            document.getElementById('about').style.display = 'none';
-            document.getElementById('testimonials').style.display = 'none';
-            document.getElementById('prayer').style.display = 'none';
-            document.getElementById('connect').style.display = 'none';
-        }
-
-        // Navigation functions
-        function showJournal() {
-            resetSections();
-            document.getElementById('journal-list').style.display = 'block';
-            window.scrollTo(0, 0);
-        }
-
-        function showArticle(id) {
-            document.getElementById('journal-list').style.display = 'none';
-            document.querySelectorAll('.article-full').forEach(el => el.style.display = 'none');
-            document.getElementById(id).style.display = 'block';
-            window.scrollTo(0, 0);
-
-            // Calculer temps de lecture
-            const text = document.querySelector('#' + id + ' .post-content').innerText;
-            const words = text.trim().split(/\s+/).length;
-            const minutes = Math.ceil(words / 200);
-            
-            // Créer ou mettre à jour l'affichage du temps de lecture
-            let readingTimeEl = document.getElementById('reading-time-' + id);
-            if (!readingTimeEl) {
-                readingTimeEl = document.createElement('span');
-                readingTimeEl.id = 'reading-time-' + id;
-                readingTimeEl.className = 'post-date mono';
-                readingTimeEl.style.marginLeft = '16px';
-                const dateEl = document.querySelector('#' + id + ' .post-date');
-                if (dateEl) {
-                    dateEl.parentNode.insertBefore(readingTimeEl, dateEl.nextSibling);
-                }
-            }
-            readingTimeEl.textContent = '— ' + minutes + ' min de lecture';
-        }
-
-        function showAbout() {
-            resetSections();
-            document.getElementById('about').style.display = 'block';
-            window.scrollTo(0, 0);
-        }
-
-        function showTestimonials() {
-            resetSections();
-            document.getElementById('testimonials').style.display = 'block';
-            window.scrollTo(0, 0);
-        }
-
-        function showPrayer() {
-            resetSections();
-            document.getElementById('prayer').style.display = 'block';
-            window.scrollTo(0, 0);
-        }
-
-        function showConnect() {
-            resetSections();
-            document.getElementById('connect').style.display = 'block';
-            window.scrollTo(0, 0);
-        }
-
-        // Modal functions
-        function openModal(modalId) {
-            document.getElementById(modalId).classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeModal(event) {
-            if (!event || event.target.classList.contains('modal-overlay')) {
-                document.querySelectorAll('.modal-overlay').forEach(modal => {
-                    modal.classList.remove('active');
+        
+        const articles = document.querySelectorAll('.article-preview');
+        const matches = [];
+        
+        articles.forEach(article => {
+            const title = article.getAttribute('data-title').toLowerCase();
+            const date = article.getAttribute('data-date');
+            if (title.includes(query.toLowerCase())) {
+                matches.push({
+                    title: article.getAttribute('data-title'),
+                    date: date,
+                    id: article.onclick.toString().match(/'([^']+)'/)[1]
                 });
-                document.body.style.overflow = '';
-            }
-        }
-
-        // Handle testimonial
-        function handleTestimonial(event) {
-            event.preventDefault();
-            const form = event.target;
-            
-            form.style.display = 'none';
-            document.getElementById('testimonial-success').classList.add('visible');
-        }
-
-        // Handle prayer request
-        function handlePrayer(event) {
-            event.preventDefault();
-            const form = event.target;
-            
-            form.style.display = 'none';
-            document.getElementById('prayer-success').classList.add('visible');
-        }
-
-        // Close modal on escape key
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'Escape') {
-                closeModal();
             }
         });
         
-        // Barre de progression de lecture
-        window.addEventListener('scroll', function() {
-            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrolled = (winScroll / height) * 100;
-            document.getElementById("progress-bar").style.width = scrolled + "%";
-        });
-        
-        // EFFET MACHINE À ÉCRIRE - Arrêter l'animation après la fin
-        setTimeout(() => {
-            const title = document.getElementById('typewriter');
-            if (title) {
-                title.classList.remove('typing');
-                title.classList.add('typing-done');
-            }
-        }, 2000);
-
-        // HORODATAGE VIVANT - Convertir les dates en format relatif
-        function updateLiveTimes() {
-            const now = new Date();
-            const timeElements = document.querySelectorAll('[data-date]');
-            
-            timeElements.forEach(el => {
-                const dateStr = el.getAttribute('data-date');
-                const date = new Date(dateStr);
-                const diffTime = Math.abs(now - date);
-                const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-                
-                let liveText = '';
-                if (diffDays === 0) {
-                    liveText = "aujourd'hui";
-                } else if (diffDays === 1) {
-                    liveText = "hier";
-                } else if (diffDays < 7) {
-                    liveText = `il y a ${diffDays} jours`;
-                } else if (diffDays < 30) {
-                    const weeks = Math.floor(diffDays / 7);
-                    liveText = `il y a ${weeks} semaine${weeks > 1 ? 's' : ''}`;
-                } else if (diffDays < 365) {
-                    const months = Math.floor(diffDays / 30);
-                    liveText = `il y a ${months} mois`;
-                } else {
-                    const years = Math.floor(diffDays / 365);
-                    liveText = `il y a ${years} an${years > 1 ? 's' : ''}`;
-                }
-                
-                // Garder la date originale et ajouter le temps relatif
-                const originalText = el.textContent;
-                if (!el.querySelector('.live-time')) {
-                    el.innerHTML = `${originalText} <span class="live-time">(${liveText})</span>`;
-                } else {
-                    el.querySelector('.live-time').textContent = `(${liveText})`;
-                }
+        results.innerHTML = '';
+        if (matches.length > 0) {
+            matches.forEach(match => {
+                const div = document.createElement('div');
+                div.className = 'search-result-item';
+                div.innerHTML = '<div>' + match.title + '</div><div class="result-date">' + match.date + '</div>';
+                div.onclick = () => {
+                    showArticle(match.id);
+                    toggleSearch();
+                };
+                results.appendChild(div);
             });
+            results.classList.add('active');
+        } else {
+            results.innerHTML = '<div class="search-result-item">Aucun résultat</div>';
+            results.classList.add('active');
         }
+    }
 
-        // Mettre à jour les temps toutes les heures
-        updateLiveTimes();
-        setInterval(updateLiveTimes, 3600000);
+    // 7. MODE NUIT/CLAIR
+    function toggleTheme() {
+        document.body.classList.toggle('light-mode');
+        const isLight = document.body.classList.contains('light-mode');
+        setCookie('theme', isLight ? 'light' : 'dark', 365);
+    }
 
-        // MODE FOCUS - Toggle
-        function toggleFocus() {
-            document.body.classList.toggle('focus-mode');
-            const btn = document.getElementById('focusBtn');
-            const isFocus = document.body.classList.contains('focus-mode');
-            btn.textContent = isFocus ? 'Quitter Focus' : 'Mode Focus';
-            
-            // Sauvegarder la préférence
-            if (isFocus) {
-                setCookie('focus-mode', 'active', 1);
-            } else {
-                setCookie('focus-mode', '', -1);
+    // Charger thème sauvegardé
+    if (getCookie('theme') === 'light') {
+        document.body.classList.add('light-mode');
+    }
+
+    // 8. TAILLE POLICE
+    let currentFontSize = 16;
+    function changeFontSize(delta) {
+        currentFontSize = Math.max(12, Math.min(24, currentFontSize + delta));
+        document.documentElement.style.setProperty('--font-size', currentFontSize + 'px');
+        setCookie('font-size', currentFontSize, 365);
+    }
+
+    // Charger taille sauvegardée
+    const savedSize = getCookie('font-size');
+    if (savedSize) {
+        currentFontSize = parseInt(savedSize);
+        document.documentElement.style.setProperty('--font-size', currentFontSize + 'px');
+    }
+
+    // 6. SAUVEGARDE POSITION LECTURE
+    function saveReadingPosition(articleId) {
+        const scrollPos = window.pageYOffset;
+        setCookie('reading-position', articleId + ':' + scrollPos, 7);
+    }
+
+    function restoreReadingPosition(defaultSection) {
+        const saved = getCookie('reading-position');
+        if (saved) {
+            const [articleId, pos] = saved.split(':');
+            if (document.getElementById(articleId)) {
+                const indicator = document.getElementById('readingPosition');
+                indicator.classList.add('visible');
+                setTimeout(() => {
+                    indicator.classList.remove('visible');
+                }, 3000);
             }
         }
+    }
 
-        // Vérifier si le mode focus était actif
-        if (getCookie('focus-mode') === 'active') {
-            toggleFocus();
+    // Sauvegarder position toutes les 5 secondes
+    setInterval(() => {
+        const activeArticle = document.querySelector('.article-full.active');
+        if (activeArticle) {
+            saveReadingPosition(activeArticle.id);
         }
-        
-        // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
-            showCookieBanner();
+    }, 5000);
+
+    // 10. PARTAGE NATIF
+    function copyLink() {
+        const url = window.location.href;
+        navigator.clipboard.writeText(url).then(() => {
+            const btn = event.target;
+            btn.classList.add('copied');
+            btn.textContent = '✓';
+            setTimeout(() => {
+                btn.classList.remove('copied');
+                btn.textContent = '🔗';
+            }, 2000);
         });
-    </script>
-</body>
-</html>
+    }
+
+    function shareWhatsApp() {
+        const url = encodeURIComponent(window.location.href);
+        const text = encodeURIComponent('À lire sur JUST A GUY de Jahbarii');
+        window.open('https://wa.me/?text=' + text + '%20' + url, '_blank');
+    }
+
+    function shareTwitter() {
+        const url = encodeURIComponent(window.location.href);
+        const text = encodeURIComponent('À lire sur JUST A GUY de Jahbarii');
+        window.open('https://twitter.com/intent/tweet?text=' + text + '&url=' + url, '_blank');
+    }
+
+    // 11. RÉACTIONS EMOJI
+    function toggleReaction(btn, emoji) {
+        btn.classList.toggle('active');
+        const count = btn.querySelector('.reaction-count');
+        let num = parseInt(count.textContent);
+        if (btn.classList.contains('active')) {
+            num++;
+        } else {
+            num--;
+        }
+        count.textContent = num;
+        // Sauvegarder dans cookie (simplifié)
+        setCookie('reaction-' + emoji, btn.classList.contains('active'), 365);
+    }
+
+    // Restaurer réactions
+    document.querySelectorAll('.reaction-btn').forEach(btn => {
+        const emoji = btn.textContent.trim().split(' ')[0];
+        if (getCookie('reaction-' + emoji) === 'true') {
+            btn.classList.add('active');
+        }
+    });
+
+    // 12. NEWSLETTER STICKY
+    function showNewsletterSticky() {
+        if (!getCookie('newsletter-closed') && !getCookie('newsletter-subscribed')) {
+            setTimeout(() => {
+                document.getElementById('newsletterSticky').classList.add('visible');
+            }, 10000); // Apparaît après 10 secondes
+        }
+    }
+
+    function closeNewsletterSticky() {
+        document.getElementById('newsletterSticky').classList.remove('visible');
+        setCookie('newsletter-closed', 'true', 30);
+    }
+
+    // MODE FOCUS
+    function toggleFocus() {
+        document.body.classList.toggle('focus-mode');
+        const btn = document.getElementById('focusBtn');
+        const isFocus = document.body.classList.contains('focus-mode');
+        btn.textContent = isFocus ? 'Quitter Focus' : 'Mode Focus';
+        setCookie('focus-mode', isFocus ? 'active' : '', 365);
+    }
+
+    // Charger focus mode
+    if (getCookie('focus-mode') === 'active') {
+        toggleFocus();
+    }
+
+    // Modal functions
+    function openModal(modalId) {
+        document.getElementById(modalId).classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal(event) {
+        if (!event || event.target.classList.contains('modal-overlay')) {
+            document.querySelectorAll('.modal-overlay').forEach(modal => {
+                modal.classList.remove('active');
+            });
+            document.body.style.overflow = '';
+        }
+    }
+
+    // Handle testimonial
+    function handleTestimonial(event) {
+        event.preventDefault();
+        const form = event.target;
+        form.style.display = 'none';
+        document.getElementById('testimonial-success').classList.add('visible');
+    }
+
+    // Handle prayer request
+    function handlePrayer(event) {
+        event.preventDefault();
+        const form = event.target;
+        form.style.display = 'none';
+        document.getElementById('prayer-success').classList.add('visible');
+    }
+
+    // Close modal on escape key
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+            closeModal();
+        }
+    });
+    
+    // Barre de progression de lecture
+    window.addEventListener('scroll', function() {
+        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        document.getElementById("progress-bar").style.width = scrolled + "%";
+    });
+    
+    // EFFET MACHINE À ÉCRIRE
+    setTimeout(() => {
+        const title = document.getElementById('typewriter');
+        if (title) {
+            title.classList.remove('typing');
+            title.classList.add('typing-done');
+        }
+    }, 2000);
+
+    // HORODATAGE VIVANT
+    function updateLiveTimes() {
+        const now = new Date();
+        const timeElements = document.querySelectorAll('[data-date]');
+        
+        timeElements.forEach(el => {
+            const dateStr = el.getAttribute('data-date');
+            const date = new Date(dateStr);
+            const diffTime = Math.abs(now - date);
+            const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+            
+            let liveText = '';
+            if (diffDays === 0) {
+                liveText = "aujourd'hui";
+            } else if (diffDays === 1) {
+                liveText = "hier";
+            } else if (diffDays < 7) {
+                liveText = `il y a ${diffDays} jours`;
+            } else if (diffDays < 30) {
+                const weeks = Math.floor(diffDays / 7);
+                liveText = `il y a ${weeks} semaine${weeks > 1 ? 's' : ''}`;
+            } else if (diffDays < 365) {
+                const months = Math.floor(diffDays / 30);
+                liveText = `il y a ${months} mois`;
+            } else {
+                const years = Math.floor(diffDays / 365);
+                liveText = `il y a ${years} an${years > 1 ? 's' : ''}`;
+            }
+            
+            const originalText = el.textContent.split('(')[0].trim();
+            if (!el.querySelector('.live-time')) {
+                el.innerHTML = `${originalText} <span class="live-time">(${liveText})</span>`;
+            } else {
+                el.querySelector('.live-time').textContent = `(${liveText})`;
+            }
+        });
+    }
+
+    updateLiveTimes();
+    setInterval(updateLiveTimes, 3600000); // Met à jour toutes les heures
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', function() {
+        showCookieBanner();
+        showNewsletterSticky();
+    });
+</script>
